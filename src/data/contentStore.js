@@ -1,8 +1,9 @@
 import defaultContent from '../content/siteContent.json';
+import { normalizeContent } from './contentModel';
 
 const STORAGE_KEY = 'pcss-robotics-content-v1';
 
-export const getDefaultContent = () => structuredClone(defaultContent);
+export const getDefaultContent = () => normalizeContent(structuredClone(defaultContent), defaultContent);
 
 export const loadContent = () => {
   const saved = window.localStorage.getItem(STORAGE_KEY);
@@ -12,7 +13,7 @@ export const loadContent = () => {
   }
 
   try {
-    return JSON.parse(saved);
+    return normalizeContent(JSON.parse(saved), defaultContent);
   } catch {
     window.localStorage.removeItem(STORAGE_KEY);
     return getDefaultContent();
@@ -20,8 +21,9 @@ export const loadContent = () => {
 };
 
 export const saveContent = content => {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(content, null, 2));
-  return content;
+  const normalizedContent = normalizeContent(content, defaultContent);
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(normalizedContent, null, 2));
+  return normalizedContent;
 };
 
 export const resetContent = () => {

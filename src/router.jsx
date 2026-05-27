@@ -3,6 +3,28 @@ import { Layout } from './components/Layout';
 import { GenericPage, HomePage, NotFoundPage } from './components/Pages';
 import { AdminPage } from './admin/AdminPage';
 
+const getContentRoutes = (rootRoute, content) => {
+  const seenPaths = new Set(['/']);
+
+  return content.pages
+    .filter(page => page.slug)
+    .filter(page => {
+      const nextPath = `/${page.slug}`;
+
+      if (seenPaths.has(nextPath)) {
+        return false;
+      }
+
+      seenPaths.add(nextPath);
+      return true;
+    })
+    .map(page => createRoute({
+      getParentRoute: () => rootRoute,
+      path: `/${page.slug}`,
+      component: () => <GenericPage page={page} />
+    }));
+};
+
 export const makeRouter = content => {
   const rootRoute = createRootRoute({
     component: () => <Layout content={content} />,
@@ -21,11 +43,7 @@ export const makeRouter = content => {
     component: AdminPage
   });
 
-  const contentRoutes = content.pages.map(page => createRoute({
-    getParentRoute: () => rootRoute,
-    path: `/${page.slug}`,
-    component: () => <GenericPage page={page} />
-  }));
+  const contentRoutes = getContentRoutes(rootRoute, content);
 
   return createRouter({
     routeTree: rootRoute.addChildren([indexRoute, adminRoute, ...contentRoutes]),

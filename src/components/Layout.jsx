@@ -5,6 +5,12 @@ import { Icon } from './Icon';
 export const Layout = ({ content }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = useRouterState({ select: state => state.location.pathname });
+  const navigation = Array.isArray(content.navigation) ? content.navigation : [];
+  const brandName = content.brand?.name || 'Robotics Team';
+  const location = content.brand?.location || '';
+  const email = content.brand?.email || '';
+  const school = content.brand?.school || '';
+  const tagline = content.brand?.tagline || '';
 
   return (
     <div className="site-shell">
@@ -13,17 +19,24 @@ export const Layout = ({ content }) => {
         <Link to="/" className="brand-lockup" onClick={() => setMenuOpen(false)}>
           <span className="brand-mark">P2</span>
           <span>
-            <strong>{content.brand.name}</strong>
-            <small>{content.brand.location}</small>
+            <strong>{brandName}</strong>
+            <small>{location}</small>
           </span>
         </Link>
 
-        <button className="icon-button nav-toggle" type="button" onClick={() => setMenuOpen(value => !value)} aria-label="Toggle navigation">
+        <button
+          className="icon-button nav-toggle"
+          type="button"
+          onClick={() => setMenuOpen(value => !value)}
+          aria-label="Toggle navigation"
+          aria-controls="primary-navigation"
+          aria-expanded={menuOpen}
+        >
           <Icon name={menuOpen ? 'x' : 'menu'} />
         </button>
 
-        <nav className={menuOpen ? 'site-nav is-open' : 'site-nav'} aria-label="Primary navigation">
-          {content.navigation.map(item => (
+        <nav id="primary-navigation" className={menuOpen ? 'site-nav is-open' : 'site-nav'} aria-label="Primary navigation">
+          {navigation.map(item => (
             <Link
               key={item.path}
               to={item.path}
@@ -46,11 +59,11 @@ export const Layout = ({ content }) => {
       <footer className="site-footer">
         <div>
           <span className="footer-kicker">PCSS II Robotics</span>
-          <p>{content.brand.tagline}</p>
+          <p>{tagline}</p>
         </div>
         <div className="footer-links">
-          <a href={`mailto:${content.brand.email}`}>{content.brand.email}</a>
-          <span>{content.brand.school}</span>
+          {email && <a href={`mailto:${email}`}>{email}</a>}
+          {school && <span>{school}</span>}
         </div>
       </footer>
     </div>

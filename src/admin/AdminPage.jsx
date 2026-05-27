@@ -10,13 +10,29 @@ export const AdminPage = () => {
   const [jsonError, setJsonError] = useState('');
 
   useEffect(() => {
-    setJsonDraft(JSON.stringify(content, null, 2));
+    if (content) {
+      setJsonDraft(JSON.stringify(content, null, 2));
+    }
   }, [content]);
 
   const mutation = useMutation({
     mutationFn: saveContent,
     onSuccess: data => queryClient.setQueryData(['site-content'], data)
   });
+
+  if (!content) {
+    return (
+      <section className="admin-page">
+        <div className="admin-header">
+          <div>
+            <p className="eyebrow">Admin</p>
+            <h1>Loading content</h1>
+            <p>Preparing editable content model.</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   const update = nextContent => mutation.mutate(nextContent);
 

@@ -698,4 +698,4 @@ Benchmark notes from the reconstruction are stored at:
 research/benchmark-notes.md
 ```
 
-The original live website could not be crawled from the development network because the domain, `robots.txt`, and `sitemap.xml` returned a Zscaler 403 block page. The current site structure was reconstructed as a complete robotics team website using public PCSS II context and comparable robotics team website patterns.
+

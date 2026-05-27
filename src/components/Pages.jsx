@@ -3,7 +3,9 @@ import { SectionRenderer, Hero } from './Sections';
 export const HomePage = ({ content }) => (
   <>
     <Hero hero={content.home.hero} brand={content.brand} />
-    {content.home.sections.map(section => <SectionRenderer section={section} key={`${section.type}-${section.title}`} />)}
+    {(Array.isArray(content.home.sections) ? content.home.sections : []).map((section, index) => (
+      <SectionRenderer section={section} key={`${section.type}-${section.title}-${index}`} />
+    ))}
   </>
 );
 
@@ -14,7 +16,9 @@ export const GenericPage = ({ page }) => (
       <h1>{page.title}</h1>
       <p>{page.summary}</p>
     </section>
-    {page.sections.map((section, index) => <SectionRenderer section={section} key={`${page.slug}-${section.type}-${index}`} />)}
+    {(Array.isArray(page.sections) ? page.sections : []).map((section, index) => (
+      <SectionRenderer section={section} key={`${page.slug}-${section.type}-${index}`} />
+    ))}
   </>
 );
 
