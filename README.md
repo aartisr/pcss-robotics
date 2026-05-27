@@ -293,4 +293,6 @@ Manually verify:
 
 This repository is owned by the PCSS II Robotics maintainers.
 
-If your team wants, add a dedicated LICENSE file and contribution policy next.
+This project is licensed under the MIT License.
+
+See the full license text in LICENSE.
