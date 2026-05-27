@@ -226,6 +226,28 @@ npm run build
 - AWS S3 + CloudFront
 - Cloudflare Pages
 
+### Vercel
+
+This repository is configured to deploy cleanly on Vercel.
+
+- Package metadata is public-facing and no longer marked private in package.json.
+- The project uses the public npm registry through .npmrc.
+- SPA route handling is configured in vercel.json so direct visits to routes like /about and /admin resolve to index.html.
+
+Recommended Vercel settings:
+
+- Framework preset: Vite
+- Install command: npm install
+- Build command: npm run build
+- Output directory: dist
+
+Key deploy files:
+
+- .npmrc
+- vercel.json
+- package.json
+- package-lock.json
+
 ## Developer Workflow
 
 1. Create a branch.
