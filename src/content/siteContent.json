@@ -1,0 +1,219 @@
+{
+  "brand": {
+    "name": "PCSS II Robotics",
+    "shortName": "PCSS II",
+    "tagline": "Build boldly. Compete graciously. Lead with STEM.",
+    "location": "Saugus, Massachusetts",
+    "email": "robotics@pcssii.org",
+    "school": "Pioneer Charter School of Science II",
+    "social": [
+      { "label": "Instagram", "href": "https://pcssiirobotics.xyz" },
+      { "label": "FIRST", "href": "https://www.firstinspires.org/robotics" }
+    ]
+  },
+  "navigation": [
+    { "label": "Home", "path": "/" },
+    { "label": "About", "path": "/about" },
+    { "label": "Programs", "path": "/programs" },
+    { "label": "Robots", "path": "/robots" },
+    { "label": "Outreach", "path": "/outreach" },
+    { "label": "Sponsors", "path": "/sponsors" },
+    { "label": "Events", "path": "/events" },
+    { "label": "Media", "path": "/media" },
+    { "label": "Join", "path": "/join" },
+    { "label": "Contact", "path": "/contact" }
+  ],
+  "home": {
+    "hero": {
+      "eyebrow": "Student-led competitive robotics",
+      "title": "A robotics team where curiosity turns into machines that move.",
+      "body": "PCSS II Robotics gives students a rigorous, welcoming workshop for design, fabrication, code, strategy, communications, and leadership.",
+      "primaryCta": { "label": "Join the team", "href": "/join" },
+      "secondaryCta": { "label": "Sponsor students", "href": "/sponsors" },
+      "stats": [
+        { "value": "K-12", "label": "STEM pathway" },
+        { "value": "6", "label": "team disciplines" },
+        { "value": "100%", "label": "hands-on learning" }
+      ]
+    },
+    "sections": [
+      {
+        "type": "featureGrid",
+        "eyebrow": "What students do",
+        "title": "Robotics is the engine. Confidence is the outcome.",
+        "items": [
+          { "title": "Design", "body": "Turn game strategy into CAD, mechanisms, prototypes, and build-ready assemblies." },
+          { "title": "Build", "body": "Fabricate, wire, test, repair, and iterate under real competition constraints." },
+          { "title": "Code", "body": "Program reliable robot behavior, sensors, autonomous routines, and driver tools." },
+          { "title": "Lead", "body": "Run meetings, manage scouting, document engineering decisions, and mentor newer students." }
+        ]
+      },
+      {
+        "type": "timeline",
+        "eyebrow": "Season rhythm",
+        "title": "A year designed for momentum",
+        "items": [
+          { "date": "Fall", "title": "Train", "body": "Workshops in CAD, controls, fabrication, safety, scouting, and outreach." },
+          { "date": "Winter", "title": "Build", "body": "Kickoff, strategy, prototyping, manufacturing, software, and system integration." },
+          { "date": "Spring", "title": "Compete", "body": "Events, pit operations, drive practice, judge interviews, and awards submissions." },
+          { "date": "Summer", "title": "Grow", "body": "Community demos, leadership planning, sponsor stewardship, and student onboarding." }
+        ]
+      }
+    ]
+  },
+  "pages": [
+    {
+      "slug": "about",
+      "title": "About the Team",
+      "summary": "PCSS II Robotics is a student-centered STEM program at Pioneer Charter School of Science II in Saugus, Massachusetts.",
+      "sections": [
+        {
+          "type": "story",
+          "eyebrow": "Why we exist",
+          "title": "We make engineering feel reachable.",
+          "body": "The team is built around a simple belief: students learn deepest when they are trusted with meaningful work. Robotics combines math, science, writing, design, code, public speaking, and teamwork into one shared challenge."
+        },
+        {
+          "type": "values",
+          "eyebrow": "Culture",
+          "title": "The habits we practice",
+          "items": [
+            { "title": "Safety before speed", "body": "Every build decision starts with protecting people and equipment." },
+            { "title": "Gracious professionalism", "body": "We compete hard while helping other teams get stronger." },
+            { "title": "Document the work", "body": "Students record decisions so the next teammate can learn faster." },
+            { "title": "Everyone contributes", "body": "Mechanical, software, strategy, media, business, and outreach all matter." }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "programs",
+      "title": "Programs",
+      "summary": "Modular pathways help students enter robotics at any experience level and grow into specialist or leadership roles.",
+      "sections": [
+        {
+          "type": "programs",
+          "items": [
+            { "name": "Mechanical Design", "level": "Beginner to advanced", "focus": "CAD, mechanisms, prototyping, design reviews" },
+            { "name": "Fabrication & Assembly", "level": "Hands-on", "focus": "Tools, wiring, robot maintenance, inspection readiness" },
+            { "name": "Programming", "level": "Beginner to advanced", "focus": "Controls, sensors, autonomous routines, debugging" },
+            { "name": "Drive & Strategy", "level": "Competitive", "focus": "Game analysis, driver practice, scouting, match planning" },
+            { "name": "Business & Media", "level": "Leadership", "focus": "Sponsors, brand, photography, awards, community storytelling" },
+            { "name": "Outreach Mentors", "level": "Community", "focus": "STEM demos, peer mentoring, younger student workshops" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "robots",
+      "title": "Robots",
+      "summary": "A living archive for each season's robot, technical choices, awards, media, and lessons learned.",
+      "sections": [
+        {
+          "type": "robots",
+          "items": [
+            { "season": "2026", "name": "Rebuild Prototype", "status": "Planning", "summary": "Placeholder entry for the current season. Update this in Admin as robot details are finalized.", "highlights": ["Strategy notebook", "Modular drivetrain", "Early CAD reviews"] },
+            { "season": "2025", "name": "Reefscape Concept", "status": "Archive", "summary": "Use this slot to document the prior season robot, event photos, mechanisms, and award notes.", "highlights": ["Driver practice", "Scouting workflow", "Pit checklist"] },
+            { "season": "2024", "name": "Competition Archive", "status": "Archive", "summary": "Add historical robots here to build institutional memory for new students.", "highlights": ["Lessons learned", "Design evolution", "Student reflections"] }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "outreach",
+      "title": "Outreach",
+      "summary": "Robotics is stronger when students share what they build with families, younger learners, and the surrounding community.",
+      "sections": [
+        {
+          "type": "featureGrid",
+          "items": [
+            { "title": "STEM demos", "body": "Hands-on demonstrations that make mechanisms, sensors, and code visible." },
+            { "title": "Peer mentoring", "body": "Experienced students help newer members learn tools, notebooks, and competition roles." },
+            { "title": "Community nights", "body": "Families and partners see the robot, meet students, and understand the season story." },
+            { "title": "Open resources", "body": "Reusable checklists, training decks, and templates make the program easier to sustain." }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sponsors",
+      "title": "Sponsors",
+      "summary": "Sponsor support turns student ambition into reliable parts, safer tools, event access, and deeper mentorship.",
+      "sections": [
+        {
+          "type": "sponsorTiers",
+          "items": [
+            { "tier": "Titanium", "amount": "$5,000+", "benefits": ["Premier logo placement", "Robot reveal invitation", "Workshop visit", "Annual impact report"] },
+            { "tier": "Gold", "amount": "$2,500+", "benefits": ["Logo on sponsor wall", "Social recognition", "Event invitation"] },
+            { "tier": "Silver", "amount": "$1,000+", "benefits": ["Website recognition", "Team newsletter feature"] },
+            { "tier": "Community", "amount": "$250+", "benefits": ["Website listing", "Thank-you certificate"] }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "events",
+      "title": "Events",
+      "summary": "A clear calendar for build deadlines, outreach moments, scrimmages, competitions, and sponsor milestones.",
+      "sections": [
+        {
+          "type": "events",
+          "items": [
+            { "date": "2026-01-10", "name": "FIRST Kickoff", "category": "Competition", "location": "Team workshop" },
+            { "date": "2026-02-14", "name": "Robot Integration Weekend", "category": "Build", "location": "PCSS II" },
+            { "date": "2026-03-07", "name": "Community Robot Reveal", "category": "Outreach", "location": "PCSS II gym" },
+            { "date": "2026-04-18", "name": "Sponsor Appreciation Night", "category": "Community", "location": "PCSS II" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "media",
+      "title": "Media",
+      "summary": "A polished home for photos, videos, press notes, engineering notebooks, and season recap stories.",
+      "sections": [
+        {
+          "type": "gallery",
+          "items": [
+            { "title": "Workshop", "body": "Students prototype, build, wire, and test in the robotics lab." },
+            { "title": "Competition", "body": "Drive team, scouting, pit crew, and judges all work together." },
+            { "title": "Outreach", "body": "Robot demos help younger students imagine themselves in STEM." }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "join",
+      "title": "Join PCSS II Robotics",
+      "summary": "Students can join with no prior robotics experience. Curiosity, reliability, and teamwork matter most.",
+      "sections": [
+        {
+          "type": "join",
+          "items": [
+            { "title": "New students", "body": "Start with safety, team culture, and beginner workshops." },
+            { "title": "Returning students", "body": "Choose a discipline, mentor others, and take on project ownership." },
+            { "title": "Families", "body": "Support events, food, transportation coordination, and community showcases." },
+            { "title": "Mentors", "body": "Share engineering, software, business, media, or project management experience." }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "contact",
+      "title": "Contact",
+      "summary": "Reach out about joining, mentoring, sponsorship, community demos, or media questions.",
+      "sections": [
+        {
+          "type": "contact",
+          "email": "robotics@pcssii.org",
+          "address": "97 Main Street, Saugus, MA 01906",
+          "items": [
+            { "label": "Students", "value": "Ask your STEM teacher or club advisor about the next meeting." },
+            { "label": "Sponsors", "value": "Email the team with your sponsorship level or mentorship interest." },
+            { "label": "Community", "value": "Invite the team for demos, STEM nights, and younger-student events." }
+          ]
+        }
+      ]
+    }
+  ]
+}

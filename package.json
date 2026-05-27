@@ -1,0 +1,27 @@
+{
+  "name": "pcss-robotics",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "lint": "eslint . --ext js,jsx --max-warnings=0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-router": "1.139.16",
+    "@tanstack/react-table": "^8.21.3",
+    "lucide-react": "^0.468.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.2",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "vite": "^6.4.2"
+  }
+}
