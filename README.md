@@ -1,13 +1,42 @@
 # PCSS II Robotics Website
 
-A standalone, editable, responsive robotics team website for **PCSS II Robotics** built with React, Vite, and TanStack.
+A content-driven, production-ready robotics team website built with React, Vite, and TanStack.
 
-The project is designed so team content can be maintained without changing component code. Most website copy, navigation, page data, events, sponsor tiers, robot archive entries, and contact details live in JSON and can also be edited through the built-in Admin page.
+This project is designed so non-developers can safely update most site content while developers keep a modular and resilient codebase.
 
-## Project Location
+## Why This README Exists
+
+This guide is optimized for fast onboarding.
+
+- If you want to run the site quickly: start at Quick Start.
+- If you want to edit team content: jump to Content Editing.
+- If you want to contribute code: use Developer Workflow.
+- If you are deploying: see Deployment.
+
+## Quick Start (2-3 Minutes)
+
+1. Install dependencies
 
 ```bash
-/Users/rraviku2/kailasa/pcss-robotics
+npm install
+```
+
+2. Run the local dev server
+
+```bash
+npm run dev
+```
+
+3. Open the app
+
+- Site: http://127.0.0.1:3142/
+- Admin: http://127.0.0.1:3142/admin
+
+4. Validate before sharing changes
+
+```bash
+npm run lint
+npm run build
 ```
 
 ## Tech Stack
@@ -17,514 +46,178 @@ The project is designed so team content can be maintained without changing compo
 - TanStack Router
 - TanStack Query
 - TanStack Table
-- Lucide React icons
-- Plain CSS with responsive layout rules
+- Lucide React
+- Plain CSS
 
-## Prerequisites
-
-Install Node.js and npm before running the project.
-
-Recommended:
+## Scripts
 
 ```bash
-node --version
-npm --version
+npm run dev      # development server
+npm run build    # production build to dist/
+npm run preview  # serve built output locally
+npm run lint     # eslint checks
 ```
 
-This project was verified with Node `v20.15.1` and npm `10.7.0`.
+## Project Principles
 
-## Install Dependencies
+- Content-first: most copy and page structure lives in JSON.
+- Modular UI: section renderers are split into focused components.
+- Resilient runtime: app includes normalization and error boundaries.
+- Responsive by default: layout adapts cleanly from mobile to desktop.
 
-From the project directory:
-
-```bash
-cd /Users/rraviku2/kailasa/pcss-robotics
-npm install
-```
-
-This installs all runtime and development dependencies listed in `package.json`.
-
-## Run Locally
-
-Start the Vite development server:
-
-```bash
-cd /Users/rraviku2/kailasa/pcss-robotics
-npm run dev
-```
-
-By default, the project is configured to run on port `3142`.
-
-Open:
+## Architecture At A Glance
 
 ```text
-http://127.0.0.1:3142/
+src/
+  admin/
+    AdminPage.jsx                    # browser editor for content
+  assets/
+    robotics-lab-hero.png
+  components/
+    AppErrorBoundary.jsx             # global recovery boundary
+    Icon.jsx
+    Layout.jsx
+    Pages.jsx
+    Sections.jsx                     # section type registry/router
+    sections/                        # modular section renderers
+      ContactSection.jsx
+      EventsSection.jsx
+      FeatureGridSection.jsx
+      GallerySection.jsx
+      HeroSection.jsx
+      JoinSection.jsx
+      ProgramsSection.jsx
+      RobotsSection.jsx
+      SectionIntro.jsx
+      SponsorTiersSection.jsx
+      StorySection.jsx
+      TimelineSection.jsx
+      utils.js
+  content/
+    siteContent.json                 # default source-of-truth content
+  data/
+    contentModel.js                  # normalization and safe defaults
+    contentStore.js                  # load/save/reset/export flow
+  main.jsx
+  router.jsx
+  styles.css
 ```
 
-Admin editor:
+## Content Editing
 
-```text
-http://127.0.0.1:3142/admin
-```
+### Source of Truth
 
-If port `3142` is busy, run with a different port:
+Default content is in:
 
-```bash
-npm run dev -- --port 3143
-```
+- src/content/siteContent.json
 
-Then open:
+This file defines:
 
-```text
-http://127.0.0.1:3143/
-```
+- Brand and contact info
+- Navigation
+- Home hero and homepage sections
+- All content pages
+- Events, sponsors, robots, media, outreach, join, contact
 
-## Build for Production
+### Browser Admin Flow
 
-Create a production build:
+The Admin page is intended for fast content editing:
 
-```bash
-npm run build
-```
+- URL: http://127.0.0.1:3142/admin
+- Stores edits in browser localStorage
+- Exports JSON for commit-ready updates
 
-The generated static site will be written to:
+Recommended workflow:
 
-```text
-dist/
-```
+1. Open Admin and edit content.
+2. Click Export JSON.
+3. Replace src/content/siteContent.json with exported content.
+4. Run lint and build.
+5. Commit and push.
 
-The `dist/` folder is intentionally ignored by git because it can always be regenerated.
+### Reset Local Admin Data
 
-## Preview the Production Build
+If your browser data gets out of sync, click Reset in Admin.
 
-After running `npm run build`, preview the compiled site locally:
+This clears localStorage and reloads defaults from src/content/siteContent.json.
 
-```bash
-npm run preview
-```
+## Routing Model
 
-By default, Vite preview is configured to use port `4142`.
+- The home route is always /.
+- Content pages are generated from the pages array in JSON.
+- Admin lives at /admin.
+- Route generation is hardened against malformed or duplicate slugs.
 
-Open:
+Core router file:
 
-```text
-http://127.0.0.1:4142/
-```
+- src/router.jsx
 
-## Lint
+## Section System (Extensible)
 
-Run ESLint:
+Section rendering is registry-driven.
 
-```bash
-npm run lint
-```
+Main registry:
 
-This checks the source files for common JavaScript and React issues.
+- src/components/Sections.jsx
 
-## Available Scripts
+Add a new section type:
 
-```bash
-npm run dev
-```
+1. Create a renderer in src/components/sections/.
+2. Import it in src/components/Sections.jsx.
+3. Add the type mapping in the components object.
+4. Use that type in siteContent.json.
 
-Starts the local development server.
+Current supported types:
 
-```bash
-npm run build
-```
+- featureGrid
+- timeline
+- story
+- values
+- programs
+- robots
+- sponsorTiers
+- events
+- gallery
+- contact
+- join
 
-Builds the production site into `dist/`.
+Unknown section types fall back to the feature grid renderer.
 
-```bash
-npm run preview
-```
+## Resilience Features
 
-Serves the production build locally for verification.
+This project includes several runtime protections:
 
-```bash
-npm run lint
-```
+- Content normalization with defaults and sanitization:
+  - src/data/contentModel.js
+- Safe load/save/reset behaviors:
+  - src/data/contentStore.js
+- App-level crash recovery UI:
+  - src/components/AppErrorBoundary.jsx
+- Defensive rendering for optional/malformed content:
+  - section components and layout guards
 
-Runs ESLint against the project source.
+## Responsive UX Notes
 
-## Project Structure
+- Mobile menu and adaptive grids are built into styles.
+- Large tables support horizontal scroll on small screens.
+- Focus-visible styles are included for keyboard users.
+- Reduced-motion preference is respected.
 
-```text
-pcss-robotics/
-  index.html
-  package.json
-  package-lock.json
-  vite.config.js
-  README.md
-  public/
-    robots.txt
-    sitemap.xml
-  research/
-    benchmark-notes.md
-  src/
-    main.jsx
-    router.jsx
-    styles.css
-    admin/
-      AdminPage.jsx
-    assets/
-      robotics-lab-hero.png
-    components/
-      Icon.jsx
-      Layout.jsx
-      Pages.jsx
-      Sections.jsx
-    content/
-      siteContent.json
-    data/
-      contentStore.js
-```
+Core style file:
 
-## Content Editing Model
-
-The primary content file is:
-
-```text
-src/content/siteContent.json
-```
-
-This file controls:
-
-- Brand name
-- Tagline
-- Location
-- School name
-- Email
-- Navigation items
-- Home hero copy
-- Home page sections
-- All generic pages
-- Program pathways
-- Robot archive entries
-- Outreach copy
-- Sponsor tiers
-- Events
-- Media entries
-- Join page copy
-- Contact page copy
-
-To make permanent content changes, edit:
-
-```bash
-src/content/siteContent.json
-```
-
-Then rebuild:
-
-```bash
-npm run build
-```
-
-## Admin Editor
-
-The project includes a browser-based Admin page:
-
-```text
-http://127.0.0.1:3142/admin
-```
-
-The Admin page lets you edit:
-
-- Brand fields
-- Page titles
-- Page summaries
-- Raw JSON content
-
-Admin changes are saved to browser `localStorage`. This means:
-
-- Changes are immediate in the current browser.
-- Changes survive refreshes in that browser.
-- Changes do not automatically update `src/content/siteContent.json`.
-- Use **Export JSON** to download the edited content.
-- Replace `src/content/siteContent.json` with the exported JSON when you want to commit those edits to the project.
-
-## Admin JSON Workflow
-
-1. Start the dev server:
-
-   ```bash
-   npm run dev
-   ```
-
-2. Open:
-
-   ```text
-   http://127.0.0.1:3142/admin
-   ```
-
-3. Edit content using the form fields or raw JSON editor.
-
-4. Click **Export JSON**.
-
-5. Use the exported JSON to update:
-
-   ```text
-   src/content/siteContent.json
-   ```
-
-6. Run:
-
-   ```bash
-   npm run lint
-   npm run build
-   ```
-
-7. Commit the updated content.
-
-## Reset Admin Edits
-
-The Admin page has a **Reset** button.
-
-Reset clears the browser's saved `localStorage` version and reloads the default content from:
-
-```text
-src/content/siteContent.json
-```
-
-Use this if the local Admin view gets out of sync or if invalid test content was saved.
-
-## Pages and Routes
-
-Routes are generated from the content model using TanStack Router.
-
-Current public routes:
-
-```text
-/
-/about
-/programs
-/robots
-/outreach
-/sponsors
-/events
-/media
-/join
-/contact
-```
-
-Admin route:
-
-```text
-/admin
-```
-
-The route definitions are created in:
-
-```text
-src/router.jsx
-```
-
-The pages themselves are rendered through reusable components in:
-
-```text
-src/components/Pages.jsx
-src/components/Sections.jsx
-```
-
-## Add a New Page
-
-To add a new page:
-
-1. Open:
-
-   ```text
-   src/content/siteContent.json
-   ```
-
-2. Add a navigation item:
-
-   ```json
-   {
-     "label": "Resources",
-     "path": "/resources"
-   }
-   ```
-
-3. Add a page object to the `pages` array:
-
-   ```json
-   {
-     "slug": "resources",
-     "title": "Resources",
-     "summary": "Training links, engineering notebooks, and team templates.",
-     "sections": [
-       {
-         "type": "featureGrid",
-         "eyebrow": "Student resources",
-         "title": "Reusable tools for the season",
-         "items": [
-           {
-             "title": "Safety checklist",
-             "body": "A quick checklist for safe workshop habits."
-           }
-         ]
-       }
-     ]
-   }
-   ```
-
-4. Restart the dev server if needed.
-
-5. Visit:
-
-   ```text
-   http://127.0.0.1:3142/resources
-   ```
-
-## Supported Section Types
-
-The renderer currently supports these section `type` values:
-
-```text
-featureGrid
-timeline
-story
-values
-programs
-robots
-sponsorTiers
-events
-gallery
-contact
-join
-```
-
-Section rendering logic lives in:
-
-```text
-src/components/Sections.jsx
-```
-
-If a section type is not recognized, it falls back to the feature grid renderer.
-
-## Add or Edit Events
-
-Events live in `src/content/siteContent.json` inside the Events page.
-
-Example:
-
-```json
-{
-  "date": "2026-03-07",
-  "name": "Community Robot Reveal",
-  "category": "Outreach",
-  "location": "PCSS II gym"
-}
-```
-
-Dates should use this format:
-
-```text
-YYYY-MM-DD
-```
-
-## Add or Edit Sponsor Tiers
-
-Sponsor tiers live in the Sponsors page section.
-
-Example:
-
-```json
-{
-  "tier": "Gold",
-  "amount": "$2,500+",
-  "benefits": [
-    "Logo on sponsor wall",
-    "Social recognition",
-    "Event invitation"
-  ]
-}
-```
-
-## Add or Edit Robots
-
-Robot archive entries live in the Robots page section.
-
-Example:
-
-```json
-{
-  "season": "2026",
-  "name": "Rebuild Prototype",
-  "status": "Planning",
-  "summary": "Placeholder entry for the current season.",
-  "highlights": [
-    "Strategy notebook",
-    "Modular drivetrain",
-    "Early CAD reviews"
-  ]
-}
-```
-
-## Images and Assets
-
-The current hero image is:
-
-```text
-src/assets/robotics-lab-hero.png
-```
-
-It is referenced in:
-
-```text
-src/styles.css
-```
-
-Search for:
-
-```css
-robotics-lab-hero.png
-```
-
-To replace the hero image:
-
-1. Add the new image to:
-
-   ```text
-   src/assets/
-   ```
-
-2. Update the CSS background image path in `src/styles.css`.
-
-3. Run:
-
-   ```bash
-   npm run build
-   ```
-
-## SEO Files
-
-The project includes:
-
-```text
-public/robots.txt
-public/sitemap.xml
-```
-
-These files are copied into `dist/` during production builds.
-
-If the deployed domain or route list changes, update:
-
-```text
-public/sitemap.xml
-```
+- src/styles.css
 
 ## Deployment
 
-This is a static Vite site. After building, deploy the contents of:
+This is a static Vite app.
 
-```text
-dist/
+1. Build production assets:
+
+```bash
+npm run build
 ```
 
-to any static host.
-
-Suitable hosts include:
+2. Deploy dist/ to any static host:
 
 - GitHub Pages
 - Netlify
@@ -533,98 +226,33 @@ Suitable hosts include:
 - AWS S3 + CloudFront
 - Cloudflare Pages
 
-Basic deployment flow:
+## Developer Workflow
+
+1. Create a branch.
+2. Implement focused changes.
+3. Run checks:
 
 ```bash
-npm install
 npm run lint
 npm run build
 ```
 
-Then publish:
-
-```text
-dist/
-```
-
-## Git Workflow
-
-This project is initialized as an independent git repository.
-
-Check status:
-
-```bash
-git status
-```
-
-Stage changes:
-
-```bash
-git add .
-```
-
-Commit changes:
-
-```bash
-git commit -m "Initial PCSS robotics site"
-```
-
-View the current branch:
-
-```bash
-git branch
-```
-
-The branch was initialized as:
-
-```text
-main
-```
+4. Commit with a clear message.
+5. Push and open a pull request.
 
 ## Troubleshooting
 
-### Port Already in Use
+### Port Conflict
 
-If `3142` is already being used:
+Run on another port:
 
 ```bash
 npm run dev -- --port 3143
 ```
 
-### Admin Changes Are Not Showing Default Content
+### Build Fails After Content Edits
 
-The Admin page stores edits in browser `localStorage`.
-
-Open:
-
-```text
-http://127.0.0.1:3142/admin
-```
-
-Click:
-
-```text
-Reset
-```
-
-This clears local edits and reloads content from `src/content/siteContent.json`.
-
-### JSON Editor Stops Saving
-
-If the raw JSON editor contains invalid JSON, the Admin page shows an error and does not save the broken value.
-
-Fix the JSON syntax, then it will save again.
-
-Common JSON mistakes:
-
-- Missing comma between fields
-- Extra comma after the final item in an object or array
-- Unescaped quotation marks inside strings
-- Missing closing bracket or brace
-
-### Build Fails After Editing JSON
-
-Validate the content file:
+Validate JSON quickly:
 
 ```bash
 node -e "JSON.parse(require('fs').readFileSync('src/content/siteContent.json','utf8')); console.log('JSON OK')"
@@ -636,66 +264,33 @@ Then rerun:
 npm run build
 ```
 
-### Styles Look Stale
+### Admin Changes Not Matching Repo Files
 
-Stop and restart the dev server:
+Admin writes to browser localStorage only until you export and replace src/content/siteContent.json.
 
-```bash
-Control-C
-npm run dev
-```
+### Visual Changes Not Updating
 
-Then hard refresh the browser.
+Restart dev server and hard refresh browser.
 
-### Node Version Warning
+## Final QA Checklist
 
-TanStack Router is pinned to a Node-compatible version in `package.json`.
-
-If npm warns about engines after dependency updates, check:
-
-```bash
-npm ls @tanstack/react-router
-```
-
-The project currently pins:
-
-```text
-@tanstack/react-router 1.139.16
-```
-
-## Verification Checklist
-
-Before shipping changes:
+Run:
 
 ```bash
 npm run lint
 npm run build
 ```
 
-Then manually check:
+Manually verify:
 
-```text
-http://127.0.0.1:3142/
-http://127.0.0.1:3142/about
-http://127.0.0.1:3142/programs
-http://127.0.0.1:3142/robots
-http://127.0.0.1:3142/outreach
-http://127.0.0.1:3142/sponsors
-http://127.0.0.1:3142/events
-http://127.0.0.1:3142/media
-http://127.0.0.1:3142/join
-http://127.0.0.1:3142/contact
-http://127.0.0.1:3142/admin
-```
+- Home and all nav pages load correctly
+- /admin loads and edits persist locally
+- Mobile navigation and section layouts behave properly
+- Contact links and CTA links are valid
+- No console errors on key routes
 
-Check at desktop and mobile widths.
+## License and Ownership
 
-## Research Notes
+This repository is owned by the PCSS II Robotics maintainers.
 
-Benchmark notes from the reconstruction are stored at:
-
-```text
-research/benchmark-notes.md
-```
-
-
+If your team wants, add a dedicated LICENSE file and contribution policy next.
