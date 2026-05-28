@@ -8,16 +8,27 @@
     "school": "Pioneer Charter School of Science II",
     "social": [
       { "label": "Instagram", "href": "https://pcssiirobotics.xyz" },
-      { "label": "FIRST", "href": "https://www.firstinspires.org/robotics" }
+      { "label": "FIRST", "href": "https://www.firstinspires.org/robotics" },
+      { "label": "Circuit", "href": "/circuit" }
     ]
   },
   "navigation": [
     { "label": "Home", "path": "/" },
     { "label": "About", "path": "/about" },
     { "label": "Programs", "path": "/programs" },
+    { "label": "Circuit", "path": "/circuit" },
+    { "label": "Sponsors", "path": "/sponsors" }
+  ],
+  "navigationPrimary": [
+    { "label": "Home", "path": "/" },
+    { "label": "About", "path": "/about" },
+    { "label": "Programs", "path": "/programs" },
+    { "label": "Circuit", "path": "/circuit" },
+    { "label": "Sponsors", "path": "/sponsors" }
+  ],
+  "navigationSecondary": [
     { "label": "Robots", "path": "/robots" },
     { "label": "Outreach", "path": "/outreach" },
-    { "label": "Sponsors", "path": "/sponsors" },
     { "label": "Events", "path": "/events" },
     { "label": "Media", "path": "/media" },
     { "label": "Join", "path": "/join" },
@@ -26,37 +37,53 @@
   "home": {
     "hero": {
       "eyebrow": "Student-led competitive robotics",
-      "title": "A robotics team where curiosity turns into machines that move.",
-      "body": "PCSS II Robotics gives students a rigorous, welcoming workshop for design, fabrication, code, strategy, communications, and leadership.",
-      "primaryCta": { "label": "Join the team", "href": "/join" },
-      "secondaryCta": { "label": "Sponsor students", "href": "/sponsors" },
+      "title": "PCSSII Robotics",
+      "body": "PCSS II Robotics is a 501(c)(3) non-profit that aims to provide students with the opportunity to develop their technological skills and compete globally, without being limited by their resources or circumstances.",
+      "primaryCta": { "label": "Explore the team", "href": "/about" },
+      "secondaryCta": { "label": "Sponsor us", "href": "https://www.win-waste.com/" },
       "stats": [
-        { "value": "K-12", "label": "STEM pathway" },
-        { "value": "6", "label": "team disciplines" },
-        { "value": "100%", "label": "hands-on learning" }
+        { "value": "3", "label": "signature events" },
+        { "value": "501(c)(3)", "label": "nonprofit" },
+        { "value": "100%", "label": "student-led" }
       ]
     },
     "sections": [
       {
-        "type": "featureGrid",
-        "eyebrow": "What students do",
-        "title": "Robotics is the engine. Confidence is the outcome.",
+        "type": "story",
+        "eyebrow": "Mission",
+        "title": "A robotics community that turns curiosity into competition-grade capability.",
+        "body": "Students learn engineering, fabrication, coding, and leadership through real build cycles, competition culture, and community service. The program is designed to create confident makers who can solve problems under pressure."
+      },
+      {
+        "type": "gallery",
+        "eyebrow": "Event spotlight",
+        "title": "Live program moments",
         "items": [
-          { "title": "Design", "body": "Turn game strategy into CAD, mechanisms, prototypes, and build-ready assemblies." },
-          { "title": "Build", "body": "Fabricate, wire, test, repair, and iterate under real competition constraints." },
-          { "title": "Code", "body": "Program reliable robot behavior, sensors, autonomous routines, and driver tools." },
-          { "title": "Lead", "body": "Run meetings, manage scouting, document engineering decisions, and mentor newer students." }
+          { "title": "JPL", "body": "A flagship robotics season moment for the team." },
+          { "title": "Scrapyard", "body": "A hands-on build and competition-focused showcase." },
+          { "title": "Daydream", "body": "A community-facing event highlight for outreach and storytelling." }
         ]
       },
       {
-        "type": "timeline",
-        "eyebrow": "Season rhythm",
-        "title": "A year designed for momentum",
+        "type": "links",
+        "eyebrow": "Quick access",
+        "title": "Stay connected to the team and the latest hackathon.",
+        "body": "The site now keeps the main robotics program information and the Circuit hackathon in one content-driven workflow.",
         "items": [
-          { "date": "Fall", "title": "Train", "body": "Workshops in CAD, controls, fabrication, safety, scouting, and outreach." },
-          { "date": "Winter", "title": "Build", "body": "Kickoff, strategy, prototyping, manufacturing, software, and system integration." },
-          { "date": "Spring", "title": "Compete", "body": "Events, pit operations, drive practice, judge interviews, and awards submissions." },
-          { "date": "Summer", "title": "Grow", "body": "Community demos, leadership planning, sponsor stewardship, and student onboarding." }
+          {
+            "title": "View the Circuit hackathon",
+            "description": "Countdown, schedule, speakers, and sponsorship details live on the dedicated event page.",
+            "href": "/circuit",
+            "icon": "calendar",
+            "meta": "Circuit 2026"
+          },
+          {
+            "title": "Sponsor us",
+            "description": "Explore the current sponsor partnership and community support opportunities.",
+            "href": "https://www.win-waste.com/",
+            "icon": "handshake",
+            "meta": "Community partner"
+          }
         ]
       }
     ]
@@ -81,7 +108,7 @@
             { "title": "Safety before speed", "body": "Every build decision starts with protecting people and equipment." },
             { "title": "Gracious professionalism", "body": "We compete hard while helping other teams get stronger." },
             { "title": "Document the work", "body": "Students record decisions so the next teammate can learn faster." },
-            { "title": "Everyone contributes", "body": "Mechanical, software, strategy, media, business, and outreach all matter." }
+            { "title": "Everyone contributes", "body": "Mechanical, software, strategy, media, and outreach all matter." }
           ]
         }
       ]
@@ -211,6 +238,112 @@
             { "label": "Students", "value": "Ask your STEM teacher or club advisor about the next meeting." },
             { "label": "Sponsors", "value": "Email the team with your sponsorship level or mentorship interest." },
             { "label": "Community", "value": "Invite the team for demos, STEM nights, and younger-student events." }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "circuit",
+      "title": "Circuit 2026",
+      "summary": "Circuit is the latest hackathon being held by PCSSII Robotics. With a racing theme, attendees build projects over a 2-day period from 8AM to 8PM, competing for big-ticket prizes and learning skills along the way.",
+      "sections": [
+        {
+          "type": "countdown",
+          "eyebrow": "Hackathon countdown",
+          "title": "Circuit • June 6-7, 2026",
+          "body": "Welcome to Circuit, a hackathon where speed and function are everything. Make a website, game, or hardware project, but once the time runs out, it's anyone's game. Let's race.",
+          "dateLabel": "June 6th-7th",
+          "date": "2026-06-06T08:00:00-04:00",
+          "targetDate": "2026-06-06T08:00:00-04:00",
+          "time": "8 AM to 8 PM",
+          "location": "97 Main St, Saugus",
+          "status": "Countdown",
+          "note": "The event runs from 8 AM to 8 PM over two days with racing-themed builds, workshops, and prizes.",
+          "highlights": ["Student-built websites, games, and hardware projects", "Two-day build sprint with races and prizes", "Held at Pioneer Charter School of Science II"]
+        },
+        {
+          "type": "story",
+          "eyebrow": "About",
+          "title": "PCSS II Robotics presents its latest hackathon.",
+          "body": "Circuit is the latest hackathon being held by PCSSII Robotics. With a racing theme, attendees build projects over a 2-day period from 8AM to 8PM, competing for big-ticket prizes and learning skills along the way. It's being held at Pioneer Charter School of Science II from 8 AM to 8 PM from June 6th to June 7th."
+        },
+        {
+          "type": "schedule",
+          "eyebrow": "Program flow",
+          "title": "Schedule",
+          "body": "The event includes check-in, meals, workshops, mini games, working time, submissions, voting, and the closing ceremony.",
+          "days": [
+            {
+              "label": "Saturday, June 6",
+              "summary": "Day 1 build sprint and community moments",
+              "items": [
+                { "time": "8:00", "label": "Check-in Opens" },
+                { "time": "8:15", "label": "Breakfast Bar Opens" },
+                { "time": "9:00", "label": "Opening Ceremony" },
+                { "time": "10:30", "label": "Workshop 1 (TBD)", "tag": "TBD" },
+                { "time": "12:30", "label": "Lunch" },
+                { "time": "12:45", "label": "Guest Speaker (TBD)", "tag": "TBD" },
+                { "time": "2:00", "label": "Working Time / Workshop 2 (TBD)", "tag": "TBD" },
+                { "time": "4:30", "label": "Minigame (with prizes, TBD)", "tag": "TBD" },
+                { "time": "5:00", "label": "Working Time / Workshop 3 (TBD)", "tag": "TBD" },
+                { "time": "7:00", "label": "Dinner" },
+                { "time": "7:30", "label": "Dessert" },
+                { "time": "7:45", "label": "Day 1 Closing" }
+              ]
+            },
+            {
+              "label": "Sunday, June 7",
+              "summary": "Day 2 build, judging, and final ceremony",
+              "items": [
+                { "time": "8:00", "label": "Check-in Opens" },
+                { "time": "8:15", "label": "Breakfast Bar Opens" },
+                { "time": "9:00", "label": "Opening Ceremony" },
+                { "time": "10:30", "label": "Working Time / Workshop 1 Encore (TBD)", "tag": "TBD" },
+                { "time": "12:30", "label": "Lunch" },
+                { "time": "2:00", "label": "Working Time" },
+                { "time": "4:30", "label": "Minigame (with prizes, TBD)", "tag": "TBD" },
+                { "time": "5:00", "label": "Working Time" },
+                { "time": "6:30", "label": "Dinner" },
+                { "time": "7:00", "label": "Dessert" },
+                { "time": "7:15", "label": "Submission" },
+                { "time": "7:30", "label": "Voting" },
+                { "time": "7:45", "label": "Closing Ceremony" },
+                { "time": "8:00", "label": "End of Hackathon" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "speakers",
+          "eyebrow": "Speakers",
+          "title": "Speakers",
+          "body": "Speaker announcements and workshop details are coming soon.",
+          "items": [
+            { "name": "Coming Soon!", "role": "Speakers to be announced", "bio": "Stay tuned for featured presenters and workshop hosts." }
+          ]
+        },
+        {
+          "type": "sponsorShowcase",
+          "eyebrow": "Sponsorship",
+          "title": "Sponsorship",
+          "body": "Want to sponsor us? Reach out to pcssiirobotics@gmail.com for details on sponsorship.",
+          "email": "pcssiirobotics@gmail.com",
+          "summaryTitle": "A race toward impact",
+          "summary": "Support mentorship, build space, prizes, and student-led innovation.",
+          "tiers": [
+            { "tier": "Gold", "level": "Lead sponsor", "status": "Coming Soon!", "description": "Early sponsorship details will be shared as the event approaches.", "benefits": ["Visibility across event materials", "Partner acknowledgement on event pages", "Direct support for student innovation"] }
+          ]
+        },
+        {
+          "type": "links",
+          "eyebrow": "Additional links",
+          "title": "Additional links",
+          "body": "Jump to event sections and keep the Circuit information easy to navigate.",
+          "items": [
+            { "title": "About", "description": "Learn more about the event's mission and location.", "href": "#about", "icon": "sparkles", "meta": "About" },
+            { "title": "Schedule", "description": "Review the full two-day schedule from check-in to final presentations.", "href": "#schedule", "icon": "calendar", "meta": "Schedule" },
+            { "title": "Speakers", "description": "See featured speakers and upcoming workshop highlights.", "href": "#speakers", "icon": "users", "meta": "Speakers" },
+            { "title": "Sponsors", "description": "Explore sponsorship opportunities and partnership details.", "href": "#sponsors", "icon": "handshake", "meta": "Sponsors" }
           ]
         }
       ]
