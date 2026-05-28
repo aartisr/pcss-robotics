@@ -1317,12 +1317,29 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .countdown-shell,
+  .schedule-grid,
+  .speaker-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .schedule-row {
+    grid-template-columns: 84px 1fr;
+  }
+
   .footer-links {
     text-align: left;
   }
 }
 
 @media (max-width: 620px) {
+  .content-section,
+  .page-hero,
+  .story-band,
+  .admin-page {
+    padding: clamp(2.25rem, 8vw, 3rem) 0.9rem;
+  }
+
   .brand-lockup {
     min-width: 0;
   }
@@ -1342,13 +1359,46 @@ h3 {
   .gallery-grid,
   .contact-grid,
   .site-nav.is-open,
-  .countdown-grid {
+  .countdown-grid,
+  .countdown-shell,
+  .schedule-grid,
+  .speaker-grid {
     grid-template-columns: 1fr;
   }
 
   .timeline-item,
-  .event-row {
+  .event-row,
+  .schedule-row,
+  .speaker-card,
+  .link-card-header {
     grid-template-columns: 1fr;
+  }
+
+  .countdown-cell {
+    padding: 0.8rem;
+  }
+
+  .countdown-cell strong {
+    font-size: 1.65rem;
+  }
+
+  .schedule-board,
+  .countdown-stage,
+  .countdown-meta-card,
+  .speaker-card,
+  .link-card {
+    padding: 0.85rem;
+  }
+
+  .schedule-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-wrap: wrap;
+  }
+
+  .atlas-lane {
+    padding: 0.75rem;
   }
 }
 
