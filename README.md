@@ -230,8 +230,8 @@ npm run build
 
 This repository is configured to deploy cleanly on Vercel.
 
-- Package metadata is public-facing and no longer marked private in package.json.
-- The project uses the public npm registry through .npmrc.
+- Package metadata is configured for a private repository workflow.
+- The project uses a private corporate npm registry through .npmrc.
 - SPA route handling is configured in vercel.json so direct visits to routes like /about and /admin resolve to index.html.
 
 Recommended Vercel settings:

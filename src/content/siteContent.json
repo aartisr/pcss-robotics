@@ -181,15 +181,127 @@
     {
       "slug": "events",
       "title": "Events",
-      "summary": "A clear calendar for build deadlines, outreach moments, scrimmages, competitions, and sponsor milestones.",
+      "summary": "A multi-season event atlas for upcoming launches, active programs, and archived milestones.",
       "sections": [
         {
-          "type": "events",
-          "items": [
-            { "date": "2026-01-10", "name": "FIRST Kickoff", "category": "Competition", "location": "Team workshop" },
-            { "date": "2026-02-14", "name": "Robot Integration Weekend", "category": "Build", "location": "PCSS II" },
-            { "date": "2026-03-07", "name": "Community Robot Reveal", "category": "Outreach", "location": "PCSS II gym" },
-            { "date": "2026-04-18", "name": "Sponsor Appreciation Night", "category": "Community", "location": "PCSS II" }
+          "type": "eventAtlas",
+          "eyebrow": "Top Research Calendar",
+          "title": "Event Atlas: from sprint to legacy",
+          "body": "Inspired by modern event ecosystems, the atlas blends status chips, lane-based grouping, and outcome-first cards so students and sponsors can track momentum at a glance.",
+          "lenses": ["Build Sprint", "Hackathon", "Competition", "Outreach", "Archive"],
+          "clusters": [
+            {
+              "label": "Upcoming",
+              "description": "Programs open for registration, preparation, and sponsorship.",
+              "events": [
+                {
+                  "name": "Circuit 2026",
+                  "program": "Hackathon",
+                  "status": "Registration Open",
+                  "dateRange": "Jun 6-7, 2026",
+                  "location": "PCSS II, Saugus",
+                  "summary": "A two-day race-themed build marathon for web, game, and hardware teams.",
+                  "tags": ["2-day sprint", "Prizes", "Mentor sessions"],
+                  "outcomes": ["Cross-discipline project teams", "Public demo finale"],
+                  "href": "/circuit",
+                  "spotlight": true
+                },
+                {
+                  "name": "Autonomy Lab Weekend",
+                  "program": "Build Sprint",
+                  "status": "Planning",
+                  "startDate": "2026-09-12",
+                  "endDate": "2026-09-13",
+                  "location": "Team Workshop",
+                  "summary": "Rapid prototyping of vision-assisted autonomous routines.",
+                  "tags": ["CAD", "Sensors", "Control loops"],
+                  "outcomes": ["Reusable autonomy playbook", "Benchmarked subsystem tests"]
+                },
+                {
+                  "name": "Community Demo Night",
+                  "program": "Outreach",
+                  "status": "Scheduled",
+                  "startDate": "2026-10-04",
+                  "location": "PCSS II Gym",
+                  "summary": "Families and younger students experience robot demos and mini workshops.",
+                  "tags": ["STEM access", "Families", "Mentorship"],
+                  "outcomes": ["Student-led demos", "New member pipeline"]
+                }
+              ]
+            },
+            {
+              "label": "2026 Season Archive",
+              "description": "Recent milestones, deliverables, and judged moments.",
+              "events": [
+                {
+                  "name": "FIRST Kickoff",
+                  "program": "Competition",
+                  "status": "Completed",
+                  "startDate": "2026-01-10",
+                  "location": "Team Workshop",
+                  "summary": "Season constraints translated into strategy goals and subsystem priorities.",
+                  "tags": ["Strategy", "Game analysis"],
+                  "outcomes": ["Season roadmap approved", "Subsystem owners assigned"]
+                },
+                {
+                  "name": "Robot Integration Weekend",
+                  "program": "Build Sprint",
+                  "status": "Completed",
+                  "startDate": "2026-02-14",
+                  "endDate": "2026-02-15",
+                  "location": "PCSS II",
+                  "summary": "Mechanical, electrical, and software integration under competition constraints.",
+                  "tags": ["Integration", "Reliability"],
+                  "outcomes": ["End-to-end system checks", "Issue triage board"]
+                },
+                {
+                  "name": "Sponsor Appreciation Night",
+                  "program": "Community",
+                  "status": "Completed",
+                  "startDate": "2026-04-18",
+                  "location": "PCSS II",
+                  "summary": "Impact review and live robot showcase for supporters and mentors.",
+                  "tags": ["Sponsors", "Impact report"],
+                  "outcomes": ["Partner renewals", "Expanded mentor network"]
+                }
+              ]
+            },
+            {
+              "label": "Legacy Highlights",
+              "description": "High-signal events that shaped team culture and process.",
+              "events": [
+                {
+                  "name": "JPL Showcase",
+                  "program": "Research",
+                  "status": "Legacy",
+                  "dateRange": "2025",
+                  "location": "Partner Venue",
+                  "summary": "Technical storytelling around robotics workflows and student-led experiments.",
+                  "tags": ["Presentation", "Research"],
+                  "outcomes": ["Public technical archive", "Mentor feedback loops"]
+                },
+                {
+                  "name": "Scrapyard Build Jam",
+                  "program": "Build Sprint",
+                  "status": "Legacy",
+                  "dateRange": "2024",
+                  "location": "PCSS II",
+                  "summary": "Constraint-based fabrication challenge focused on creativity under limited resources.",
+                  "tags": ["Fabrication", "Rapid iteration"],
+                  "outcomes": ["Reusable parts catalog", "New pit standards"]
+                },
+                {
+                  "name": "Daydream Outreach Session",
+                  "program": "Outreach",
+                  "status": "Legacy",
+                  "dateRange": "2024",
+                  "location": "Community Center",
+                  "summary": "Student mentors translated robotics concepts for middle-school attendees.",
+                  "tags": ["Education", "Mentorship"],
+                  "outcomes": ["Volunteer pipeline", "Curriculum starter kit"]
+                }
+              ]
+            }
           ]
         }
       ]

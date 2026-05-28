@@ -1,19 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500&display=swap');
 
 :root {
   color-scheme: light;
-  --ink: #101217;
-  --muted: #5f6673;
-  --panel: #ffffff;
-  --line: #dce2eb;
-  --surface: #f5f7fb;
-  --navy: #081a2f;
-  --blue: #1267e8;
-  --cyan: #05a7c8;
-  --red: #d73535;
-  --gold: #f5b83f;
-  --green: #1f8a62;
-  --shadow: 0 20px 60px rgba(8, 26, 47, 0.14);
+  --ink: #091221;
+  --muted: #4d5d76;
+  --panel: #f9fbff;
+  --line: #c9d7ec;
+  --surface: #edf2fb;
+  --navy: #030f24;
+  --blue: #0066ff;
+  --cyan: #00a9b7;
+  --red: #e84545;
+  --gold: #ffd166;
+  --green: #18b48a;
+  --violet: #5b42ff;
+  --shadow: 0 24px 74px rgba(7, 21, 47, 0.17);
 }
 
 * {
@@ -31,9 +32,12 @@ html {
 
 body {
   margin: 0;
-  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Sora, "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
-  background: var(--surface);
+  background:
+    radial-gradient(1100px 420px at 8% -10%, rgba(0, 102, 255, 0.16), transparent 62%),
+    radial-gradient(900px 420px at 100% 10%, rgba(91, 66, 255, 0.16), transparent 60%),
+    linear-gradient(180deg, #f5f8ff 0%, #eaf0fb 100%);
 }
 
 #root,
@@ -92,9 +96,9 @@ textarea {
   gap: 1.5rem;
   min-height: 76px;
   padding: 0.85rem clamp(1rem, 4vw, 4rem);
-  background: rgba(255, 255, 255, 0.88);
-  border-bottom: 1px solid rgba(220, 226, 235, 0.8);
-  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.72);
+  border-bottom: 1px solid rgba(155, 175, 209, 0.38);
+  backdrop-filter: blur(22px) saturate(1.2);
 }
 
 .brand-lockup {
@@ -110,7 +114,7 @@ textarea {
   width: 46px;
   height: 46px;
   border-radius: 8px;
-  background: linear-gradient(135deg, var(--blue), var(--red));
+  background: linear-gradient(135deg, var(--blue), var(--violet));
   color: white;
   font-weight: 900;
   letter-spacing: 0;
@@ -234,8 +238,9 @@ textarea {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(5, 14, 28, 0.94) 0%, rgba(5, 14, 28, 0.78) 44%, rgba(5, 14, 28, 0.22) 100%),
-    linear-gradient(0deg, rgba(8, 26, 47, 0.35), rgba(8, 26, 47, 0.1));
+    linear-gradient(90deg, rgba(3, 13, 29, 0.95) 0%, rgba(3, 13, 29, 0.73) 45%, rgba(3, 13, 29, 0.22) 100%),
+    radial-gradient(circle at 90% 20%, rgba(0, 169, 183, 0.18), transparent 42%),
+    linear-gradient(0deg, rgba(3, 15, 36, 0.42), rgba(3, 15, 36, 0.12));
 }
 
 .hero-content {
@@ -266,8 +271,14 @@ h1 {
   margin: 0;
   font-size: clamp(2.9rem, 5.9vw, 4.85rem);
   line-height: 0.98;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
   max-width: 14ch;
+  font-family: "Space Grotesk", Sora, sans-serif;
+}
+
+h2,
+h3 {
+  font-family: "Space Grotesk", Sora, sans-serif;
 }
 
 .hero-copy {
@@ -361,11 +372,11 @@ h1 {
 }
 
 .content-section {
-  background: var(--surface);
+  background: transparent;
 }
 
 .content-section:nth-of-type(odd) {
-  background: white;
+  background: transparent;
 }
 
 .page-hero {
@@ -420,9 +431,9 @@ h1 {
 .admin-panel,
 .contact-grid article {
   border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  box-shadow: 0 12px 40px rgba(8, 26, 47, 0.06);
+  border-radius: 16px;
+  background: rgba(249, 252, 255, 0.96);
+  box-shadow: 0 14px 46px rgba(5, 20, 45, 0.1);
 }
 
 .feature-card {
@@ -815,9 +826,168 @@ h1 {
 .link-card,
 .sponsor-summary-panel {
   border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(250, 252, 255, 0.97);
+  box-shadow: 0 16px 48px rgba(7, 23, 50, 0.1);
+}
+
+.event-atlas-section {
+  position: relative;
+}
+
+.event-atlas-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(6, 32, 77, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 32, 77, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  opacity: 0.42;
+}
+
+.event-atlas-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.atlas-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0 0 1.2rem;
+}
+
+.atlas-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.38rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 102, 255, 0.24);
+  background: rgba(255, 255, 255, 0.82);
+  color: #11459f;
+  font-family: "IBM Plex Mono", ui-monospace, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.73rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.atlas-chip:hover {
+  border-color: rgba(0, 102, 255, 0.48);
+  background: rgba(236, 245, 255, 0.95);
+}
+
+.atlas-chip.is-active {
+  color: white;
+  border-color: rgba(0, 102, 255, 0.85);
+  background: linear-gradient(135deg, #1267e8, #4a43ff);
+}
+
+.atlas-cluster-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.atlas-lane {
+  border: 1px solid rgba(17, 72, 170, 0.15);
+  border-radius: 18px;
+  background: rgba(250, 252, 255, 0.9);
+  padding: 1rem;
+  box-shadow: 0 18px 52px rgba(4, 22, 54, 0.1);
+}
+
+.atlas-lane-header p:last-child {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.atlas-event-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+
+.atlas-event-card {
+  display: grid;
+  gap: 0.62rem;
+  border-radius: 14px;
+  border: 1px solid rgba(16, 45, 94, 0.13);
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.98), rgba(240, 246, 255, 0.92));
+  padding: 0.95rem;
+}
+
+.atlas-event-card.is-spotlight {
+  border-color: rgba(0, 102, 255, 0.38);
+  box-shadow: 0 14px 40px rgba(0, 102, 255, 0.16);
+}
+
+.atlas-event-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.atlas-status {
+  background: rgba(0, 102, 255, 0.11);
+  color: #0943a9;
+}
+
+.atlas-program {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #294774;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.atlas-date,
+.atlas-location,
+.atlas-summary {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  color: var(--muted);
+}
+
+.atlas-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.atlas-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: rgba(8, 24, 54, 0.08);
+  color: #15315f;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.atlas-outcomes {
+  margin: 0;
+  padding-left: 1rem;
+  color: var(--muted);
+}
+
+.atlas-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--blue);
+  font-weight: 800;
+}
+
+.atlas-empty {
+  margin: 0;
+  padding: 0.95rem;
   border-radius: 12px;
-  background: white;
-  box-shadow: 0 16px 42px rgba(8, 26, 47, 0.08);
+  border: 1px dashed rgba(33, 77, 149, 0.35);
+  background: rgba(255, 255, 255, 0.76);
+  color: #4f668d;
 }
 
 .countdown-stage {
@@ -1080,7 +1250,8 @@ h1 {
   .robot-grid,
   .tier-grid,
   .gallery-grid,
-  .contact-grid {
+  .contact-grid,
+  .atlas-event-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -1142,6 +1313,10 @@ h1 {
     display: grid;
   }
 
+  .atlas-event-list {
+    grid-template-columns: 1fr;
+  }
+
   .footer-links {
     text-align: left;
   }
@@ -1166,7 +1341,8 @@ h1 {
   .tier-grid,
   .gallery-grid,
   .contact-grid,
-  .site-nav.is-open {
+  .site-nav.is-open,
+  .countdown-grid {
     grid-template-columns: 1fr;
   }
 

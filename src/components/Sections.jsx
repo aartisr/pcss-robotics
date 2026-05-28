@@ -1,5 +1,6 @@
 import { Contact } from './sections/ContactSection';
 import { Countdown } from './sections/CountdownSection';
+import { EventAtlas } from './sections/EventAtlasSection';
 import { Events } from './sections/EventsSection';
 import { FeatureGrid } from './sections/FeatureGridSection';
 import { Gallery } from './sections/GallerySection';
@@ -30,6 +31,7 @@ export const SectionRenderer = ({ section }) => {
     sponsorTiers: SponsorTiers,
     sponsorShowcase: SponsorShowcase,
     events: Events,
+    eventAtlas: EventAtlas,
     gallery: Gallery,
     contact: Contact,
     join: Join,
