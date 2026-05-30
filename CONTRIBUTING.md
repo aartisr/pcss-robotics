@@ -67,4 +67,4 @@ Include:
 ## Notes
 
 - This is a single-page app. Route rewrites are handled by `vercel.json` for production hosting.
-- NPM registry is pinned to the private corporate registry in `.npmrc`.
+- NPM registry is configured via `.npmrc` for the public npm workflow.

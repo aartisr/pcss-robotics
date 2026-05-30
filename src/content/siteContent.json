@@ -40,7 +40,7 @@
       "title": "PCSSII Robotics",
       "body": "PCSS II Robotics is a 501(c)(3) non-profit that aims to provide students with the opportunity to develop their technological skills and compete globally, without being limited by their resources or circumstances.",
       "primaryCta": { "label": "Explore the team", "href": "/about" },
-      "secondaryCta": { "label": "Sponsor us", "href": "https://www.win-waste.com/" },
+      "secondaryCta": { "label": "Sponsor us", "href": "/sponsors" },
       "stats": [
         { "value": "3", "label": "signature events" },
         { "value": "501(c)(3)", "label": "nonprofit" },
@@ -56,12 +56,13 @@
       },
       {
         "type": "gallery",
-        "eyebrow": "Event spotlight",
+        "eyebrow": "Events",
         "title": "Live program moments",
+        "hideItemBody": true,
         "items": [
-          { "title": "JPL", "body": "A flagship robotics season moment for the team." },
-          { "title": "Scrapyard", "body": "A hands-on build and competition-focused showcase." },
-          { "title": "Daydream", "body": "A community-facing event highlight for outreach and storytelling." }
+          { "title": "JPL", "body": "A flagship robotics season moment for the team.", "image": "/homecards/JPL.webp" },
+          { "title": "Scrapyard", "body": "A hands-on build and competition-focused showcase.", "image": "/homecards/Scrapyard.webp" },
+          { "title": "Daydream", "body": "A community-facing event highlight for outreach and storytelling.", "image": "/homecards/Daydream.webp" }
         ]
       },
       {
@@ -80,8 +81,9 @@
           {
             "title": "Sponsor us",
             "description": "Explore the current sponsor partnership and community support opportunities.",
-            "href": "https://www.win-waste.com/",
+            "href": "/sponsors",
             "icon": "handshake",
+            "logo": "/sponsors/waste-innovations-header.svg",
             "meta": "Community partner"
           }
         ]
@@ -174,6 +176,21 @@
             { "tier": "Gold", "amount": "$2,500+", "benefits": ["Logo on sponsor wall", "Social recognition", "Event invitation"] },
             { "tier": "Silver", "amount": "$1,000+", "benefits": ["Website recognition", "Team newsletter feature"] },
             { "tier": "Community", "amount": "$250+", "benefits": ["Website listing", "Thank-you certificate"] }
+          ]
+        },
+        {
+          "type": "sponsorShowcase",
+          "eyebrow": "Current partners",
+          "title": "Sponsor Wall",
+          "body": "We are grateful for partners who power student innovation, mentorship, and community events.",
+          "email": "pcssiirobotics@gmail.com",
+          "summaryTitle": "Award-winning sponsor lane",
+          "summary": "Support mentorship, build space, prizes, and student-led innovation with brand visibility built for real community impact.",
+          "sponsors": [
+            { "name": "Waste Innovations", "tagline": "Current sponsor", "logo": "/sponsors/waste-innovations-header.svg", "href": "https://www.win-waste.com/" }
+          ],
+          "tiers": [
+            { "tier": "Gold", "level": "Lead sponsor", "status": "Open", "description": "Sponsorship openings are available for the current season.", "benefits": ["Visibility across event materials", "Partner acknowledgement on event pages", "Direct support for student innovation"] }
           ]
         }
       ]
@@ -440,8 +457,11 @@
           "title": "Sponsorship",
           "body": "Want to sponsor us? Reach out to pcssiirobotics@gmail.com for details on sponsorship.",
           "email": "pcssiirobotics@gmail.com",
-          "summaryTitle": "A race toward impact",
-          "summary": "Support mentorship, build space, prizes, and student-led innovation.",
+          "summaryTitle": "Award-winning sponsor lane",
+          "summary": "Support mentorship, build space, prizes, and student-led innovation with brand visibility built for real community impact.",
+          "sponsors": [
+            { "name": "Waste Innovations", "tagline": "Current sponsor", "logo": "/sponsors/waste-innovations-header.svg", "href": "https://www.win-waste.com/" }
+          ],
           "tiers": [
             { "tier": "Gold", "level": "Lead sponsor", "status": "Coming Soon!", "description": "Early sponsorship details will be shared as the event approaches.", "benefits": ["Visibility across event materials", "Partner acknowledgement on event pages", "Direct support for student innovation"] }
           ]

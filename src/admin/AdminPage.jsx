@@ -1,11 +1,10 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { downloadJson, loadContent, resetContent, saveContent } from '../data/contentStore';
+import { downloadJson } from '../data/contentStore';
+import { useContent } from '../data/ContentContext';
 import { Icon } from '../components/Icon';
 
 export const AdminPage = () => {
-  const queryClient = useQueryClient();
-  const { data: content } = useQuery({ queryKey: ['site-content'], queryFn: loadContent, staleTime: Infinity });
+  const { content, reset, save } = useContent();
   const [jsonDraft, setJsonDraft] = useState('');
   const [jsonError, setJsonError] = useState('');
 
@@ -14,11 +13,6 @@ export const AdminPage = () => {
       setJsonDraft(JSON.stringify(content, null, 2));
     }
   }, [content]);
-
-  const mutation = useMutation({
-    mutationFn: saveContent,
-    onSuccess: data => queryClient.setQueryData(['site-content'], data)
-  });
 
   if (!content) {
     return (
@@ -34,7 +28,7 @@ export const AdminPage = () => {
     );
   }
 
-  const update = nextContent => mutation.mutate(nextContent);
+  const update = nextContent => save(nextContent);
 
   const updateBrand = (field, value) => {
     update({ ...content, brand: { ...content.brand, [field]: value } });
@@ -60,8 +54,7 @@ export const AdminPage = () => {
   };
 
   const handleReset = () => {
-    const nextContent = resetContent();
-    queryClient.setQueryData(['site-content'], nextContent);
+    reset();
   };
 
   return (

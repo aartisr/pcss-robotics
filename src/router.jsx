@@ -1,7 +1,7 @@
 import { createRootRoute, createRoute, createRouter } from '@tanstack/react-router';
 import { Layout } from './components/Layout';
 import { GenericPage, HomePage, NotFoundPage } from './components/Pages';
-import { AdminPage } from './admin/AdminPage';
+import { AdminPageRoute } from './admin/AdminPageRoute';
 
 const getContentRoutes = (rootRoute, content) => {
   const seenPaths = new Set(['/']);
@@ -40,7 +40,7 @@ export const makeRouter = content => {
   const adminRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: '/admin',
-    component: AdminPage
+    component: AdminPageRoute
   });
 
   const contentRoutes = getContentRoutes(rootRoute, content);

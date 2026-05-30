@@ -21,18 +21,18 @@ This guide is optimized for fast onboarding.
 npm install
 ```
 
-2. Run the local dev server
+1. Run the local dev server
 
 ```bash
 npm run dev
 ```
 
-3. Open the app
+1. Open the app
 
-- Site: http://127.0.0.1:3142/
-- Admin: http://127.0.0.1:3142/admin
+- Site: <http://127.0.0.1:3142/>
+- Admin: <http://127.0.0.1:3142/admin>
 
-4. Validate before sharing changes
+1. Validate before sharing changes
 
 ```bash
 npm run lint
@@ -123,7 +123,7 @@ This file defines:
 
 The Admin page is intended for fast content editing:
 
-- URL: http://127.0.0.1:3142/admin
+- URL: <http://127.0.0.1:3142/admin>
 - Stores edits in browser localStorage
 - Exports JSON for commit-ready updates
 
@@ -217,7 +217,7 @@ This is a static Vite app.
 npm run build
 ```
 
-2. Deploy dist/ to any static host:
+1. Deploy dist/ to any static host:
 
 - GitHub Pages
 - Netlify
@@ -230,8 +230,8 @@ npm run build
 
 This repository is configured to deploy cleanly on Vercel.
 
-- Package metadata is configured for a private repository workflow.
-- The project uses a private corporate npm registry through .npmrc.
+- Package metadata is configured for a public GitHub repository workflow.
+- The project uses the default public npm registry through `.npmrc`.
 - SPA route handling is configured in vercel.json so direct visits to routes like /about and /admin resolve to index.html.
 
 Recommended Vercel settings:
@@ -259,8 +259,8 @@ npm run lint
 npm run build
 ```
 
-4. Commit with a clear message.
-5. Push and open a pull request.
+1. Commit with a clear message.
+1. Push and open a pull request.
 
 ## Troubleshooting
 

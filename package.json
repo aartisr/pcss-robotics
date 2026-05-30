@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:aartisr/pcss-robotics.git"
+    "url": "https://github.com/aartisr/pcss-robotics.git"
   },
   "type": "module",
   "engines": {
@@ -18,7 +18,6 @@
     "lint": "eslint . --ext js,jsx --max-warnings=0"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.90.12",
     "@tanstack/react-router": "1.139.16",
     "@tanstack/react-table": "^8.21.3",
     "lucide-react": "^0.468.0",
