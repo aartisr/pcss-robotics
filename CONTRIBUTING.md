@@ -1,70 +1,90 @@
-# Contributing Guide
+# Contributing
 
-Thanks for contributing to PCSS Robotics.
+Thanks for helping improve PCSS II Robotics.
+
+This project is content-driven, so many updates are made through JSON content and section components rather than hard-coded pages.
 
 ## Prerequisites
 
-- Node.js 18+
-- npm 9+
+- Node.js `20.x` (recommended)
+- npm `9+`
 
-## Local Setup
+## Local Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open:
+Open locally:
 
-- http://127.0.0.1:3142/
-- http://127.0.0.1:3142/admin
+- <http://127.0.0.1:3142/>
+- <http://127.0.0.1:3142/admin>
 
-## What To Change Where
+## Where Changes Belong
 
-- Team content: `src/content/siteContent.json`
+- Team/site content: `src/content/siteContent.json`
 - Section components: `src/components/sections/`
 - Section registry: `src/components/Sections.jsx`
-- Global layout: `src/components/Layout.jsx`
-- Styling: `src/styles.css`
+- Routing behavior: `src/router.jsx`
+- Content normalization: `src/data/contentModel.js`
+- Content persistence: `src/data/contentStore.js`
+- Global styling: `src/styles.css`
+
+## Content Workflow
+
+For content-only updates:
+
+1. Edit content in `/admin`.
+2. Export JSON from Admin.
+3. Replace `src/content/siteContent.json` with exported JSON.
+4. Run quality gates.
+5. Commit and open a pull request.
+
+Important:
+
+- Admin edits are local to browser storage until exported and committed.
+- Use Admin reset if local content state gets out of sync.
 
 ## Quality Gates
 
-Before pushing, run:
+Run before pushing:
 
 ```bash
 npm run lint
 npm run build
 ```
 
-Your change should pass both commands.
+Both commands must pass.
 
-## Branch and Commit Style
+## Branch and Commit Guidelines
 
-- Use short-lived feature branches.
-- Keep commits focused and small.
-- Use clear commit messages, e.g.:
-  - `feat: add outreach resources section`
-  - `fix: harden event date rendering`
-  - `docs: improve deployment instructions`
+- Use short-lived branches.
+- Keep commits focused and atomic.
+- Write clear, conventional commit messages.
 
-## Pull Requests
+Examples:
 
-Include:
+- `feat: add sponsor showcase variant`
+- `fix: harden page slug normalization`
+- `docs: refresh contributor workflow`
 
-- What changed
-- Why it changed
-- Screenshots for UI changes
-- Any follow-up tasks
+## Pull Request Checklist
 
-## Content Editing Flow (Non-Developers)
+Include in every PR:
 
-1. Edit content in `/admin`.
-2. Export JSON.
-3. Replace `src/content/siteContent.json`.
-4. Run lint and build.
-5. Open a PR.
+- Summary of what changed
+- Why the change was needed
+- Screenshots/GIFs for UI changes
+- Testing notes (lint/build results)
+- Follow-up items, if any
 
-## Notes
+## Deployment Notes
 
-- This is a single-page app. Route rewrites are handled by `vercel.json` for production hosting.
-- NPM registry is configured via `.npmrc` for the public npm workflow.
+- This is a SPA; route rewrites are configured in `vercel.json`.
+- The repository uses public npm registry settings via `.npmrc`.
+- Build output is `dist/`.
+
+## Getting Help
+
+If you are unsure where a change should go, open a draft PR with your proposal and questions. It is easier to review early than to rework late.

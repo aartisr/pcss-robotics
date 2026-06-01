@@ -1,283 +1,179 @@
-# PCSS II Robotics Website
+# PCSS II Robotics
 
-A content-driven, production-ready robotics team website built with React, Vite, and TanStack.
+Modern, content-driven website for PCSS II Robotics, built with React and Vite.
 
-This project is designed so non-developers can safely update most site content while developers keep a modular and resilient codebase.
+The site is designed for two audiences:
 
-## Why This README Exists
+- Non-developers who update content safely through a browser admin flow.
+- Developers who extend section components, routing, and design systems.
 
-This guide is optimized for fast onboarding.
+## Highlights
 
-- If you want to run the site quickly: start at Quick Start.
-- If you want to edit team content: jump to Content Editing.
-- If you want to contribute code: use Developer Workflow.
-- If you are deploying: see Deployment.
-
-## Quick Start (2-3 Minutes)
-
-1. Install dependencies
-
-```bash
-npm install
-```
-
-1. Run the local dev server
-
-```bash
-npm run dev
-```
-
-1. Open the app
-
-- Site: <http://127.0.0.1:3142/>
-- Admin: <http://127.0.0.1:3142/admin>
-
-1. Validate before sharing changes
-
-```bash
-npm run lint
-npm run build
-```
+- Content-first architecture backed by `src/content/siteContent.json`.
+- Dynamic page routing from content slugs via TanStack Router.
+- Browser admin editor with local save/reset and JSON export workflow.
+- Runtime hardening through content normalization and app-level error boundaries.
+- Lightweight, static-host friendly deployment with Vercel SPA rewrites.
 
 ## Tech Stack
 
 - React 18
 - Vite 6
 - TanStack Router
-- TanStack Query
 - TanStack Table
 - Lucide React
-- Plain CSS
+- ESLint
+- Plain CSS (single global stylesheet)
 
-## Scripts
+## Quick Start
 
-```bash
-npm run dev      # development server
-npm run build    # production build to dist/
-npm run preview  # serve built output locally
-npm run lint     # eslint checks
-```
+### Prerequisites
 
-## Project Principles
+- Node.js `20.x` (recommended; matches `engines` in package metadata)
+- npm `9+`
 
-- Content-first: most copy and page structure lives in JSON.
-- Modular UI: section renderers are split into focused components.
-- Resilient runtime: app includes normalization and error boundaries.
-- Responsive by default: layout adapts cleanly from mobile to desktop.
-
-## Architecture At A Glance
-
-```text
-src/
-  admin/
-    AdminPage.jsx                    # browser editor for content
-  assets/
-    robotics-lab-hero.png
-  components/
-    AppErrorBoundary.jsx             # global recovery boundary
-    Icon.jsx
-    Layout.jsx
-    Pages.jsx
-    Sections.jsx                     # section type registry/router
-    sections/                        # modular section renderers
-      ContactSection.jsx
-      EventsSection.jsx
-      FeatureGridSection.jsx
-      GallerySection.jsx
-      HeroSection.jsx
-      JoinSection.jsx
-      ProgramsSection.jsx
-      RobotsSection.jsx
-      SectionIntro.jsx
-      SponsorTiersSection.jsx
-      StorySection.jsx
-      TimelineSection.jsx
-      utils.js
-  content/
-    siteContent.json                 # default source-of-truth content
-  data/
-    contentModel.js                  # normalization and safe defaults
-    contentStore.js                  # load/save/reset/export flow
-  main.jsx
-  router.jsx
-  styles.css
-```
-
-## Content Editing
-
-### Source of Truth
-
-Default content is in:
-
-- src/content/siteContent.json
-
-This file defines:
-
-- Brand and contact info
-- Navigation
-- Home hero and homepage sections
-- All content pages
-- Events, sponsors, robots, media, outreach, join, contact
-
-### Browser Admin Flow
-
-The Admin page is intended for fast content editing:
-
-- URL: <http://127.0.0.1:3142/admin>
-- Stores edits in browser localStorage
-- Exports JSON for commit-ready updates
-
-Recommended workflow:
-
-1. Open Admin and edit content.
-2. Click Export JSON.
-3. Replace src/content/siteContent.json with exported content.
-4. Run lint and build.
-5. Commit and push.
-
-### Reset Local Admin Data
-
-If your browser data gets out of sync, click Reset in Admin.
-
-This clears localStorage and reloads defaults from src/content/siteContent.json.
-
-## Routing Model
-
-- The home route is always /.
-- Content pages are generated from the pages array in JSON.
-- Admin lives at /admin.
-- Route generation is hardened against malformed or duplicate slugs.
-
-Core router file:
-
-- src/router.jsx
-
-## Section System (Extensible)
-
-Section rendering is registry-driven.
-
-Main registry:
-
-- src/components/Sections.jsx
-
-Add a new section type:
-
-1. Create a renderer in src/components/sections/.
-2. Import it in src/components/Sections.jsx.
-3. Add the type mapping in the components object.
-4. Use that type in siteContent.json.
-
-Current supported types:
-
-- featureGrid
-- timeline
-- story
-- values
-- programs
-- robots
-- sponsorTiers
-- events
-- gallery
-- contact
-- join
-
-Unknown section types fall back to the feature grid renderer.
-
-## Resilience Features
-
-This project includes several runtime protections:
-
-- Content normalization with defaults and sanitization:
-  - src/data/contentModel.js
-- Safe load/save/reset behaviors:
-  - src/data/contentStore.js
-- App-level crash recovery UI:
-  - src/components/AppErrorBoundary.jsx
-- Defensive rendering for optional/malformed content:
-  - section components and layout guards
-
-## Responsive UX Notes
-
-- Mobile menu and adaptive grids are built into styles.
-- Large tables support horizontal scroll on small screens.
-- Focus-visible styles are included for keyboard users.
-- Reduced-motion preference is respected.
-
-Core style file:
-
-- src/styles.css
-
-## Deployment
-
-This is a static Vite app.
-
-1. Build production assets:
+### Install and run
 
 ```bash
-npm run build
+npm install
+npm run dev
 ```
 
-1. Deploy dist/ to any static host:
+Open:
 
-- GitHub Pages
-- Netlify
-- Vercel
-- Azure Static Web Apps
-- AWS S3 + CloudFront
-- Cloudflare Pages
+- Site: <http://127.0.0.1:3142/>
+- Admin: <http://127.0.0.1:3142/admin>
 
-### Vercel
-
-This repository is configured to deploy cleanly on Vercel.
-
-- Package metadata is configured for a public GitHub repository workflow.
-- The project uses the default public npm registry through `.npmrc`.
-- SPA route handling is configured in vercel.json so direct visits to routes like /about and /admin resolve to index.html.
-
-Recommended Vercel settings:
-
-- Framework preset: Vite
-- Install command: npm install
-- Build command: npm run build
-- Output directory: dist
-
-Key deploy files:
-
-- .npmrc
-- vercel.json
-- package.json
-- package-lock.json
-
-## Developer Workflow
-
-1. Create a branch.
-2. Implement focused changes.
-3. Run checks:
+### Validate before merge/deploy
 
 ```bash
 npm run lint
 npm run build
 ```
 
-1. Commit with a clear message.
-1. Push and open a pull request.
+## Scripts
+
+```bash
+npm run dev      # start local development server
+npm run build    # build production assets into dist/
+npm run preview  # preview built assets locally
+npm run lint     # eslint checks with zero warnings allowed
+```
+
+## Project Structure
+
+```text
+.
+|-- docs/                               # strategy and planning docs (md + docx)
+|-- public/                             # static assets served from root
+|-- src/
+|   |-- admin/
+|   |   |-- AdminPage.jsx               # content editor UI
+|   |   `-- AdminPageRoute.jsx          # lazy-loaded admin route wrapper
+|   |-- components/
+|   |   |-- AppErrorBoundary.jsx
+|   |   |-- Layout.jsx
+|   |   |-- Pages.jsx
+|   |   |-- Sections.jsx                # section registry/router
+|   |   `-- sections/                   # section renderers
+|   |-- content/
+|   |   `-- siteContent.json            # default source-of-truth content
+|   |-- data/
+|   |   |-- ContentContext.jsx          # app-level content state provider
+|   |   |-- contentModel.js             # normalization/sanitization logic
+|   |   `-- contentStore.js             # localStorage load/save/reset/export
+|   |-- main.jsx
+|   |-- router.jsx
+|   `-- styles.css
+|-- vercel.json
+`-- vite.config.js
+```
+
+## Content Workflow
+
+### Source of truth
+
+- Default committed content lives in `src/content/siteContent.json`.
+- Home sections, pages, navigation, events, sponsors, robots, outreach, and contact are all content-driven.
+
+### Admin editing flow
+
+1. Open `/admin`.
+2. Edit content in the browser.
+3. Export JSON from the admin UI.
+4. Replace `src/content/siteContent.json` with the exported content.
+5. Run `npm run lint` and `npm run build`.
+6. Commit and open a pull request.
+
+### Important behavior
+
+- Admin edits are stored in browser `localStorage` until exported/committed.
+- Reset in Admin clears local state and reloads defaults from `siteContent.json`.
+- Content is normalized on load to prevent malformed data from breaking rendering.
+
+## Routing and Sections
+
+### Routing model
+
+- Home route is `/`.
+- Admin route is `/admin` (lazy-loaded).
+- Content routes are generated from `pages[].slug` in JSON.
+- Duplicate/invalid slugs are defensively filtered.
+
+### Section system
+
+- Section rendering is registry-based in `src/components/Sections.jsx`.
+- To add a new section type:
+
+1. Create a component in `src/components/sections/`.
+2. Register it in `src/components/Sections.jsx`.
+3. Reference its `type` in content JSON.
+
+## Performance and Resilience Notes
+
+- Admin page is lazy loaded to keep initial site payload smaller.
+- App crashes are isolated behind `AppErrorBoundary`.
+- Content normalization enforces safe defaults for missing/invalid fields.
+- Static asset strategy supports optimized formats in `public/` (for example, `webp` images).
+
+## Deployment
+
+This is a static Vite application.
+
+### Generic static hosting
+
+```bash
+npm run build
+```
+
+Deploy the `dist/` directory to any static host.
+
+### Vercel
+
+Project is configured for clean SPA routing with rewrites in `vercel.json`:
+
+- Any route is rewritten to `index.html`.
+- Direct visits to routes like `/about` and `/admin` work without server-side routing.
+
+Recommended Vercel settings:
+
+- Framework preset: `Vite`
+- Install command: `npm install`
+- Build command: `npm run build`
+- Output directory: `dist`
 
 ## Troubleshooting
 
-### Port Conflict
-
-Run on another port:
+### Port conflict
 
 ```bash
 npm run dev -- --port 3143
 ```
 
-### Build Fails After Content Edits
-
-Validate JSON quickly:
+### Content JSON errors
 
 ```bash
-node -e "JSON.parse(require('fs').readFileSync('src/content/siteContent.json','utf8')); console.log('JSON OK')"
+node --input-type=module -e "import fs from 'node:fs'; JSON.parse(fs.readFileSync('src/content/siteContent.json','utf8')); console.log('JSON OK');"
 ```
 
 Then rerun:
@@ -286,35 +182,23 @@ Then rerun:
 npm run build
 ```
 
-### Admin Changes Not Matching Repo Files
+### "My admin changes disappeared"
 
-Admin writes to browser localStorage only until you export and replace src/content/siteContent.json.
+- Changes are local until you export JSON and update `src/content/siteContent.json`.
+- Browser storage can be cleared by reset actions or browser data cleanup.
 
-### Visual Changes Not Updating
+## Related Documents
 
-Restart dev server and hard refresh browser.
+Detailed modernization and reusability planning docs are in `docs/`:
 
-## Final QA Checklist
+- `PCSS-II-Multi-Club-Reusability-Plan.md`
+- `PCSS-II-Multi-Club-Reusability-Executive-Summary.md`
+- `PCSS-II-Multi-Club-Reusability-Technical-Backlog.md`
 
-Run:
+## Contributing
 
-```bash
-npm run lint
-npm run build
-```
+See `CONTRIBUTING.md` for workflow and pull request expectations.
 
-Manually verify:
+## License
 
-- Home and all nav pages load correctly
-- /admin loads and edits persist locally
-- Mobile navigation and section layouts behave properly
-- Contact links and CTA links are valid
-- No console errors on key routes
-
-## License and Ownership
-
-This repository is owned by the PCSS II Robotics maintainers.
-
-This project is licensed under the MIT License.
-
-See the full license text in LICENSE.
+MIT. See `LICENSE`.
