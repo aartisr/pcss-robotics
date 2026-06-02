@@ -1,18 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
+import { Link } from '@tanstack/react-router';
 import { downloadJson } from '../data/contentStore';
 import { useContent } from '../data/ContentContext';
 import { Icon } from '../components/Icon';
+import { getEditablePages } from './puckAdapter';
 
 export const AdminPage = () => {
-  const { content, reset, save } = useContent();
-  const [jsonDraft, setJsonDraft] = useState('');
-  const [jsonError, setJsonError] = useState('');
-
-  useEffect(() => {
-    if (content) {
-      setJsonDraft(JSON.stringify(content, null, 2));
-    }
-  }, [content]);
+  const { content, reset } = useContent();
+  const pages = useMemo(() => getEditablePages(content), [content]);
 
   if (!content) {
     return (
@@ -28,31 +23,6 @@ export const AdminPage = () => {
     );
   }
 
-  const update = nextContent => save(nextContent);
-
-  const updateBrand = (field, value) => {
-    update({ ...content, brand: { ...content.brand, [field]: value } });
-  };
-
-  const updatePage = (slug, field, value) => {
-    update({
-      ...content,
-      pages: content.pages.map(page => page.slug === slug ? { ...page, [field]: value } : page)
-    });
-  };
-
-  const handleJsonChange = value => {
-    setJsonDraft(value);
-    try {
-      const parsed = JSON.parse(value);
-      setJsonError('');
-      update(parsed);
-    } catch (error) {
-      setJsonError(error.message);
-      return;
-    }
-  };
-
   const handleReset = () => {
     reset();
   };
@@ -62,8 +32,8 @@ export const AdminPage = () => {
       <div className="admin-header">
         <div>
           <p className="eyebrow">Admin</p>
-          <h1>Editable site content</h1>
-          <p>Changes save to this browser immediately. Export the JSON when you want to commit content back into the project.</p>
+          <h1>Page editor</h1>
+          <p>All website pages are available in the Puck editor. Choose a page to edit, or open the live route in a new tab.</p>
         </div>
         <div className="admin-actions">
           <button className="button ghost dark" type="button" onClick={() => downloadJson(content)}><Icon name="file" />Export JSON</button>
@@ -71,45 +41,22 @@ export const AdminPage = () => {
         </div>
       </div>
 
-      <div className="admin-grid">
-        <form className="admin-panel">
-          <h2>Brand</h2>
-          {['name', 'tagline', 'location', 'email', 'school'].map(field => (
-            <label key={field}>
-              <span>{field}</span>
-              <input value={content.brand[field]} onChange={event => updateBrand(field, event.target.value)} />
-            </label>
+      <div className="admin-panel">
+        <h2>Pages</h2>
+        <div className="page-editor-list page-admin-list">
+          {pages.map(page => (
+            <article key={page.slug} className="page-editor page-admin-card">
+              <div>
+                <strong>{page.title}</strong>
+                <p className="page-admin-path">{page.viewPath}</p>
+                {page.summary && <p className="page-admin-summary">{page.summary}</p>}
+              </div>
+              <div className="page-admin-actions">
+                <a className="button ghost" href={page.viewPath} target="_blank" rel="noreferrer">View</a>
+                <Link className="button ghost dark" to={page.editPath}>Edit in Puck</Link>
+              </div>
+            </article>
           ))}
-        </form>
-
-        <div className="admin-panel">
-          <h2>Pages</h2>
-          <div className="page-editor-list">
-            {content.pages.map(page => (
-              <article key={page.slug} className="page-editor">
-                <strong>{page.slug}</strong>
-                <label>
-                  <span>Title</span>
-                  <input value={page.title} onChange={event => updatePage(page.slug, 'title', event.target.value)} />
-                </label>
-                <label>
-                  <span>Summary</span>
-                  <textarea value={page.summary} onChange={event => updatePage(page.slug, 'summary', event.target.value)} />
-                </label>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div className="admin-panel json-panel">
-          <h2>Raw JSON</h2>
-          {jsonError && <p className="json-error">JSON is not saved yet: {jsonError}</p>}
-          <textarea
-            aria-label="Raw site JSON"
-            spellCheck="false"
-            value={jsonDraft}
-            onChange={event => handleJsonChange(event.target.value)}
-          />
         </div>
       </div>
     </section>

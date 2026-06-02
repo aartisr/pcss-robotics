@@ -18,6 +18,7 @@
     "lint": "eslint . --ext js,jsx --max-warnings=0"
   },
   "dependencies": {
+    "@puckeditor/core": "^0.21.2",
     "@tanstack/react-router": "1.139.16",
     "@tanstack/react-table": "^8.21.3",
     "lucide-react": "^0.468.0",

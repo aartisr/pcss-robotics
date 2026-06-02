@@ -2,6 +2,7 @@ import { createRootRoute, createRoute, createRouter } from '@tanstack/react-rout
 import { Layout } from './components/Layout';
 import { GenericPage, HomePage, NotFoundPage } from './components/Pages';
 import { AdminPageRoute } from './admin/AdminPageRoute';
+import { AdminEditorRoute } from './admin/AdminEditorRoute';
 
 const getContentRoutes = (rootRoute, content) => {
   const seenPaths = new Set(['/']);
@@ -43,10 +44,22 @@ export const makeRouter = content => {
     component: AdminPageRoute
   });
 
+  const adminEditHomeRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/admin/edit',
+    component: AdminEditorRoute
+  });
+
+  const adminEditPageRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/admin/edit/$slug',
+    component: AdminEditorRoute
+  });
+
   const contentRoutes = getContentRoutes(rootRoute, content);
 
   return createRouter({
-    routeTree: rootRoute.addChildren([indexRoute, adminRoute, ...contentRoutes]),
+    routeTree: rootRoute.addChildren([indexRoute, adminRoute, adminEditHomeRoute, adminEditPageRoute, ...contentRoutes]),
     defaultPreload: 'intent'
   });
 };

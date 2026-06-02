@@ -814,10 +814,54 @@ h3 {
   box-shadow: none;
 }
 
+.page-admin-list {
+  gap: 1rem;
+}
+
+.page-admin-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
 .page-editor strong {
   display: inline-block;
   margin-bottom: 0.75rem;
   color: var(--blue);
+}
+
+.page-admin-path {
+  margin: 0;
+  color: var(--muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem;
+}
+
+.page-admin-summary {
+  margin: 0.7rem 0 0;
+  color: var(--muted);
+  max-width: 76ch;
+}
+
+.page-admin-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-editor-page {
+  padding-bottom: 2rem;
+}
+
+.puck-admin-panel {
+  min-height: 75vh;
+}
+
+.puck-admin-panel .Puck {
+  min-height: 72vh;
 }
 
 .json-panel {
