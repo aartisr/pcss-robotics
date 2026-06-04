@@ -41,6 +41,73 @@ const parseArrayWithoutThrowing = value => {
   }
 };
 
+const toTemplateJson = value => JSON.stringify(value, null, 2);
+
+const TEAM_PROFILES_CONNECTOR_TEMPLATE = toTemplateJson({
+  connector: {
+    enabled: true,
+    routeColor: 'rgba(255, 209, 102, 0.86)',
+    basePaths: [
+      { path: 'M24,18 C41,18 39,46 50,50 C62,54 60,82 76,82', tone: 'primary' },
+      { path: 'M76,18 C59,18 61,46 50,50 C38,54 40,82 24,82', tone: 'secondary' }
+    ],
+    routes: [
+      { key: 'alpha', path: 'M22,20 C32,30 40,34 49,50 C57,63 65,70 78,78', pulseX: '26%', pulseY: '30%' },
+      { key: 'beta', path: 'M78,22 C66,28 58,34 51,50 C44,64 35,70 20,80', pulseX: '74%', pulseY: '34%' }
+    ]
+  }
+});
+
+const TEAM_PROFILES_TRACKS_TEMPLATE = toTemplateJson({
+  tracks: [
+    {
+      kind: 'mentor',
+      label: 'Mentors & teachers',
+      title: 'Guides',
+      body: 'How this lane contributes.',
+      members: [
+        {
+          name: 'Mentor name',
+          role: 'Mentor role',
+          image: '/homecards/JPL.webp',
+          focus: 'What they coach.',
+          metricValue: '12',
+          metricLabel: 'teams coached',
+          bio: 'Short bio.',
+          quote: 'Optional quote.',
+          tags: ['Tag one', 'Tag two']
+        }
+      ]
+    },
+    {
+      kind: 'student',
+      label: 'Students & team members',
+      title: 'Builders',
+      body: 'How this lane contributes.',
+      members: [
+        {
+          name: 'Student name',
+          role: 'Student role',
+          image: '/homecards/Scrapyard.webp',
+          focus: 'What they own.',
+          metricValue: '31%',
+          metricLabel: 'improvement metric',
+          bio: 'Short bio.',
+          quote: 'Optional quote.',
+          tags: ['Tag one', 'Tag two']
+        }
+      ]
+    }
+  ]
+});
+
+const GENERIC_FEATURE_GRID_TEMPLATE = toTemplateJson({
+  items: [
+    { title: 'Card title', body: 'Card description.' },
+    { title: 'Card title', body: 'Card description.' }
+  ]
+});
+
 const createPuckConfig = (brand, sectionTypes) => {
   const sectionTypeOptions = sectionTypes.map(type => ({ label: toTitleCase(type), value: type }));
 
@@ -119,7 +186,7 @@ const createPuckConfig = (brand, sectionTypes) => {
           eyebrow: { type: 'text', label: 'Eyebrow' },
           title: { type: 'text', label: 'Title' },
           body: { type: 'textarea', label: 'Body' },
-          extrasJson: { type: 'textarea', label: 'Advanced Section JSON' }
+          extrasJson: { type: 'textarea', label: 'Advanced Section JSON (templates below)' }
         },
         defaultProps: {
           sectionType: 'featureGrid',
@@ -208,6 +275,23 @@ export const AdminEditorPage = () => {
       </div>
 
       {saveError && <p className="json-error">Save blocked: {saveError}</p>}
+
+      <details className="admin-json-templates" open>
+        <summary>JSON Templates For Advanced Section JSON</summary>
+        <p>Copy one snippet into Advanced Section JSON, then modify values. Team Profiles accepts both connector and tracks snippets together.</p>
+        <label>
+          Team Profiles connector preset
+          <textarea readOnly value={TEAM_PROFILES_CONNECTOR_TEMPLATE} />
+        </label>
+        <label>
+          Team Profiles tracks preset
+          <textarea readOnly value={TEAM_PROFILES_TRACKS_TEMPLATE} />
+        </label>
+        <label>
+          Generic feature grid preset
+          <textarea readOnly value={GENERIC_FEATURE_GRID_TEMPLATE} />
+        </label>
+      </details>
 
       <div className="admin-panel puck-admin-panel">
         <Puck

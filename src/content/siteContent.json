@@ -112,6 +112,88 @@
             { "title": "Document the work", "body": "Students record decisions so the next teammate can learn faster." },
             { "title": "Everyone contributes", "body": "Mechanical, software, strategy, media, and outreach all matter." }
           ]
+        },
+        {
+          "type": "teamProfiles",
+          "eyebrow": "About the team",
+          "title": "Mentorship constellation",
+          "body": "Our strongest projects come from mentor-student pairs where technical rigor, communication, and ownership grow together.",
+          "connector": {
+            "enabled": true,
+            "routeColor": "rgba(255, 209, 102, 0.86)",
+            "basePaths": [
+              { "path": "M24,18 C41,18 39,46 50,50 C62,54 60,82 76,82", "tone": "primary" },
+              { "path": "M76,18 C59,18 61,46 50,50 C38,54 40,82 24,82", "tone": "secondary" }
+            ],
+            "routes": [
+              { "key": "alpha", "path": "M22,20 C32,30 40,34 49,50 C57,63 65,70 78,78", "pulseX": "26%", "pulseY": "30%" },
+              { "key": "beta", "path": "M78,22 C66,28 58,34 51,50 C44,64 35,70 20,80", "pulseX": "74%", "pulseY": "34%" },
+              { "key": "gamma", "path": "M20,76 C32,68 38,62 49,50 C58,38 66,30 79,20", "pulseX": "28%", "pulseY": "68%" },
+              { "key": "delta", "path": "M78,76 C66,68 60,62 51,50 C42,38 34,30 21,22", "pulseX": "72%", "pulseY": "70%" }
+            ]
+          },
+          "tracks": [
+            {
+              "kind": "mentor",
+              "label": "Mentors & teachers",
+              "title": "Guides who raise the ceiling",
+              "body": "Mentors coach decision quality, review design tradeoffs, and model professional engineering habits.",
+              "members": [
+                {
+                  "name": "Dr. Aarti Raman",
+                  "role": "Lead Mentor, Systems Integration",
+                  "image": "/homecards/JPL.webp",
+                  "focus": "Mentors autonomous architecture, safety reviews, and build-season decision frameworks.",
+                  "metricValue": "12 seasons",
+                  "metricLabel": "student teams coached",
+                  "bio": "Former controls engineer who now helps students convert ambiguous ideas into measurable sprint plans.",
+                  "quote": "Great teams are not built on heroics. They are built on repeatable learning.",
+                  "tags": ["Control systems", "Design reviews", "Competition strategy"]
+                },
+                {
+                  "name": "Ms. Leena Patel",
+                  "role": "Teacher Mentor, Fabrication & Outreach",
+                  "image": "/homecards/Daydream.webp",
+                  "focus": "Leads fabrication readiness, tool safety, and community STEM workshops led by students.",
+                  "metricValue": "180+",
+                  "metricLabel": "student lab-hours supervised",
+                  "bio": "Connects classroom fundamentals with shop-floor confidence so new members can contribute quickly.",
+                  "quote": "Confidence appears when students can explain why a design works, not just that it works.",
+                  "tags": ["Tool safety", "Build quality", "Community outreach"]
+                }
+              ]
+            },
+            {
+              "kind": "student",
+              "label": "Students & team members",
+              "title": "Builders who carry ownership",
+              "body": "Student leaders run modules end-to-end and teach new teammates through documented playbooks.",
+              "members": [
+                {
+                  "name": "Maya Chen",
+                  "role": "Student Captain, Software",
+                  "image": "/homecards/Scrapyard.webp",
+                  "focus": "Owns telemetry dashboards, autonomous testing loops, and code review rituals.",
+                  "metricValue": "31%",
+                  "metricLabel": "faster auto-debug cycles",
+                  "bio": "Built a reusable troubleshooting board that reduced repeated pit-side software failures.",
+                  "quote": "The robot gets better when our notes are as good as our code.",
+                  "tags": ["Autonomous", "Python/Java", "Telemetry"]
+                },
+                {
+                  "name": "Aditya Nair",
+                  "role": "Mechanical Lead, Drivebase",
+                  "image": "/robotics-lab-hero.webp",
+                  "focus": "Leads drivetrain assembly, tolerance checks, and repair playbooks for events.",
+                  "metricValue": "9",
+                  "metricLabel": "rookies mentored this year",
+                  "bio": "Designed a modular service checklist now used across pre-match inspections.",
+                  "quote": "Reliable robots win because reliable teams communicate under pressure.",
+                  "tags": ["CAD", "Assembly", "Pit operations"]
+                }
+              ]
+            }
+          ]
         }
       ]
     },

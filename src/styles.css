@@ -882,6 +882,49 @@ h3 {
   font-weight: 800;
 }
 
+.admin-json-templates {
+  margin-bottom: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(248, 251, 255, 0.94);
+  box-shadow: 0 12px 34px rgba(8, 28, 56, 0.08);
+  padding: 0.9rem 1rem;
+}
+
+.admin-json-templates summary {
+  cursor: pointer;
+  font-weight: 900;
+  color: #123e7e;
+}
+
+.admin-json-templates p {
+  margin: 0.7rem 0 0.8rem;
+  color: var(--muted);
+}
+
+.admin-json-templates label {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  font-size: 0.82rem;
+  color: #27496f;
+  font-weight: 800;
+}
+
+.admin-json-templates textarea {
+  width: 100%;
+  min-height: 136px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.7rem;
+  background: white;
+  color: #16345d;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  resize: vertical;
+}
+
 .countdown-shell {
   display: grid;
   grid-template-columns: 1.4fr 0.9fr;
@@ -1224,6 +1267,338 @@ h3 {
   color: var(--muted);
 }
 
+.team-profiles-section {
+  position: relative;
+}
+
+.team-profiles-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 8% 22%, rgba(14, 117, 173, 0.15), transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(232, 69, 69, 0.12), transparent 44%);
+}
+
+.team-profiles-section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.team-cluster-grid {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+}
+
+.team-connector {
+  position: absolute;
+  inset: 18px 16px 18px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.team-connector-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.connector-path {
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 7 6;
+}
+
+.connector-path-route {
+  fill: none;
+  opacity: 1;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke: var(--route-color, rgba(255, 209, 102, 0.86));
+  filter: drop-shadow(0 0 8px rgba(255, 209, 102, 0.38));
+}
+
+.connector-path-primary {
+  stroke: rgba(19, 74, 146, 0.38);
+}
+
+.connector-path-secondary {
+  stroke: rgba(15, 122, 100, 0.34);
+}
+
+.team-cluster-grid.has-active-member .connector-path {
+  animation: connectorPathFlow 1.3s linear infinite;
+}
+
+.team-cluster-grid.has-active-member .connector-path-route.is-active {
+  animation: connectorRouteDraw 760ms ease both;
+}
+
+.connector-pulse {
+  position: absolute;
+  left: var(--pulse-x, 50%);
+  top: var(--pulse-y, 50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #1c5ab0, #1ca48c);
+  box-shadow: 0 0 0 6px rgba(28, 90, 176, 0.12);
+  transform: translate(-50%, -50%);
+}
+
+.team-cluster-grid.has-active-member .connector-pulse {
+  animation: connectorPulse 1.05s ease-out infinite;
+  animation-delay: var(--pulse-delay, 0ms);
+}
+
+.team-lane {
+  border-radius: 20px;
+  border: 1px solid rgba(54, 83, 137, 0.2);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(238, 245, 255, 0.92));
+  box-shadow: 0 20px 52px rgba(7, 21, 47, 0.12);
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.team-lane.is-mentor {
+  border-color: rgba(15, 90, 156, 0.28);
+}
+
+.team-lane.is-student {
+  border-color: rgba(29, 138, 114, 0.28);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(236, 250, 246, 0.92));
+}
+
+.team-lane-header {
+  max-width: 74ch;
+}
+
+.team-lane-label {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.62rem;
+  border-radius: 999px;
+  font-size: 0.71rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(13, 74, 146, 0.1);
+  color: #114596;
+}
+
+.team-lane.is-student .team-lane-label {
+  background: rgba(24, 145, 122, 0.11);
+  color: #0f735d;
+}
+
+.team-lane-header h3 {
+  margin: 0.6rem 0 0.45rem;
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+}
+
+.team-lane-header p:last-child {
+  margin: 0;
+  color: var(--muted);
+}
+
+.team-member-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.team-member-card {
+  border: 1px solid rgba(52, 89, 155, 0.2);
+  border-radius: 16px;
+  padding: 0.95rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.99), rgba(247, 251, 255, 0.96));
+  box-shadow: 0 10px 34px rgba(7, 23, 51, 0.08);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  animation: teamCardRise 420ms ease both;
+}
+
+.team-member-card.is-active {
+  border-color: rgba(255, 176, 59, 0.64);
+  box-shadow: 0 20px 48px rgba(246, 167, 37, 0.2);
+}
+
+.team-member-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 20px 40px rgba(8, 28, 56, 0.14);
+}
+
+.team-member-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.68rem;
+  align-items: center;
+}
+
+.team-avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #0f4f98, #456eff);
+  color: white;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  overflow: hidden;
+}
+
+.team-avatar.has-image {
+  background: #d7e5fb;
+}
+
+.team-avatar.has-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-lane.is-student .team-avatar {
+  background: linear-gradient(135deg, #12826a, #3bc1a4);
+}
+
+.team-member-head h3 {
+  margin: 0;
+  font-size: 1.06rem;
+}
+
+.team-role {
+  margin: 0.2rem 0 0;
+  color: var(--blue);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.team-lane.is-student .team-role {
+  color: #0f7d66;
+}
+
+.team-focus,
+.team-bio,
+.team-member-card blockquote {
+  margin: 0.6rem 0 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.team-member-card blockquote {
+  margin-top: 0.55rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid rgba(17, 78, 154, 0.26);
+  font-style: italic;
+}
+
+.team-lane.is-student .team-member-card blockquote {
+  border-left-color: rgba(19, 130, 106, 0.32);
+}
+
+.team-metric {
+  margin: 0.62rem 0 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.team-metric strong {
+  font-size: 1.08rem;
+  color: #123e7e;
+}
+
+.team-lane.is-student .team-metric strong {
+  color: #0e6e5b;
+}
+
+.team-metric span {
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #5f7090;
+  font-weight: 700;
+}
+
+.team-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  margin-top: 0.65rem;
+}
+
+.team-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(19, 78, 149, 0.1);
+  color: #184b8e;
+}
+
+.team-lane.is-student .team-tag {
+  background: rgba(15, 122, 100, 0.1);
+  color: #0f705c;
+}
+
+@keyframes connectorPathFlow {
+  from {
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: -26;
+  }
+}
+
+@keyframes connectorPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.86;
+  }
+
+  75% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.65);
+    opacity: 0;
+  }
+}
+
+@keyframes connectorRouteDraw {
+  0% {
+    stroke-dasharray: 1 260;
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dasharray: 160 0;
+    stroke-dashoffset: -8;
+  }
+}
+
+@keyframes teamCardRise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .link-list {
   display: grid;
   gap: 0.75rem;
@@ -1504,8 +1879,13 @@ h3 {
 
   .countdown-shell,
   .schedule-grid,
-  .speaker-grid {
+  .speaker-grid,
+  .team-member-grid {
     grid-template-columns: 1fr;
+  }
+
+  .team-connector {
+    display: none;
   }
 
   .schedule-row {
@@ -1556,7 +1936,8 @@ h3 {
   .event-row,
   .schedule-row,
   .speaker-card,
-  .link-card-header {
+  .link-card-header,
+  .team-member-head {
     grid-template-columns: 1fr;
   }
 
@@ -1572,7 +1953,9 @@ h3 {
   .countdown-stage,
   .countdown-meta-card,
   .speaker-card,
-  .link-card {
+  .link-card,
+  .team-lane,
+  .team-member-card {
     padding: 0.85rem;
   }
 

@@ -17,7 +17,8 @@ const SECTION_TYPE_OPTIONS = [
   'countdown',
   'schedule',
   'speakers',
-  'links'
+  'links',
+  'teamProfiles'
 ];
 
 const HOME_HERO_TYPE = 'HomeHeroBlock';
