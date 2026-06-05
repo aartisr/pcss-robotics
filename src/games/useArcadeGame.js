@@ -73,8 +73,17 @@ export const useArcadeGame = gameId => {
     };
   }, [gameId]);
 
+  const setVirtualKey = (key, pressed) => {
+    const normalized = normalizeKey(key);
+    if (!normalized) {
+      return;
+    }
+    sessionRef.current.input.keys[normalized] = pressed;
+  };
+
   return {
     canvasRef,
-    meta
+    meta,
+    setVirtualKey
   };
 };

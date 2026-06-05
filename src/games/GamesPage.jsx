@@ -1,19 +1,87 @@
-import { startTransition, useMemo, useState } from 'react';
+import { startTransition, useEffect, useMemo, useRef, useState } from 'react';
 import { DEFAULT_GAME_ID, GAME_CATALOG } from './gameCatalog';
 import { useArcadeGame } from './useArcadeGame';
 import { usePartyMode } from './usePartyMode';
 
 const queuePresetCounts = [6, 8, 12];
 
+const MOBILE_STATIONS = [
+  {
+    id: 'p1',
+    title: 'Station One',
+    keys: [
+      { id: 'up', label: 'Up', key: 'w', className: 'is-up' },
+      { id: 'left', label: 'Left', key: 'a', className: 'is-left' },
+      { id: 'action', label: 'Action', key: 'f', className: 'is-action' },
+      { id: 'right', label: 'Right', key: 'd', className: 'is-right' },
+      { id: 'down', label: 'Down', key: 's', className: 'is-down' }
+    ]
+  },
+  {
+    id: 'p2',
+    title: 'Station Two',
+    keys: [
+      { id: 'up', label: 'Up', key: 'arrowup', className: 'is-up' },
+      { id: 'left', label: 'Left', key: 'arrowleft', className: 'is-left' },
+      { id: 'action', label: 'Action', key: 'enter', className: 'is-action' },
+      { id: 'right', label: 'Right', key: 'arrowright', className: 'is-right' },
+      { id: 'down', label: 'Down', key: 'arrowdown', className: 'is-down' }
+    ]
+  }
+];
+
+const preventTouchScroll = event => {
+  event.preventDefault();
+};
+
 export const GamesPage = () => {
   const [selectedGameId, setSelectedGameId] = useState(DEFAULT_GAME_ID);
   const [experienceMode, setExperienceMode] = useState('classic');
-  const { canvasRef, meta } = useArcadeGame(selectedGameId);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const stageRef = useRef(null);
+  const { canvasRef, meta, setVirtualKey } = useArcadeGame(selectedGameId);
   const selectedGame = useMemo(
     () => GAME_CATALOG.find(game => game.id === selectedGameId) || GAME_CATALOG[0],
     [selectedGameId]
   );
   const party = usePartyMode(selectedGame.party.stations);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === stageRef.current);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    };
+  }, []);
+
+  const toggleFullscreen = async () => {
+    if (!stageRef.current) {
+      return;
+    }
+
+    if (document.fullscreenElement === stageRef.current) {
+      await document.exitFullscreen();
+      return;
+    }
+
+    await stageRef.current.requestFullscreen();
+  };
+
+  const bindTouchControl = key => ({
+    onPointerDown: event => {
+      event.preventDefault();
+      setVirtualKey(key, true);
+    },
+    onPointerUp: () => setVirtualKey(key, false),
+    onPointerLeave: () => setVirtualKey(key, false),
+    onPointerCancel: () => setVirtualKey(key, false),
+    onTouchStart: preventTouchScroll,
+    onTouchMove: preventTouchScroll
+  });
 
   return (
     <div className="games-page">
@@ -82,12 +150,22 @@ export const GamesPage = () => {
                   </div>
                 </div>
                 <div className="games-instructions">
-                  <h3>Controls</h3>
+                  <h3>Desktop Controls</h3>
                   <ul>
                     {meta.controls.map(line => (
                       <li key={line}>{line}</li>
                     ))}
                   </ul>
+                </div>
+                <div className="games-mobile-help">
+                  <div className="games-control-card">
+                    <span>Mobile Play</span>
+                    <strong>Use the touch pads below the game on phones or tablets.</strong>
+                  </div>
+                  <div className="games-control-card">
+                    <span>Best Experience</span>
+                    <strong>Tap fullscreen and rotate to landscape for easier same-device multiplayer.</strong>
+                  </div>
                 </div>
               </>
             ) : (
@@ -206,14 +284,52 @@ export const GamesPage = () => {
             )}
           </div>
 
-          <div className="games-canvas-card">
-            <canvas
-              ref={canvasRef}
-              className="games-canvas"
-              width="960"
-              height="600"
-              aria-label={`${selectedGame.title} playable area`}
-            />
+          <div ref={stageRef} className={isFullscreen ? 'games-player-shell is-fullscreen' : 'games-player-shell'}>
+            <div className="games-player-toolbar">
+              <div>
+                <p className="eyebrow">Play Surface</p>
+                <strong>{selectedGame.title}</strong>
+              </div>
+              <button type="button" className="button dark games-fullscreen-button" onClick={toggleFullscreen}>
+                {isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+              </button>
+            </div>
+
+            <div className="games-canvas-card">
+              <canvas
+                ref={canvasRef}
+                className="games-canvas"
+                width="960"
+                height="600"
+                aria-label={`${selectedGame.title} playable area`}
+              />
+            </div>
+
+            {experienceMode === 'classic' && (
+              <div className="games-touch-shell" aria-label="Mobile touch controls">
+                {MOBILE_STATIONS.map(station => (
+                  <section key={station.id} className="games-touch-station">
+                    <header>
+                      <span>{station.title}</span>
+                      <strong>{station.id === 'p1' ? 'Left team controls' : 'Right team controls'}</strong>
+                    </header>
+                    <div className="games-touch-grid">
+                      {station.keys.map(control => (
+                        <button
+                          key={`${station.id}-${control.id}`}
+                          type="button"
+                          className={`games-touch-button ${control.className}`}
+                          aria-label={`${station.title} ${control.label}`}
+                          {...bindTouchControl(control.key)}
+                        >
+                          {control.label}
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </section>
