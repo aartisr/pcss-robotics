@@ -3,10 +3,6 @@
   "version": "0.1.0",
   "description": "PCSS II Robotics website built with React and Vite.",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aartisr/pcss-robotics.git"
-  },
   "type": "module",
   "engines": {
     "node": "20.x"

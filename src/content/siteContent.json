@@ -27,6 +27,7 @@
     { "label": "Sponsors", "path": "/sponsors" }
   ],
   "navigationSecondary": [
+    { "label": "Games", "path": "/games" },
     { "label": "Robots", "path": "/robots" },
     { "label": "Outreach", "path": "/outreach" },
     { "label": "Events", "path": "/events" },
