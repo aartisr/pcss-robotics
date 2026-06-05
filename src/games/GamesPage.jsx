@@ -3,12 +3,6 @@ import { DEFAULT_GAME_ID, GAME_CATALOG } from './gameCatalog';
 import { useArcadeGame } from './useArcadeGame';
 import { usePartyMode } from './usePartyMode';
 
-const statItems = [
-  { value: '3', label: 'playable multiplayer modes' },
-  { value: '60 FPS', label: 'canvas-first rendering target' },
-  { value: '0', label: 'external runtime dependencies added' }
-];
-
 const queuePresetCounts = [6, 8, 12];
 
 export const GamesPage = () => {
@@ -23,24 +17,6 @@ export const GamesPage = () => {
 
   return (
     <div className="games-page">
-      <section className="games-hero">
-        <div className="games-hero-copy games-hero-copy-full">
-          <h1>Multiplayer robotics games that feel event-ready, not like a side quest.</h1>
-          <p>
-            This arcade page gives visitors three polished competitive experiences built for speed, clarity, and replayability:
-            knockout duels, 2v2 robot soccer, and a build-floor strategy race.
-          </p>
-          <div className="hero-stats games-stats">
-            {statItems.map(item => (
-              <div key={item.label}>
-                <strong>{item.value}</strong>
-                <span>{item.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="content-section games-section">
         <div className="section-intro">
           <p className="eyebrow">Experience Builder</p>
