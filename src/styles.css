@@ -2967,6 +2967,7 @@ h3 {
   color: #12233e;
   font-weight: 900;
   touch-action: none;
+  -webkit-user-select: none;
   user-select: none;
 }
 

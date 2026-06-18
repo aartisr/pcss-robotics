@@ -16,7 +16,9 @@ export const resolveVariant = source => {
     return source;
   }
 
-  const { variants: _variants, activeVariant: _activeVariant, ...base } = source;
+  const base = { ...source };
+  delete base.variants;
+  delete base.activeVariant;
   return {
     ...base,
     ...variants[activeVariant],
