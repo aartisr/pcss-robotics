@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { trackAnalyticsEvent } from '../../data/analytics';
 import { SectionIntro } from './SectionIntro';
 import { asArray } from './utils';
 
@@ -15,7 +16,12 @@ const SponsorLogo = ({ sponsor }) => {
 
   return (
     <article className={`sponsor-logo-card${isCurrentSponsor ? ' is-featured' : ''}`}>
-      <a href={sponsor.href || '#'} target={sponsor.href ? '_blank' : undefined} rel={sponsor.href ? 'noreferrer' : undefined}>
+      <a
+        href={sponsor.href || '#'}
+        target={sponsor.href ? '_blank' : undefined}
+        rel={sponsor.href ? 'noreferrer' : undefined}
+        onClick={() => trackAnalyticsEvent('cta_click', { location: 'sponsor_showcase', sponsor: sponsor.name, href: sponsor.href || '#' })}
+      >
         <div className="sponsor-logo-frame" aria-label={sponsor.name}>
           {!imageFailed && sponsor.logo ? (
             <img src={sponsor.logo} alt={sponsor.name} loading="lazy" onError={() => setImageFailed(true)} />
@@ -37,7 +43,7 @@ export const SponsorShowcase = ({ section }) => (
       <div>
         <SectionIntro eyebrow={section.eyebrow || 'Sponsorship'} title={section.title || 'Sponsor the event'} body={section.body} />
         {section.email && (
-          <p className="sponsor-contact-copy">Want to sponsor us? Reach out to <a className="email-link" href={`mailto:${section.email}`}>{section.email}</a> for details on sponsorship.</p>
+          <p className="sponsor-contact-copy">Want to sponsor us? Reach out to <a className="email-link" href={`mailto:${section.email}`} onClick={() => trackAnalyticsEvent('cta_click', { location: 'sponsor_showcase', cta: 'email', email: section.email })}>{section.email}</a> for details on sponsorship.</p>
         )}
       </div>
 

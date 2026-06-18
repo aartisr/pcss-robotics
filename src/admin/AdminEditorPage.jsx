@@ -206,6 +206,54 @@ const createPuckConfig = (brand, sectionTypes) => {
 
           return <SectionRenderer section={section} />;
         }
+      },
+      [types.GAMES_CONTENT_TYPE]: {
+        label: 'Games Content',
+        fields: {
+          eyebrow: { type: 'text', label: 'Section Eyebrow' },
+          title: { type: 'text', label: 'Section Title' },
+          intro: { type: 'textarea', label: 'Section Intro' },
+          classicLabel: { type: 'text', label: 'Classic Tab Label' },
+          classicDescription: { type: 'textarea', label: 'Classic Tab Description' },
+          partyLabel: { type: 'text', label: 'Party Tab Label' },
+          partyDescription: { type: 'textarea', label: 'Party Tab Description' },
+          nowPlayingEyebrow: { type: 'text', label: 'Classic Panel Eyebrow' },
+          partyEyebrow: { type: 'text', label: 'Party Panel Eyebrow' },
+          playSurfaceEyebrow: { type: 'text', label: 'Play Surface Eyebrow' },
+          desktopControlsTitle: { type: 'text', label: 'Desktop Controls Title' },
+          mobilePlayTitle: { type: 'text', label: 'Mobile Play Title' },
+          mobilePlayBody: { type: 'textarea', label: 'Mobile Play Body' },
+          bestExperienceTitle: { type: 'text', label: 'Best Experience Title' },
+          bestExperienceBody: { type: 'textarea', label: 'Best Experience Body' },
+          partyResultsTitle: { type: 'text', label: 'Recent Results Title' },
+          partyResultsEmpty: { type: 'textarea', label: 'Recent Results Empty State' }
+        },
+        defaultProps: {
+          eyebrow: 'Experience Builder',
+          title: 'Choose the game, then choose how you want to run it.',
+          intro: 'Switch between direct play and host-ready party orchestration without leaving the page or reloading the game canvas.',
+          classicLabel: 'Classic Play',
+          classicDescription: 'Jump straight into the game with the default control sheet.',
+          partyLabel: 'Party Mode',
+          partyDescription: 'Run a live queue, rotate players, and track winners from one host surface.',
+          nowPlayingEyebrow: 'Now Playing',
+          partyEyebrow: 'Party Host Panel',
+          playSurfaceEyebrow: 'Play Surface',
+          desktopControlsTitle: 'Desktop Controls',
+          mobilePlayTitle: 'Mobile Play',
+          mobilePlayBody: 'Use the touch pads below the game on phones or tablets.',
+          bestExperienceTitle: 'Best Experience',
+          bestExperienceBody: 'Tap fullscreen and rotate to landscape for easier same-device multiplayer.',
+          partyResultsTitle: 'Recent results',
+          partyResultsEmpty: 'Start the first heat and results will appear here.'
+        },
+        render: props => (
+          <section className="page-hero">
+            <p className="eyebrow">{props.eyebrow || 'Experience Builder'}</p>
+            <h1>{props.title || 'Games'}</h1>
+            <p>{props.intro || ''}</p>
+          </section>
+        )
       }
     }
   };

@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Icon } from '../Icon';
+import { trackAnalyticsEvent } from '../../data/analytics';
 import { SectionIntro } from './SectionIntro';
 import { asArray } from './utils';
 
@@ -146,7 +147,11 @@ export const EventAtlas = ({ section }) => {
                   )}
 
                   {event.href && (
-                    <a className="atlas-link" href={event.href}>
+                    <a
+                      className="atlas-link"
+                      href={event.href}
+                      onClick={() => trackAnalyticsEvent('cta_click', { location: 'event_atlas', event: event.name, href: event.href })}
+                    >
                       Explore event <Icon name="chevron" size={16} />
                     </a>
                   )}

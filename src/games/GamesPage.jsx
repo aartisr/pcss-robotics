@@ -2,6 +2,7 @@ import { startTransition, useEffect, useMemo, useRef, useState } from 'react';
 import { DEFAULT_GAME_ID, GAME_CATALOG } from './gameCatalog';
 import { useArcadeGame } from './useArcadeGame';
 import { usePartyMode } from './usePartyMode';
+import { useContent } from '../data/ContentContext';
 
 const queuePresetCounts = [6, 8, 12];
 
@@ -35,6 +36,7 @@ const preventTouchScroll = event => {
 };
 
 export const GamesPage = () => {
+  const { content } = useContent();
   const [selectedGameId, setSelectedGameId] = useState(DEFAULT_GAME_ID);
   const [experienceMode, setExperienceMode] = useState('classic');
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -44,6 +46,7 @@ export const GamesPage = () => {
     () => GAME_CATALOG.find(game => game.id === selectedGameId) || GAME_CATALOG[0],
     [selectedGameId]
   );
+  const copy = content?.games || {};
   const party = usePartyMode(selectedGame.party.stations);
 
   useEffect(() => {
@@ -87,9 +90,9 @@ export const GamesPage = () => {
     <div className="games-page">
       <section className="content-section games-section">
         <div className="section-intro">
-          <p className="eyebrow">Experience Builder</p>
-          <h2>Choose the game, then choose how you want to run it.</h2>
-          <p>Switch between direct play and host-ready party orchestration without leaving the page or reloading the game canvas.</p>
+          <p className="eyebrow">{copy.eyebrow || 'Experience Builder'}</p>
+          <h2>{copy.title || 'Choose the game, then choose how you want to run it.'}</h2>
+          <p>{copy.intro || 'Switch between direct play and host-ready party orchestration without leaving the page or reloading the game canvas.'}</p>
         </div>
 
         <div className="games-picker-grid">
@@ -117,16 +120,16 @@ export const GamesPage = () => {
             className={experienceMode === 'classic' ? 'games-mode-pill is-active' : 'games-mode-pill'}
             onClick={() => setExperienceMode('classic')}
           >
-            Classic Play
-            <span>Jump straight into the game with the default control sheet.</span>
+            {copy.classicLabel || 'Classic Play'}
+            <span>{copy.classicDescription || 'Jump straight into the game with the default control sheet.'}</span>
           </button>
           <button
             type="button"
             className={experienceMode === 'party' ? 'games-mode-pill is-active' : 'games-mode-pill'}
             onClick={() => setExperienceMode('party')}
           >
-            Party Mode
-            <span>Run a live queue, rotate players, and track winners from one host surface.</span>
+            {copy.partyLabel || 'Party Mode'}
+            <span>{copy.partyDescription || 'Run a live queue, rotate players, and track winners from one host surface.'}</span>
           </button>
         </div>
       </section>
@@ -136,7 +139,7 @@ export const GamesPage = () => {
           <div className="games-stage-copy">
             {experienceMode === 'classic' ? (
               <>
-                <p className="eyebrow">Now Playing</p>
+                <p className="eyebrow">{copy.nowPlayingEyebrow || 'Now Playing'}</p>
                 <h2>{selectedGame.title}</h2>
                 <p>{selectedGame.tagline}</p>
                 <div className="games-control-panel">
@@ -150,7 +153,7 @@ export const GamesPage = () => {
                   </div>
                 </div>
                 <div className="games-instructions">
-                  <h3>Desktop Controls</h3>
+                  <h3>{copy.desktopControlsTitle || 'Desktop Controls'}</h3>
                   <ul>
                     {meta.controls.map(line => (
                       <li key={line}>{line}</li>
@@ -159,18 +162,18 @@ export const GamesPage = () => {
                 </div>
                 <div className="games-mobile-help">
                   <div className="games-control-card">
-                    <span>Mobile Play</span>
-                    <strong>Use the touch pads below the game on phones or tablets.</strong>
+                    <span>{copy.mobilePlayTitle || 'Mobile Play'}</span>
+                    <strong>{copy.mobilePlayBody || 'Use the touch pads below the game on phones or tablets.'}</strong>
                   </div>
                   <div className="games-control-card">
-                    <span>Best Experience</span>
-                    <strong>Tap fullscreen and rotate to landscape for easier same-device multiplayer.</strong>
+                    <span>{copy.bestExperienceTitle || 'Best Experience'}</span>
+                    <strong>{copy.bestExperienceBody || 'Tap fullscreen and rotate to landscape for easier same-device multiplayer.'}</strong>
                   </div>
                 </div>
               </>
             ) : (
               <>
-                <p className="eyebrow">Party Host Panel</p>
+                <p className="eyebrow">{copy.partyEyebrow || 'Party Host Panel'}</p>
                 <h2>{selectedGame.title} Party Mode</h2>
                 <p>{selectedGame.party.quickTip}</p>
 
@@ -273,11 +276,11 @@ export const GamesPage = () => {
                 </div>
 
                 <div className="games-instructions party-history">
-                  <h3>Recent results</h3>
+                  <h3>{copy.partyResultsTitle || 'Recent results'}</h3>
                   <ul>
                     {party.history.length > 0 ? party.history.map(item => (
                       <li key={item.id}>{item.winnerName} won a {item.format.replace('-', ' ')} heat.</li>
-                    )) : <li>Start the first heat and results will appear here.</li>}
+                    )) : <li>{copy.partyResultsEmpty || 'Start the first heat and results will appear here.'}</li>}
                   </ul>
                 </div>
               </>
@@ -287,7 +290,7 @@ export const GamesPage = () => {
           <div ref={stageRef} className={isFullscreen ? 'games-player-shell is-fullscreen' : 'games-player-shell'}>
             <div className="games-player-toolbar">
               <div>
-                <p className="eyebrow">Play Surface</p>
+                <p className="eyebrow">{copy.playSurfaceEyebrow || 'Play Surface'}</p>
                 <strong>{selectedGame.title}</strong>
               </div>
               <button type="button" className="button dark games-fullscreen-button" onClick={toggleFullscreen}>

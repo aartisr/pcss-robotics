@@ -1,4 +1,5 @@
 import { Icon } from '../Icon';
+import { trackAnalyticsEvent } from '../../data/analytics';
 import { SectionIntro } from './SectionIntro';
 import { asArray } from './utils';
 
@@ -15,6 +16,7 @@ export const Links = ({ section }) => (
           key={`${item.title}-${index}`}
           target={item.href.startsWith('http') ? '_blank' : undefined}
           rel={item.href.startsWith('http') ? 'noreferrer' : undefined}
+          onClick={() => trackAnalyticsEvent('cta_click', { location: 'links_section', title: item.title, href: item.href })}
         >
           <div className="link-card-header">
             <span className={`card-icon${item.logo ? ' has-logo' : ''}`}>

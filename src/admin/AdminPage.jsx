@@ -36,6 +36,7 @@ export const AdminPage = () => {
           <p>All website pages are available in the Puck editor. Choose a page to edit, or open the live route in a new tab.</p>
         </div>
         <div className="admin-actions">
+          <Link className="button ghost dark" to="/admin/analytics"><Icon name="table" />Analytics</Link>
           <button className="button ghost dark" type="button" onClick={() => downloadJson(content)}><Icon name="file" />Export JSON</button>
           <button className="button ghost dark" type="button" onClick={handleReset}>Reset</button>
         </div>

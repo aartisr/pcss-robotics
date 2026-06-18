@@ -13,9 +13,12 @@ import { Schedule } from './sections/ScheduleSection';
 import { Speakers } from './sections/SpeakerSection';
 import { SponsorShowcase } from './sections/SponsorShowcaseSection';
 import { SponsorTiers } from './sections/SponsorTiersSection';
+import { SponsorConversion } from './sections/SponsorConversionSection';
 import { Story } from './sections/StorySection';
 import { TeamProfiles } from './sections/TeamProfilesSection';
 import { Timeline } from './sections/TimelineSection';
+import { ImpactPulse } from './sections/ImpactPulseSection';
+import { ViralLaunch } from './sections/ViralLaunchSection';
 
 export { Hero };
 
@@ -40,7 +43,10 @@ export const SectionRenderer = ({ section }) => {
     schedule: Schedule,
     speakers: Speakers,
     links: Links,
-    teamProfiles: TeamProfiles
+    teamProfiles: TeamProfiles,
+    impactPulse: ImpactPulse,
+    viralLaunch: ViralLaunch,
+    sponsorConversion: SponsorConversion
   };
   const Component = components[section.type] || FeatureGrid;
   return <Component section={section} />;

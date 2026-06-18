@@ -69,6 +69,33 @@ const normalizePage = (page, index) => {
   };
 };
 
+const normalizeGames = (games, fallbackGames = {}) => {
+  const source = isObject(games) ? games : {};
+  const fallback = isObject(fallbackGames) ? fallbackGames : {};
+  const merged = { ...fallback, ...source };
+
+  return {
+    ...merged,
+    eyebrow: asString(merged.eyebrow, 'Experience Builder'),
+    title: asString(merged.title, 'Choose the game, then choose how you want to run it.'),
+    intro: asString(merged.intro, 'Switch between direct play and host-ready party orchestration without leaving the page or reloading the game canvas.'),
+    classicLabel: asString(merged.classicLabel, 'Classic Play'),
+    classicDescription: asString(merged.classicDescription, 'Jump straight into the game with the default control sheet.'),
+    partyLabel: asString(merged.partyLabel, 'Party Mode'),
+    partyDescription: asString(merged.partyDescription, 'Run a live queue, rotate players, and track winners from one host surface.'),
+    nowPlayingEyebrow: asString(merged.nowPlayingEyebrow, 'Now Playing'),
+    partyEyebrow: asString(merged.partyEyebrow, 'Party Host Panel'),
+    playSurfaceEyebrow: asString(merged.playSurfaceEyebrow, 'Play Surface'),
+    desktopControlsTitle: asString(merged.desktopControlsTitle, 'Desktop Controls'),
+    mobilePlayTitle: asString(merged.mobilePlayTitle, 'Mobile Play'),
+    mobilePlayBody: asString(merged.mobilePlayBody, 'Use the touch pads below the game on phones or tablets.'),
+    bestExperienceTitle: asString(merged.bestExperienceTitle, 'Best Experience'),
+    bestExperienceBody: asString(merged.bestExperienceBody, 'Tap fullscreen and rotate to landscape for easier same-device multiplayer.'),
+    partyResultsTitle: asString(merged.partyResultsTitle, 'Recent results'),
+    partyResultsEmpty: asString(merged.partyResultsEmpty, 'Start the first heat and results will appear here.')
+  };
+};
+
 const normalizeNavigation = (navigation, pages) => {
   const normalizedNavigation = asArray(navigation)
     .map((item, index) => {
@@ -108,6 +135,7 @@ export const normalizeContent = (rawContent, fallbackContent = {}) => {
 
   const homeSource = isObject(raw.home) ? raw.home : isObject(fallback.home) ? fallback.home : {};
   const homeHero = isObject(homeSource.hero) ? homeSource.hero : {};
+  const gamesSource = normalizeGames(raw.games, fallback.games);
 
   return {
     ...fallback,
@@ -141,6 +169,7 @@ export const normalizeContent = (rawContent, fallbackContent = {}) => {
       },
       sections: asArray(homeSource.sections).map((section, index) => normalizeSection(section, index))
     },
+    games: gamesSource,
     pages,
     navigation: normalizeNavigation(raw.navigation ?? fallback.navigation, pages)
   };

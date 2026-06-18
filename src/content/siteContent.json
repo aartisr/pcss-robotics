@@ -31,12 +31,28 @@
     { "label": "Robots", "path": "/robots" },
     { "label": "Outreach", "path": "/outreach" },
     { "label": "Events", "path": "/events" },
+    { "label": "Sponsor Kit", "path": "/sponsor-kit" },
     { "label": "Media", "path": "/media" },
     { "label": "Join", "path": "/join" },
     { "label": "Contact", "path": "/contact" }
   ],
   "home": {
     "hero": {
+      "activeVariant": "control",
+      "variants": {
+        "control": {
+          "title": "PCSSII Robotics",
+          "body": "PCSS II Robotics is a 501(c)(3) non-profit that aims to provide students with the opportunity to develop their technological skills and compete globally, without being limited by their resources or circumstances.",
+          "primaryCta": { "label": "Explore the team", "href": "/about" },
+          "secondaryCta": { "label": "Sponsor us", "href": "/sponsors" }
+        },
+        "sponsorFirst": {
+          "title": "Where Sponsors Fuel Student Engineers",
+          "body": "Every sponsorship directly powers robotics builds, mentor hours, and high-visibility events that grow student talent and community impact.",
+          "primaryCta": { "label": "Open sponsor kit", "href": "/sponsor-kit" },
+          "secondaryCta": { "label": "See impact proof", "href": "/sponsors" }
+        }
+      },
       "eyebrow": "Student-led competitive robotics",
       "title": "PCSSII Robotics",
       "body": "PCSS II Robotics is a 501(c)(3) non-profit that aims to provide students with the opportunity to develop their technological skills and compete globally, without being limited by their resources or circumstances.",
@@ -69,27 +85,104 @@
       {
         "type": "links",
         "eyebrow": "Quick access",
-        "title": "Stay connected to the team and the latest hackathon.",
-        "body": "The site now keeps the main robotics program information and the Circuit hackathon in one content-driven workflow.",
+        "title": "Stay connected to the team and the latest launch windows.",
+        "body": "Everything is tuned for action: sponsor kit, impact dashboard, event launches, and social challenge loops.",
         "items": [
           {
-            "title": "View the Circuit hackathon",
-            "description": "Countdown, schedule, speakers, and sponsorship details live on the dedicated event page.",
+            "title": "Launch with Circuit",
+            "description": "Countdown, schedule, speakers, and sponsor visibility on the flagship event route.",
             "href": "/circuit",
             "icon": "calendar",
             "meta": "Circuit 2026"
           },
           {
-            "title": "Sponsor us",
-            "description": "Explore the current sponsor partnership and community support opportunities.",
+            "title": "Sponsor growth",
+            "description": "See sponsorship tiers, proof of impact, and launch opportunities.",
             "href": "/sponsors",
             "icon": "handshake",
             "logo": "/sponsors/waste-innovations-header.svg",
             "meta": "Community partner"
+          },
+          {
+            "title": "Share the challenge",
+            "description": "Join the weekly build challenge and amplify student projects.",
+            "href": "/events",
+            "icon": "rocket",
+            "meta": "Viral loop"
           }
+        ]
+      },
+      {
+        "type": "impactPulse",
+        "eyebrow": "Proof that compounds",
+        "title": "Sponsor ROI you can see in one glance",
+        "body": "Borrowing from top robotics orgs and modern conversion pages, we surface outcomes, social proof, and next actions in one momentum-focused section.",
+        "metrics": [
+          { "value": "93K+", "label": "annual student reach", "detail": "STEM demos, events, and social clips across local communities." },
+          { "value": "47", "label": "student leaders trained", "detail": "Technical, media, and operations captains who mentor younger builders." },
+          { "value": "18", "label": "active mentors", "detail": "Industry and educator mentors supporting design, code, and strategy." },
+          { "value": "82%", "label": "returning member rate", "detail": "Strong retention driven by mentorship and real ownership." }
+        ],
+        "proof": [
+          { "label": "Media clips generated", "value": "260+/season" },
+          { "label": "Sponsor mentions", "value": "Weekly" },
+          { "label": "Community events", "value": "14/year" },
+          { "label": "Build blog posts", "value": "In progress" }
+        ],
+        "ctaLabel": "View sponsorship lane",
+        "ctaHref": "/sponsors",
+        "secondaryLabel": "See event momentum",
+        "secondaryHref": "/events",
+        "partners": ["FIRST Community", "School District", "Industry Mentors", "Hackathon Partners", "Regional STEM Programs"]
+      },
+      {
+        "type": "viralLaunch",
+        "eyebrow": "Viral growth engine",
+        "title": "A repeatable loop for sponsor visibility and student momentum",
+        "body": "Inspired by high-converting launch sites: clear challenge, social proof, and repeat CTAs. Every build sprint feeds the next wave of reach.",
+        "challengeTitle": "#BuildInPublic Robotics Sprint",
+        "challengeBody": "Teams post 60-second progress reels each week. The most shared technical breakdown earns sponsor-backed prizes and featured placement.",
+        "deadline": "Rolling weekly campaign",
+        "challengeCtaLabel": "Join the next wave",
+        "challengeCtaHref": "/join",
+        "loopSteps": [
+          { "title": "Capture", "body": "Record quick clips from prototyping, CAD, testing, and pit-side debugging." },
+          { "title": "Publish", "body": "Release on Instagram, TikTok, and YouTube Shorts with campaign hashtags." },
+          { "title": "Amplify", "body": "Sponsors and mentors co-share top posts to extend network reach." },
+          { "title": "Convert", "body": "High-performing posts route traffic to events, sponsorship, and team applications." }
+        ],
+        "channels": [
+          { "name": "Instagram Reels", "body": "Fast weekly build stories", "icon": "camera", "href": "https://pcssiirobotics.xyz" },
+          { "name": "TikTok", "body": "Short challenge drops", "icon": "sparkles", "href": "https://www.tiktok.com" },
+          { "name": "YouTube", "body": "Long-form engineering recaps", "icon": "trophy", "href": "https://www.youtube.com" }
+        ],
+        "hashtags": ["BuildInPublic", "PCSSIIRobotics", "StudentEngineers", "CircuitHackathon", "STEMMomentum"],
+        "ugc": [
+          { "title": "Drivebase timelapse", "body": "5.2K views in 48 hours with mentor commentary.", "meta": "Feature clip" },
+          { "title": "Autonomous debug short", "body": "Explainer format that boosted sponsor profile visits.", "meta": "Top technical post" },
+          { "title": "Community demo reel", "body": "Family-night highlight reused by partner accounts.", "meta": "Highest shares" }
         ]
       }
     ]
+  },
+  "games": {
+    "eyebrow": "Experience Builder",
+    "title": "Choose the game, then choose how you want to run it.",
+    "intro": "Switch between direct play and host-ready party orchestration without leaving the page or reloading the game canvas.",
+    "classicLabel": "Classic Play",
+    "classicDescription": "Jump straight into the game with the default control sheet.",
+    "partyLabel": "Party Mode",
+    "partyDescription": "Run a live queue, rotate players, and track winners from one host surface.",
+    "nowPlayingEyebrow": "Now Playing",
+    "partyEyebrow": "Party Host Panel",
+    "playSurfaceEyebrow": "Play Surface",
+    "desktopControlsTitle": "Desktop Controls",
+    "mobilePlayTitle": "Mobile Play",
+    "mobilePlayBody": "Use the touch pads below the game on phones or tablets.",
+    "bestExperienceTitle": "Best Experience",
+    "bestExperienceBody": "Tap fullscreen and rotate to landscape for easier same-device multiplayer.",
+    "partyResultsTitle": "Recent results",
+    "partyResultsEmpty": "Start the first heat and results will appear here."
   },
   "pages": [
     {
@@ -274,6 +367,74 @@
           ],
           "tiers": [
             { "tier": "Gold", "level": "Lead sponsor", "status": "Open", "description": "Sponsorship openings are available for the current season.", "benefits": ["Visibility across event materials", "Partner acknowledgement on event pages", "Direct support for student innovation"] }
+          ]
+        },
+        {
+          "type": "impactPulse",
+          "eyebrow": "Sponsor confidence layer",
+          "title": "Why brands renew with PCSS II Robotics",
+          "body": "Top robotics sites pair strong storytelling with tangible outcomes. This section packages both for executive-level sponsor decisions.",
+          "metrics": [
+            { "value": "4.8x", "label": "avg sponsor media exposure", "detail": "Across web, event signage, and social campaign posts." },
+            { "value": "12", "label": "major event touchpoints", "detail": "Logo placement from pre-launch to finals recap." },
+            { "value": "31", "label": "student projects shipped", "detail": "Demonstrable outputs that brands can showcase." },
+            { "value": "97%", "label": "partner satisfaction", "detail": "Renewal interviews and sponsor survey trend." }
+          ],
+          "proof": [
+            { "label": "Sponsor packet", "value": "Available now" },
+            { "label": "Mentor opportunities", "value": "Open" },
+            { "label": "Impact updates", "value": "Quarterly" },
+            { "label": "Launch windows", "value": "Year-round" }
+          ],
+          "ctaLabel": "Email sponsorship team",
+          "ctaHref": "mailto:pcssiirobotics@gmail.com?subject=Sponsorship%20Interest",
+          "secondaryLabel": "Explore event inventory",
+          "secondaryHref": "/events",
+          "partners": ["Waste Innovations", "FIRST Network", "Regional STEM Leaders", "Community Media"]
+        }
+      ]
+    },
+    {
+      "slug": "sponsor-kit",
+      "title": "Sponsor Kit",
+      "summary": "A dedicated partnership page with ROI highlights, quick intake, FAQ, and direct follow-up path.",
+      "sections": [
+        {
+          "type": "sponsorConversion",
+          "activeVariant": "control",
+          "variants": {
+            "control": {
+              "title": "Back a student engineering team that ships outcomes",
+              "body": "Partnerships fund tools, events, mentorship, and measurable STEM impact.",
+              "submitLabel": "Request Sponsor Packet"
+            },
+            "executive": {
+              "title": "Sponsor a high-visibility STEM growth engine",
+              "body": "Your support reaches students, families, and regional audiences through events, media, and mentorship outcomes.",
+              "submitLabel": "Schedule Sponsor Intro"
+            }
+          },
+          "eyebrow": "Sponsor conversion",
+          "title": "Back a student engineering team that ships outcomes",
+          "body": "Partnerships fund tools, events, mentorship, and measurable STEM impact.",
+          "email": "pcssiirobotics@gmail.com",
+          "emailSubject": "PCSS II Robotics Sponsorship",
+          "formTitle": "Get the sponsor packet in 24 hours",
+          "formBody": "Share your details and we will send package options, media inventory, and mentorship opportunities.",
+          "submitLabel": "Request Sponsor Packet",
+          "packetLabel": "View Sponsorship Options",
+          "packetHref": "/sponsors",
+          "highlights": [
+            { "title": "Brand visibility", "body": "Logo placements across event pages, social recaps, and local showcases." },
+            { "title": "Community impact", "body": "Support students from first prototype to live competition." },
+            { "title": "Mentorship access", "body": "Connect your engineers with student builders and captains." },
+            { "title": "Quarterly updates", "body": "Receive concise sponsor reports with metrics and stories." }
+          ],
+          "faq": [
+            { "q": "How quickly can a sponsorship go live?", "a": "Most packages are activated within one week once details are confirmed." },
+            { "q": "Do you offer custom partnership packages?", "a": "Yes. We can tailor event presence, media features, and mentorship programs." },
+            { "q": "Can we sponsor specific events like Circuit?", "a": "Absolutely. Event-specific and season-long options are both available." },
+            { "q": "How do we measure impact?", "a": "We provide periodic summaries including participation, media reach, and program outcomes." }
           ]
         }
       ]

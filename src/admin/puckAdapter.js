@@ -1,4 +1,5 @@
 const HOME_SLUG = 'home';
+const GAMES_SLUG = 'games';
 
 const SECTION_TYPE_OPTIONS = [
   'featureGrid',
@@ -18,12 +19,16 @@ const SECTION_TYPE_OPTIONS = [
   'schedule',
   'speakers',
   'links',
-  'teamProfiles'
+  'teamProfiles',
+  'impactPulse',
+  'viralLaunch',
+  'sponsorConversion'
 ];
 
 const HOME_HERO_TYPE = 'HomeHeroBlock';
 const PAGE_HEADER_TYPE = 'PageHeaderBlock';
 const SECTION_BLOCK_TYPE = 'SectionBlock';
+const GAMES_CONTENT_TYPE = 'GamesContentBlock';
 
 const isObject = value => value && typeof value === 'object' && !Array.isArray(value);
 
@@ -145,6 +150,34 @@ const toPageHeaderBlock = (page, slug) => {
   };
 };
 
+const toGamesBlock = games => {
+  const safeGames = isObject(games) ? games : {};
+
+  return {
+    type: GAMES_CONTENT_TYPE,
+    props: {
+      id: toBlockId(safeGames._id, `${GAMES_SLUG}-content`),
+      eyebrow: asString(safeGames.eyebrow),
+      title: asString(safeGames.title),
+      intro: asString(safeGames.intro),
+      classicLabel: asString(safeGames.classicLabel),
+      classicDescription: asString(safeGames.classicDescription),
+      partyLabel: asString(safeGames.partyLabel),
+      partyDescription: asString(safeGames.partyDescription),
+      nowPlayingEyebrow: asString(safeGames.nowPlayingEyebrow),
+      partyEyebrow: asString(safeGames.partyEyebrow),
+      playSurfaceEyebrow: asString(safeGames.playSurfaceEyebrow),
+      desktopControlsTitle: asString(safeGames.desktopControlsTitle),
+      mobilePlayTitle: asString(safeGames.mobilePlayTitle),
+      mobilePlayBody: asString(safeGames.mobilePlayBody),
+      bestExperienceTitle: asString(safeGames.bestExperienceTitle),
+      bestExperienceBody: asString(safeGames.bestExperienceBody),
+      partyResultsTitle: asString(safeGames.partyResultsTitle),
+      partyResultsEmpty: asString(safeGames.partyResultsEmpty)
+    }
+  };
+};
+
 export const slugFromPathname = pathname => {
   if (pathname === '/admin/edit') {
     return HOME_SLUG;
@@ -162,6 +195,7 @@ export const slugFromPathname = pathname => {
 
 export const getEditablePages = content => {
   const pages = Array.isArray(content?.pages) ? content.pages : [];
+  const contentPages = pages.filter(page => asString(page?.slug) !== GAMES_SLUG);
 
   return [
     {
@@ -171,7 +205,14 @@ export const getEditablePages = content => {
       viewPath: '/',
       editPath: '/admin/edit'
     },
-    ...pages.map(page => {
+    {
+      slug: GAMES_SLUG,
+      title: asString(content?.games?.title) || 'Games',
+      summary: asString(content?.games?.intro),
+      viewPath: '/games',
+      editPath: `/admin/edit/${GAMES_SLUG}`
+    },
+    ...contentPages.map(page => {
       const slug = asString(page?.slug);
       const normalizedSlug = slug || 'untitled';
 
@@ -197,6 +238,13 @@ export const createPuckDataForSlug = (content, slug) => {
     };
   }
 
+  if (slug === GAMES_SLUG) {
+    return {
+      root: { props: {} },
+      content: [toGamesBlock(content?.games)]
+    };
+  }
+
   const page = asArray(content?.pages).find(entry => entry?.slug === slug);
 
   if (!page) {
@@ -211,6 +259,39 @@ export const createPuckDataForSlug = (content, slug) => {
   return {
     root: { props: {} },
     content: [toPageHeaderBlock(page, slug), ...sections]
+  };
+};
+
+const toGamesFromPuck = (blocks, previousGames) => {
+  const errors = [];
+  const gamesBlock = blocks.find(block => block.type === GAMES_CONTENT_TYPE);
+
+  if (!gamesBlock) {
+    errors.push('Games content block is missing.');
+  }
+
+  return {
+    errors,
+    games: {
+      ...(isObject(previousGames) ? previousGames : {}),
+      eyebrow: asString(gamesBlock?.props?.eyebrow),
+      title: asString(gamesBlock?.props?.title),
+      intro: asString(gamesBlock?.props?.intro),
+      classicLabel: asString(gamesBlock?.props?.classicLabel),
+      classicDescription: asString(gamesBlock?.props?.classicDescription),
+      partyLabel: asString(gamesBlock?.props?.partyLabel),
+      partyDescription: asString(gamesBlock?.props?.partyDescription),
+      nowPlayingEyebrow: asString(gamesBlock?.props?.nowPlayingEyebrow),
+      partyEyebrow: asString(gamesBlock?.props?.partyEyebrow),
+      playSurfaceEyebrow: asString(gamesBlock?.props?.playSurfaceEyebrow),
+      desktopControlsTitle: asString(gamesBlock?.props?.desktopControlsTitle),
+      mobilePlayTitle: asString(gamesBlock?.props?.mobilePlayTitle),
+      mobilePlayBody: asString(gamesBlock?.props?.mobilePlayBody),
+      bestExperienceTitle: asString(gamesBlock?.props?.bestExperienceTitle),
+      bestExperienceBody: asString(gamesBlock?.props?.bestExperienceBody),
+      partyResultsTitle: asString(gamesBlock?.props?.partyResultsTitle),
+      partyResultsEmpty: asString(gamesBlock?.props?.partyResultsEmpty)
+    }
   };
 };
 
@@ -306,6 +387,22 @@ export const applyPuckDataToContent = (content, slug, puckData) => {
     };
   }
 
+  if (slug === GAMES_SLUG) {
+    const { games, errors } = toGamesFromPuck(blocks, content?.games);
+
+    if (errors.length > 0) {
+      return { content, errors };
+    }
+
+    return {
+      content: {
+        ...content,
+        games
+      },
+      errors: []
+    };
+  }
+
   const pages = asArray(content?.pages);
   const existingPage = pages.find(page => page?.slug === slug);
   const { page, errors } = toPageFromPuck(slug, blocks, existingPage);
@@ -340,5 +437,7 @@ export const types = {
   HOME_HERO_TYPE,
   PAGE_HEADER_TYPE,
   SECTION_BLOCK_TYPE,
-  HOME_SLUG
+  GAMES_CONTENT_TYPE,
+  HOME_SLUG,
+  GAMES_SLUG
 };

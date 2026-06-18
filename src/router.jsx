@@ -3,6 +3,7 @@ import { Layout } from './components/Layout';
 import { GenericPage, HomePage, NotFoundPage } from './components/Pages';
 import { AdminPageRoute } from './admin/AdminPageRoute';
 import { AdminEditorRoute } from './admin/AdminEditorRoute';
+import { AdminAnalyticsRoute } from './admin/AdminAnalyticsRoute';
 import { GamesPage } from './games/GamesPage';
 
 const getContentRoutes = (rootRoute, content) => {
@@ -57,6 +58,12 @@ export const makeRouter = content => {
     component: AdminEditorRoute
   });
 
+  const adminAnalyticsRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/admin/analytics',
+    component: AdminAnalyticsRoute
+  });
+
   const gamesRoute = createRoute({
     getParentRoute: () => rootRoute,
     path: '/games',
@@ -66,7 +73,7 @@ export const makeRouter = content => {
   const contentRoutes = getContentRoutes(rootRoute, content);
 
   return createRouter({
-    routeTree: rootRoute.addChildren([indexRoute, adminRoute, adminEditHomeRoute, adminEditPageRoute, gamesRoute, ...contentRoutes]),
+    routeTree: rootRoute.addChildren([indexRoute, adminRoute, adminEditHomeRoute, adminEditPageRoute, adminAnalyticsRoute, gamesRoute, ...contentRoutes]),
     defaultPreload: 'intent'
   });
 };
