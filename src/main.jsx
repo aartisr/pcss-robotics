@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from '@tanstack/react-router';
+import { Analytics } from '@vercel/analytics/react';
 import { makeRouter } from './router';
 import { ContentProvider, useContent } from './data/ContentContext';
 import { AppErrorBoundary } from './components/AppErrorBoundary';
@@ -21,5 +22,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <RoboticsSite />
       </ContentProvider>
     </AppErrorBoundary>
+    <Analytics />
   </React.StrictMode>
 );
