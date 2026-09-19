@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@layer utilities {
+  /* Academic Monograph & Journal Typography */
+  .font-serif-academic {
+    font-family: 'Newsreader', Georgia, Cambria, 'Times New Roman', Times, serif;
+    font-feature-settings: "liga" 1, "dlig" 1, "onum" 1;
+  }
+  .font-mono-academic {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-feature-settings: "zero" 1;
+  }
+  .font-sans-academic {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Celestial Ethereal Glows */
+  .glow-cyan {
+    box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.25);
+  }
+  .glow-violet {
+    box-shadow: 0 0 35px -5px rgba(192, 132, 252, 0.25);
+  }
+  .glow-gold {
+    box-shadow: 0 0 35px -5px rgba(251, 191, 36, 0.25);
+  }
+  .text-glow {
+    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+  }
+
+  /* Academic Theorem, Lemma, and Formula Boxes */
+  .academic-paper-rule {
+    border-top: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
+  }
+
+  /* KaTeX Dark Theme & Responsive Formula Customizations */
+  .katex {
+    font-size: 1.1em;
+    color: #e2e8f0;
+    text-rendering: geometricPrecision;
+  }
+  .katex-display {
+    margin: 0.5em 0 !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25rem 0;
+  }
+  .katex-display > .katex {
+    color: #38bdf8;
+  }
+  .katex .matrix {
+    margin: 0 0.1em;
+  }
+}
+
+@keyframes celestial-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes starlight-shimmer {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+}
+
+.animate-celestial-float {
+  animation: celestial-float 6s ease-in-out infinite;
+}
+
+.animate-starlight-shimmer {
+  animation: starlight-shimmer 4s ease-in-out infinite;
+}

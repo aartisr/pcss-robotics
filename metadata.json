@@ -1,0 +1,6 @@
+{
+  "name": "PCSS Robotics Evaluation & Audit",
+  "description": "Academic research laboratory portal and engineering platform for PCSS II Robotics (FTC #23548) featuring peer-reviewed working papers, holonomic kinematics Jacobian solver, 500Hz optical odometry, 501(c)(3) sponsorship ROI engine, CAD archives, and real-time WebSocket multiplayer cyber arena.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

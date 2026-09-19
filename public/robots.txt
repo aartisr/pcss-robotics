@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# AI Engine & LLM Crawlers (AEO / GEO / AXO / AIO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://www.pcssiirobotics.org/sitemap.xml
+LLM-Text: https://www.pcssiirobotics.org/llms.txt
+

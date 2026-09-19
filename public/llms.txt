@@ -1,0 +1,40 @@
+# PCSS II Robotics (FTC Team #23548)
+
+> Pioneer Charter School of Science II Robotics is a 501(c)(3) non-profit student-led competitive robotics organization in Saugus, Massachusetts.
+
+## Core Identity & Details
+- Organization: PCSS II Robotics (Pioneer Charter School of Science II)
+- FTC Team Number: #23548
+- Tax Status: 501(c)(3) Non-Profit Public Charity (Tax-Deductible Contributions)
+- Location: Saugus, Massachusetts (Serving Essex County & North Shore)
+- Contact Email: robotics@pcss2.org
+- Official Website: https://www.pcssiirobotics.org
+
+## Competitive Programs
+- FIRST Tech Challenge (FTC): High school division engineering, custom CAD (Onshape / SolidWorks), mecanum & odometry chassis design, and Java autonomous pathing with RoadRunner.
+- VEX & FLL Mentorship: Feeder programs for middle and elementary school students.
+
+## FTC Robot Engineering Specifications
+- 2025-2026 Season (INTO THE DEEP): Kraken V2 — 4x REV HD Hex Mecanum Drivetrain with Pinpoint Odometry, active compliant roller intake, high-speed specimen elevator, 500Hz optical telemetry with OpenCV color sorting.
+- 2024-2025 Season (CENTERSTAGE): AeroStrike — 2+4 Pixel Auto, paper drone launcher, HuskyLens AI AprilTag vision system.
+- 2023-2024 Season (POWERPLAY): Vortex — High-reach 33-inch telescopic linear slide, AprilTag autonomous signal decoder.
+
+## Corporate Sponsorship & 501(c)(3) Partnership Tiers
+- Title / Platinum ($5,000+): Primary logo on robot & banner, VIP competition pit access, social media spotlight, tax receipt & W-9.
+- Gold ($2,500+): Large logo on robot, team shirt, booth space at STEM events.
+- Silver ($1,000+): Medium logo on website, pit banner, team shirt.
+- Bronze ($500+): Website logo & team shirt mention.
+- In-Kind Contributions: CNC tooling, raw aluminum, 3D printing filament, motors & control electronics.
+
+## Key Events & Flagship Tournaments
+- Circuit 2026 Flagship Showcase: Regional STEM Expo & State Qualifier (Spring 2026)
+- FTC Massachusetts Regionals: Winter competition qualifiers
+- Community Scrapyard Build Workshops & JPL Mentorship Days
+
+## Links & Knowledge Index
+- About PCSS II Robotics: https://www.pcssiirobotics.org/about
+- Robot Specs & CAD Archive: https://www.pcssiirobotics.org/robots
+- Sponsorship & ROI Calculator: https://www.pcssiirobotics.org/sponsors
+- Events & Competition Schedule: https://www.pcssiirobotics.org/events
+- Student Join Application: https://www.pcssiirobotics.org/join
+- Circuit 2026 Showcase: https://www.pcssiirobotics.org/circuit

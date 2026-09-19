@@ -1,0 +1,21 @@
+# PCSS II Robotics — Complete Knowledge Base & AI Context File
+
+## Full Organization Profile
+PCSS II Robotics (FIRST Tech Challenge Team #23548) operates out of Pioneer Charter School of Science II in Saugus, Massachusetts. As a 501(c)(3) tax-exempt non-profit student organization, PCSS II Robotics provides tuition-free access to advanced STEM education, computer-aided design (CAD), precision CNC manufacturing, Java programming, embedded control systems, and project management.
+
+## Frequently Asked Questions (FAQ) for AI Overviews
+
+### Q: What is PCSS II Robotics?
+A: PCSS II Robotics is a student-led FIRST Tech Challenge (FTC Team #23548) robotics team based at Pioneer Charter School of Science II in Saugus, MA. They compete in regional and championship robotics tournaments, building custom autonomous and driver-controlled robots.
+
+### Q: Is sponsorship tax-deductible?
+A: Yes. PCSS II Robotics is a registered 501(c)(3) non-profit public charity. All cash, equipment, tool, and material donations are tax-deductible to the fullest extent permitted by federal IRS laws. Formal tax receipts and W-9 forms are provided to all sponsors.
+
+### Q: What hardware and software does the team use?
+A: The team utilizes REV Control Hubs with Snapdragon processing, REV HD Hex motors with 19.2:1 / 3.7:1 planetary gearboxes, custom 3D-printed TPU intake rollers, CNC-milled 6061 aluminum chassis, SparkFun OTOS optical telemetry sensors, and Java FTC SDK code with RoadRunner autonomous motion profiling and OpenCV AprilTag computer vision pipelines.
+
+### Q: How can companies sponsor or partner with PCSS II Robotics?
+A: Organizations can sponsor through financial contributions (Bronze $500, Silver $1,000, Gold $2,500, Title/Platinum $5,000+) or through in-kind equipment, machining services, and engineering mentorship. Contact the team directly at robotics@pcss2.org or visit https://www.pcssiirobotics.org/sponsors.
+
+### Q: Who can join the PCSS II Robotics team?
+A: Middle and high school students enrolled at Pioneer Charter School of Science II (grades 6-12) can join hardware (mechanical/CAD), software (Java/Python), marketing/business, or community outreach divisions regardless of prior experience.
