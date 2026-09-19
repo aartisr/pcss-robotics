@@ -15,7 +15,8 @@ import {
   FlaskConical,
   ChevronDown,
   CheckCircle2,
-  Cpu
+  Cpu,
+  Gamepad2
 } from 'lucide-react';
 
 interface NavigationProps {
@@ -107,7 +108,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   const primaryNavItems: { id: NavSection; label: string; shortLabel: string; highlight?: boolean }[] = [
     { id: 'home', label: 'Overview', shortLabel: 'Overview' },
     { id: 'team', label: 'Team Roster & Hub', shortLabel: 'Team & Hub' },
-    { id: 'arcade', label: 'Cyber Arcade', shortLabel: 'Arcade', highlight: true }
+    { id: 'outreach', label: 'Circuit 2026 Outreach', shortLabel: 'Circuit 2026', highlight: true }
   ];
 
   // Secondary sections accessible via More dropdown
@@ -136,10 +137,10 @@ export const Navigation: React.FC<NavigationProps> = ({
       icon: <FlaskConical className="w-4 h-4 text-cyan-400" />
     },
     { 
-      id: 'outreach', 
-      label: 'Circuit 2026 Outreach', 
-      desc: 'Youth robotics workshops & community STEM bootcamps',
-      icon: <Sparkles className="w-4 h-4 text-amber-400" />
+      id: 'arcade', 
+      label: 'Cyber Arcade', 
+      desc: 'Multiplayer cyber arena & autonomous test drive mini-game',
+      icon: <Gamepad2 className="w-4 h-4 text-purple-400" />
     },
     { 
       id: 'sponsors', 
@@ -171,7 +172,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     'robots',
     'simulator',
     'research',
-    'outreach',
+    'arcade',
     'sponsors'
   ].includes(activeSection);
 
