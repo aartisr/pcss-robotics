@@ -10,7 +10,6 @@ import { OutreachSection } from './components/OutreachSection';
 import { ArcadeMiniGame } from './components/ArcadeMiniGame';
 import { TeamSection } from './components/TeamSection';
 import { AiAssistantModal } from './components/AiAssistantModal';
-import { ScorecardModal } from './components/ScorecardModal';
 import { StudentJoinModal } from './components/StudentJoinModal';
 import { CommandPaletteModal } from './components/CommandPaletteModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
@@ -41,7 +40,6 @@ export default function App() {
   const { showScrollTop, scrollToTop } = useScrollPosition(400);
 
   const [isAiOpen, setIsAiOpen] = useState(false);
-  const [isScorecardOpen, setIsScorecardOpen] = useState(false);
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [openW9Directly, setOpenW9Directly] = useState(false);
@@ -52,7 +50,6 @@ export default function App() {
     onOpenCommandPalette: () => setIsCommandPaletteOpen(prev => !prev),
     onEscape: () => {
       setIsAiOpen(false);
-      setIsScorecardOpen(false);
       setIsStudentModalOpen(false);
       setIsCommandPaletteOpen(false);
     }
@@ -95,7 +92,6 @@ export default function App() {
         activeSection={activeSection}
         onNavigate={navigateTo}
         onOpenAi={() => setIsAiOpen(true)}
-        onOpenScorecard={() => setIsScorecardOpen(true)}
         onOpenStudentModal={() => setIsStudentModalOpen(true)}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
         aura={aura}
@@ -315,7 +311,6 @@ export default function App() {
         onToggleAura={toggleAura}
       />
       <AiAssistantModal isOpen={isAiOpen} onClose={() => setIsAiOpen(false)} />
-      <ScorecardModal isOpen={isScorecardOpen} onClose={() => setIsScorecardOpen(false)} />
       <StudentJoinModal
         isOpen={isStudentModalOpen}
         onClose={() => setIsStudentModalOpen(false)}
@@ -361,12 +356,6 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-4">
-              <button
-                onClick={() => setIsScorecardOpen(true)}
-                className="text-cyan-400 hover:text-cyan-300 transition font-mono"
-              >
-                [ Audit Transformation: 10.0 / 10 ]
-              </button>
               <a
                 href="https://github.com/aartisr/pcss-robotics"
                 target="_blank"

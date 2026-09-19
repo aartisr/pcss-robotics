@@ -6,7 +6,6 @@ import {
   HeartHandshake, 
   Sparkles, 
   Users, 
-  Award, 
   Menu, 
   X, 
   Activity,
@@ -23,7 +22,6 @@ interface NavigationProps {
   activeSection: NavSection;
   onNavigate: (section: NavSection) => void;
   onOpenAi: () => void;
-  onOpenScorecard: () => void;
   onOpenStudentModal: () => void;
   onOpenCommandPalette: () => void;
   aura: CelestialAura;
@@ -34,7 +32,6 @@ export const Navigation: React.FC<NavigationProps> = ({
   activeSection,
   onNavigate,
   onOpenAi,
-  onOpenScorecard,
   onOpenStudentModal,
   onOpenCommandPalette,
   aura,
@@ -280,7 +277,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                   ))}
                 </div>
 
-                <div className="mt-2 pt-2 border-t border-white/[0.08] px-1 pb-1 space-y-1">
+                <div className="mt-2 pt-2 border-t border-white/[0.08] px-1 pb-1">
                   <button
                     onClick={() => {
                       onOpenStudentModal();
@@ -293,19 +290,6 @@ export const Navigation: React.FC<NavigationProps> = ({
                       <span>Join PCSS Robotics</span>
                     </span>
                     <span className="text-[10px] font-mono text-cyan-400">Grades 6–12</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onOpenScorecard();
-                      setMoreMenuOpen(false);
-                    }}
-                    className="w-full flex items-center justify-between p-2 rounded-lg text-[11px] text-slate-400 hover:text-slate-200 hover:bg-white/[0.04] transition"
-                  >
-                    <span className="flex items-center gap-2">
-                      <Award className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>Audit Scorecard</span>
-                    </span>
-                    <span className="font-mono text-cyan-300 font-bold">10.0</span>
                   </button>
                 </div>
               </div>
@@ -393,13 +377,13 @@ export const Navigation: React.FC<NavigationProps> = ({
                   <div className="flex items-center gap-2 pt-1">
                     <button
                       onClick={() => {
-                        onOpenScorecard();
+                        onNavigate('robots');
                         setTelemetryOpen(false);
                       }}
                       className="flex-1 flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/[0.1] text-slate-200 border border-white/[0.08] transition text-[11px]"
                     >
-                      <Award className="w-3.5 h-3.5 text-cyan-400" />
-                      <span>Audit: 10/10</span>
+                      <Cpu className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>Robots & CAD</span>
                     </button>
                     <button
                       onClick={() => {
