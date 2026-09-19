@@ -106,7 +106,7 @@ export const Navigation: React.FC<NavigationProps> = ({
   // Primary navigation links across desktop (spacious & guaranteed zero overlap)
   const primaryNavItems: { id: NavSection; label: string; shortLabel: string; highlight?: boolean }[] = [
     { id: 'home', label: 'Overview', shortLabel: 'Overview' },
-    { id: 'research', label: 'Research', shortLabel: 'Research' },
+    { id: 'team', label: 'Team Roster & Hub', shortLabel: 'Team & Hub' },
     { id: 'arcade', label: 'Cyber Arcade', shortLabel: 'Arcade', highlight: true }
   ];
 
@@ -130,16 +130,16 @@ export const Navigation: React.FC<NavigationProps> = ({
       icon: <Activity className="w-4 h-4 text-emerald-400" />
     },
     { 
+      id: 'research', 
+      label: 'Research & Papers', 
+      desc: 'Peer-reviewed working papers, quintic splines, FEA & edge AI',
+      icon: <FlaskConical className="w-4 h-4 text-cyan-400" />
+    },
+    { 
       id: 'outreach', 
       label: 'Circuit 2026 Outreach', 
       desc: 'Youth robotics workshops & community STEM bootcamps',
       icon: <Sparkles className="w-4 h-4 text-amber-400" />
-    },
-    { 
-      id: 'team', 
-      label: 'Team Roster & Hub', 
-      desc: 'Student squad roster, competitions, proposals & gear tracker',
-      icon: <Users className="w-4 h-4 text-cyan-400" />
     },
     { 
       id: 'sponsors', 
@@ -170,8 +170,8 @@ export const Navigation: React.FC<NavigationProps> = ({
   const isSecondaryActive = [
     'robots',
     'simulator',
+    'research',
     'outreach',
-    'team',
     'sponsors'
   ].includes(activeSection);
 

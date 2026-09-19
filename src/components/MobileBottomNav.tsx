@@ -5,10 +5,8 @@ import {
   Compass, 
   Activity, 
   HeartHandshake, 
-  GraduationCap, 
   Search,
-  Sparkles,
-  FlaskConical
+  Users
 } from 'lucide-react';
 
 interface MobileBottomNavProps {
@@ -41,16 +39,16 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         </button>
 
         <button
-          onClick={() => onNavigate('research')}
+          onClick={() => onNavigate('team')}
           className={`flex flex-col items-center gap-1 py-1 px-2 rounded-xl transition ${
-            activeSection === 'research'
+            activeSection === 'team'
               ? 'text-cyan-400 font-bold'
               : 'text-slate-400 hover:text-slate-200'
           }`}
-          aria-label="Research & Papers"
+          aria-label="Team Roster & Hub"
         >
-          <FlaskConical className="w-4 h-4" />
-          <span className="text-[10px]">Research</span>
+          <Users className="w-4 h-4" />
+          <span className="text-[10px]">Team</span>
         </button>
 
         <button
