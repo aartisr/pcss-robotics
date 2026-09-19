@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { NavSection, ToastMessage } from './types';
+import React, { useState } from 'react';
+import { NavSection } from './types';
 import { Navigation } from './components/Navigation';
 import { HeroSection } from './components/HeroSection';
 import { RobotEngineeringSection } from './components/RobotEngineeringSection';
@@ -17,53 +17,46 @@ import { MobileBottomNav } from './components/MobileBottomNav';
 import { SectionHeaderBreadcrumb } from './components/SectionHeaderBreadcrumb';
 import { ToastContainer } from './components/ToastContainer';
 import { CelestialStarfield, CelestialAura } from './components/CelestialStarfield';
+import { SeoHead } from './components/seo/SeoHead';
+import { useUrlNavigation } from './hooks/useUrlNavigation';
+import { useScrollPosition } from './hooks/useScrollPosition';
+import { useToastNotifications } from './hooks/useToastNotifications';
+import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { 
   Bot, 
   ShieldCheck, 
   Github, 
   Globe, 
-  Sparkles, 
   ArrowRight,
   GraduationCap,
   HeartHandshake,
   Gamepad2,
   Activity,
-  ArrowUp,
-  Search
+  ArrowUp
 } from 'lucide-react';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState<NavSection>('home');
+  const { activeSection, navigateTo } = useUrlNavigation('home');
+  const { toasts, showToast, dismissToast } = useToastNotifications();
+  const { showScrollTop, scrollToTop } = useScrollPosition(400);
+
   const [isAiOpen, setIsAiOpen] = useState(false);
   const [isScorecardOpen, setIsScorecardOpen] = useState(false);
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [openW9Directly, setOpenW9Directly] = useState(false);
   const [aura, setAura] = useState<CelestialAura>('cyan');
-  const [toasts, setToasts] = useState<ToastMessage[]>([]);
-  const [showScrollTop, setShowScrollTop] = useState(false);
 
-  const showToast = useCallback((
-    title: string, 
-    message?: string, 
-    type: 'success' | 'info' | 'cyan' | 'purple' = 'cyan'
-  ) => {
-    const id = Math.random().toString(36).substring(2, 9);
-    setToasts(prev => [...prev.slice(-3), { id, title, message, type }]);
-
-    setTimeout(() => {
-      setToasts(prev => prev.filter(t => t.id !== id));
-    }, 4500);
-  }, []);
-
-  const dismissToast = (id: string) => {
-    setToasts(prev => prev.filter(t => t.id !== id));
-  };
-
-  const handleNavigate = (section: NavSection) => {
-    setActiveSection(section);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  // Global Keyboard Shortcuts (⌘K, '/', Escape)
+  useKeyboardShortcuts({
+    onOpenCommandPalette: () => setIsCommandPaletteOpen(prev => !prev),
+    onEscape: () => {
+      setIsAiOpen(false);
+      setIsScorecardOpen(false);
+      setIsStudentModalOpen(false);
+      setIsCommandPaletteOpen(false);
+    }
+  });
 
   const toggleAura = () => {
     setAura(prev => {
@@ -86,43 +79,11 @@ export default function App() {
     });
   };
 
-  // Keyboard shortcut listener for Command Palette (⌘K, Ctrl+K, or '/')
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't trigger if user is actively typing in an input or textarea
-      const target = e.target as HTMLElement;
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') {
-        return;
-      }
-
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-        e.preventDefault();
-        setIsCommandPaletteOpen(prev => !prev);
-      } else if (e.key === '/' && !isCommandPaletteOpen) {
-        e.preventDefault();
-        setIsCommandPaletteOpen(true);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isCommandPaletteOpen]);
-
-  // Scroll listener for back to top button
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200 relative pb-16 md:pb-0 w-full max-w-full overflow-x-hidden">
+      {/* Dynamic SEO, Meta & Structured Data Synchronizer */}
+      <SeoHead activeSection={activeSection} />
+
       {/* Heavenly Celestial Starfield Background */}
       <CelestialStarfield aura={aura} />
 
@@ -132,7 +93,7 @@ export default function App() {
       {/* Top Telemetry & Main Navigation */}
       <Navigation
         activeSection={activeSection}
-        onNavigate={handleNavigate}
+        onNavigate={navigateTo}
         onOpenAi={() => setIsAiOpen(true)}
         onOpenScorecard={() => setIsScorecardOpen(true)}
         onOpenStudentModal={() => setIsStudentModalOpen(true)}
@@ -144,7 +105,7 @@ export default function App() {
       {/* Contextual Breadcrumb Bar for Zero-Disorientation Navigation */}
       <SectionHeaderBreadcrumb
         activeSection={activeSection}
-        onNavigate={handleNavigate}
+        onNavigate={navigateTo}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
 
@@ -153,7 +114,7 @@ export default function App() {
         {activeSection === 'home' && (
           <div className="space-y-12">
             <HeroSection
-              onNavigate={handleNavigate}
+              onNavigate={navigateTo}
               onOpenAi={() => setIsAiOpen(true)}
               onOpenStudentModal={() => setIsStudentModalOpen(true)}
             />
@@ -175,14 +136,14 @@ export default function App() {
                     </p>
                     <div className="flex flex-wrap gap-3 pt-2">
                       <button
-                        onClick={() => handleNavigate('robots')}
+                        onClick={() => navigateTo('robots')}
                         className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition shadow-md shadow-cyan-900/40"
                       >
                         <span>Examine Full Subsystem CAD</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </button>
                       <button
-                        onClick={() => handleNavigate('simulator')}
+                        onClick={() => navigateTo('simulator')}
                         className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 font-semibold text-xs transition"
                       >
                         <Activity className="w-3.5 h-3.5 text-cyan-400" />
@@ -238,7 +199,7 @@ export default function App() {
                   </div>
                   <div className="flex flex-wrap items-center gap-3 pt-2">
                     <button
-                      onClick={() => handleNavigate('sponsors')}
+                      onClick={() => navigateTo('sponsors')}
                       className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition shadow-lg shadow-purple-950/50"
                     >
                       <span>Calculate Sponsor Tax Credit</span>
@@ -246,7 +207,7 @@ export default function App() {
                     </button>
                     <button
                       onClick={() => {
-                        handleNavigate('sponsors');
+                        navigateTo('sponsors');
                         setOpenW9Directly(true);
                       }}
                       className="text-xs font-mono text-slate-400 hover:text-white transition"
@@ -279,7 +240,7 @@ export default function App() {
                       <ArrowRight className="w-3.5 h-3.5" />
                     </button>
                     <button
-                      onClick={() => handleNavigate('arcade')}
+                      onClick={() => navigateTo('arcade')}
                       className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-purple-300 border border-purple-800/40 font-semibold text-xs transition"
                     >
                       <Gamepad2 className="w-3.5 h-3.5" />
@@ -335,7 +296,7 @@ export default function App() {
       {/* Floating Mobile Bottom Navigation Bar (Thumb Dock) */}
       <MobileBottomNav
         activeSection={activeSection}
-        onNavigate={handleNavigate}
+        onNavigate={navigateTo}
         onOpenStudentModal={() => setIsStudentModalOpen(true)}
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
       />
@@ -344,11 +305,11 @@ export default function App() {
       <CommandPaletteModal
         isOpen={isCommandPaletteOpen}
         onClose={() => setIsCommandPaletteOpen(false)}
-        onNavigate={handleNavigate}
+        onNavigate={navigateTo}
         onOpenAi={() => setIsAiOpen(true)}
         onOpenStudentModal={() => setIsStudentModalOpen(true)}
         onOpenW9Modal={() => {
-          handleNavigate('sponsors');
+          navigateTo('sponsors');
           setOpenW9Directly(true);
         }}
         onToggleAura={toggleAura}
@@ -381,14 +342,14 @@ export default function App() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
-              <button onClick={() => handleNavigate('home')} className="hover:text-white transition">Home</button>
-              <button onClick={() => handleNavigate('research')} className="text-cyan-400 hover:text-cyan-300 transition font-semibold">Research & Papers</button>
-              <button onClick={() => handleNavigate('robots')} className="hover:text-white transition">Robots & CAD</button>
-              <button onClick={() => handleNavigate('simulator')} className="hover:text-white transition">Autonomous Lab</button>
-              <button onClick={() => handleNavigate('sponsors')} className="hover:text-white transition">501(c)(3) Sponsors</button>
-              <button onClick={() => handleNavigate('outreach')} className="hover:text-white transition">Circuit 2026</button>
-              <button onClick={() => handleNavigate('arcade')} className="hover:text-white transition">Cyber Arcade</button>
-              <button onClick={() => handleNavigate('team')} className="hover:text-white transition">Team</button>
+              <button onClick={() => navigateTo('home')} className="hover:text-white transition">Home</button>
+              <button onClick={() => navigateTo('research')} className="text-cyan-400 hover:text-cyan-300 transition font-semibold">Research & Papers</button>
+              <button onClick={() => navigateTo('robots')} className="hover:text-white transition">Robots & CAD</button>
+              <button onClick={() => navigateTo('simulator')} className="hover:text-white transition">Autonomous Lab</button>
+              <button onClick={() => navigateTo('sponsors')} className="hover:text-white transition">501(c)(3) Sponsors</button>
+              <button onClick={() => navigateTo('outreach')} className="hover:text-white transition">Circuit 2026</button>
+              <button onClick={() => navigateTo('arcade')} className="hover:text-white transition">Cyber Arcade</button>
+              <button onClick={() => navigateTo('team')} className="hover:text-white transition">Team</button>
               <button onClick={() => setIsStudentModalOpen(true)} className="text-cyan-400 hover:text-cyan-300 transition font-bold">Join Team</button>
             </div>
           </div>

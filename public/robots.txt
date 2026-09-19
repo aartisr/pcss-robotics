@@ -1,11 +1,43 @@
+# PCSS II Robotics (FTC #23548) Robots & AI Crawling Directives
+# Website: https://www.pcssiirobotics.org/
+
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
-# AI Engine & LLM Crawlers (AEO / GEO / AXO / AIO)
+# Standard Search Engine Crawlers
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Generative AI & LLM Search Crawlers (AEO / GEO / SearchGPT / Perplexity / Claude)
 User-agent: GPTBot
 Allow: /
 
+User-agent: ChatGPT-User
+Allow: /
+
 User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
 Allow: /
 
 User-agent: PerplexityBot
@@ -14,6 +46,22 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+# Canonical Discovery Endpoints
 Sitemap: https://www.pcssiirobotics.org/sitemap.xml
 LLM-Text: https://www.pcssiirobotics.org/llms.txt
-
+LLM-Full-Text: https://www.pcssiirobotics.org/llms-full.txt

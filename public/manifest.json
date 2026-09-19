@@ -1,0 +1,22 @@
+{
+  "name": "PCSS II Robotics – Academic Research & FIRST Tech Challenge #23548",
+  "short_name": "PCSS Robotics",
+  "description": "Academic research laboratory portal, FTC #23548 engineering platform, holonomic kinematics solver, 500Hz odometry simulator, and 501(c)(3) sponsor center.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    {
+      "src": "/assets/robotics-lab-hero.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/robotics-lab-hero.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "engineering", "technology", "research"]
+}

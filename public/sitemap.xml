@@ -1,16 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.pcssiirobotics.org/</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/about</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/programs</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/robots</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/outreach</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/sponsors</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/sponsor-kit</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/events</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/media</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/join</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/contact</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/circuit</loc></url>
-  <url><loc>https://www.pcssiirobotics.org/games</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Primary Landing & Hub -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.pcssiirobotics.org/assets/robotics-lab-hero.webp</image:loc>
+      <image:title>PCSS II Robotics Laboratory &amp; Kraken V2 Engineering Platform</image:title>
+      <image:caption>Academic research laboratory portal for PCSS II Robotics FTC #23548 in Saugus, MA</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Research & Publications Hub -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=research</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- Individual Technical Working Papers -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=research&amp;paper=PCSS-TR-2025-01</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=research&amp;paper=PCSS-TR-2025-02</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=research&amp;paper=PCSS-TR-2025-03</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=research&amp;paper=PCSS-TR-2025-04</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Robot Engineering, CAD & Subsystems -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=robots</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Autonomous Kinematics & 500Hz Odometry Simulator -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=simulator</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 501(c)(3) Corporate Sponsorship & IRS Tax Credit Engine -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=sponsors</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Circuit 2026 STEM Outreach & Scrapyard Workshops -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=outreach</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Multiplayer Cyber Arena & Physics Arcade -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=arcade</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- Team Roster & Student Fellows Directory -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?section=team</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Student Join & Recruitment Portal -->
+  <url>
+    <loc>https://www.pcssiirobotics.org/?action=join</loc>
+    <lastmod>2026-09-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
