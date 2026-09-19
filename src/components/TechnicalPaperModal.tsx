@@ -123,24 +123,36 @@ export const TechnicalPaperModal: React.FC<TechnicalPaperModalProps> = ({
               {paper.title}
             </h1>
 
-            <div className="text-xs text-cyan-200 font-medium space-x-2">
+            <div className="text-xs text-cyan-200 font-medium flex flex-wrap items-center justify-center gap-2">
               {paper.authors.map((author, i) => (
-                <span key={author}>
+                <span key={author} className="inline-flex items-center gap-1">
                   {author.toLowerCase().includes('aarti') ? (
-                    <a
-                      href="https://ai-aarti.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline decoration-cyan-400/50 hover:decoration-cyan-300 hover:text-white transition inline-flex items-center gap-1"
-                      title="View author portfolio: https://ai-aarti.com"
-                    >
-                      <strong>{author}</strong>
-                      <ExternalLink className="w-3 h-3 text-cyan-400 inline" />
-                    </a>
+                    <span className="inline-flex items-center gap-1.5 bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-500/30">
+                      <a
+                        href="https://ai-aarti.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-300 hover:text-white underline decoration-cyan-400/50 hover:decoration-cyan-300 transition inline-flex items-center gap-1 font-bold"
+                        title="View Portfolio: https://ai-aarti.com"
+                      >
+                        <span>{author}</span>
+                        <ExternalLink className="w-2.5 h-2.5 text-cyan-400 inline" />
+                      </a>
+                      <span className="text-slate-500">|</span>
+                      <a
+                        href="https://publications.ai-aarti.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-300 hover:text-white underline decoration-purple-400/50 hover:decoration-purple-300 transition text-[11px] font-mono"
+                        title="View Publications: https://publications.ai-aarti.com"
+                      >
+                        <span>Publications</span>
+                      </a>
+                    </span>
                   ) : (
                     <strong>{author}</strong>
                   )}
-                  {i < paper.authors.length - 1 && <span className="text-slate-500">, </span>}
+                  {i < paper.authors.length - 1 && <span className="text-slate-500 mr-1">,</span>}
                 </span>
               ))}
             </div>

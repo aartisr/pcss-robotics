@@ -311,16 +311,28 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({ onShowToast })
                     {paper.authors.map((author, i) => (
                       <span key={author} className="inline-flex items-center">
                         {author.toLowerCase().includes('aarti') ? (
-                          <a
-                            href="https://ai-aarti.com"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-cyan-300 hover:text-white underline decoration-cyan-500/40 hover:decoration-cyan-300 inline-flex items-center gap-0.5 transition"
-                            title="Visit Aarti's Portfolio (https://ai-aarti.com)"
-                          >
-                            <span>{author}</span>
-                            <ExternalLink className="w-2.5 h-2.5 text-cyan-400 inline" />
-                          </a>
+                          <span className="inline-flex items-center gap-1 bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-500/30 text-cyan-300">
+                            <a
+                              href="https://ai-aarti.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:text-white underline decoration-cyan-500/40 hover:decoration-cyan-300 inline-flex items-center gap-0.5 transition font-semibold"
+                              title="Visit Aarti's Portfolio (https://ai-aarti.com)"
+                            >
+                              <span>{author}</span>
+                              <ExternalLink className="w-2.5 h-2.5 text-cyan-400 inline" />
+                            </a>
+                            <span className="text-slate-500">|</span>
+                            <a
+                              href="https://publications.ai-aarti.com"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-purple-300 hover:text-white underline decoration-purple-400/50 hover:decoration-purple-300 transition text-[10px]"
+                              title="Visit Publications (https://publications.ai-aarti.com)"
+                            >
+                              <span>Pubs</span>
+                            </a>
+                          </span>
                         ) : (
                           <span className="text-cyan-200">{author}</span>
                         )}

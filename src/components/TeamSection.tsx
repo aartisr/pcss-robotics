@@ -1001,23 +1001,38 @@ export const TeamSection: React.FC = () => {
                   </div>
 
                   {/* Specialty / Role */}
-                  <p className="text-xs text-slate-300 leading-relaxed border-t border-white/[0.06] pt-2">
-                    <strong className="text-cyan-400 font-mono">Specialty: </strong>
-                    {student.specialtyUrl || student.specialty.includes('CubeSat Flight Software') || student.specialty.includes('Telemetry Pipelines') ? (
-                      <a
-                        href={student.specialtyUrl?.replace('pubications.', 'publications.') || 'https://publications.ai-aarti.com'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-cyan-300 hover:text-cyan-200 underline decoration-cyan-500/40 hover:decoration-cyan-300 underline-offset-2 inline-flex items-center gap-1 transition font-medium"
-                        title="View Research Publications (https://publications.ai-aarti.com)"
-                      >
-                        <span>{student.specialty}</span>
-                        <ExternalLink className="w-3 h-3 text-cyan-400 inline shrink-0" />
-                      </a>
-                    ) : (
+                  <div className="text-xs text-slate-300 leading-relaxed border-t border-white/[0.06] pt-2 space-y-2">
+                    <p>
+                      <strong className="text-cyan-400 font-mono">Specialty: </strong>
                       <span>{student.specialty}</span>
+                    </p>
+
+                    {/* Dedicated External Research & Portfolio Quick-Links */}
+                    {(student.profileUrl || student.specialtyUrl || student.name.toLowerCase().includes('aarti')) && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        <a
+                          href={student.profileUrl || 'https://ai-aarti.com'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/30 text-[11px] font-mono transition"
+                          title="Visit personal portfolio"
+                        >
+                          <span>Portfolio</span>
+                          <ExternalLink className="w-2.5 h-2.5 text-cyan-400" />
+                        </a>
+                        <a
+                          href={student.specialtyUrl?.replace('pubications.', 'publications.') || 'https://publications.ai-aarti.com'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-900 text-purple-300 border border-purple-500/30 text-[11px] font-mono transition"
+                          title="View published technical papers & research"
+                        >
+                          <span>Publications</span>
+                          <ExternalLink className="w-2.5 h-2.5 text-purple-400" />
+                        </a>
+                      </div>
                     )}
-                  </p>
+                  </div>
 
                   {/* Competition Assignment & Due Date */}
                   {student.competition && (
