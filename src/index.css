@@ -1,9 +1,49 @@
 @import "tailwindcss";
 
+:root {
+  --pcss-navy-darkest: #050d1a;
+  --pcss-navy-bg: #071326;
+  --pcss-navy-surface: #0b1e3b;
+  --pcss-navy-surface-light: #102a52;
+  --pcss-navy-border: #1d3e70;
+  --pcss-columbia-blue: #38bdf8;
+  --pcss-columbia-blue-light: #7dd3fc;
+  --pcss-columbia-blue-dark: #0284c7;
+  --pcss-panther-gold: #f59e0b;
+  --pcss-panther-gold-light: #fbbf24;
+}
+
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
   width: 100%;
+  background-color: #071326;
+  color: #f1f5f9;
+}
+
+/* Accessible focus rings for all interactive elements across the app */
+:focus-visible {
+  outline: 2px solid #38bdf8 !important;
+  outline-offset: 2px !important;
+}
+
+/* Skip link for screen reader and keyboard navigation */
+.skip-to-content-link {
+  position: absolute;
+  top: -9999px;
+  left: 1rem;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background-color: #0284c7;
+  color: #ffffff;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  transition: top 0.2s ease-in-out;
+}
+
+.skip-to-content-link:focus {
+  top: 1rem;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -28,30 +68,50 @@ html, body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   }
 
-  /* Celestial Ethereal Glows */
+  /* PCSS School Color Backgrounds & Gradients */
+  .bg-pcss-navy {
+    background-color: #071326;
+  }
+  .bg-pcss-surface {
+    background-color: #0b1e3b;
+  }
+  .bg-pcss-surface-light {
+    background-color: #102a52;
+  }
+  .border-pcss-border {
+    border-color: #1d3e70;
+  }
+  .text-pcss-columbia {
+    color: #7dd3fc;
+  }
+  .text-pcss-gold {
+    color: #fbbf24;
+  }
+
+  /* Celestial & School Spirit Glows */
+  .glow-columbia {
+    box-shadow: 0 0 30px -5px rgba(56, 189, 248, 0.3);
+  }
+  .glow-gold {
+    box-shadow: 0 0 30px -5px rgba(251, 191, 36, 0.3);
+  }
   .glow-cyan {
     box-shadow: 0 0 35px -5px rgba(56, 189, 248, 0.25);
   }
   .glow-violet {
     box-shadow: 0 0 35px -5px rgba(192, 132, 252, 0.25);
   }
-  .glow-gold {
-    box-shadow: 0 0 35px -5px rgba(251, 191, 36, 0.25);
-  }
-  .text-glow {
-    text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
-  }
 
   /* Academic Theorem, Lemma, and Formula Boxes */
   .academic-paper-rule {
-    border-top: 1.5px solid rgba(255, 255, 255, 0.18);
-    border-bottom: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-top: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.2);
   }
 
-  /* KaTeX Dark Theme & Responsive Formula Customizations */
+  /* KaTeX Dark Theme & High Contrast Formula Customizations */
   .katex {
     font-size: 1.1em;
-    color: #e2e8f0;
+    color: #f1f5f9;
     text-rendering: geometricPrecision;
   }
   .katex-display {
@@ -61,11 +121,24 @@ html, body {
     padding: 0.25rem 0;
   }
   .katex-display > .katex {
-    color: #38bdf8;
+    color: #7dd3fc;
   }
   .katex .matrix {
     margin: 0 0.1em;
   }
+}
+
+/* High Contrast Mode for Accessibility */
+body.high-contrast {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+
+body.high-contrast button,
+body.high-contrast a,
+body.high-contrast input,
+body.high-contrast select {
+  border-width: 2px !important;
 }
 
 @keyframes celestial-float {

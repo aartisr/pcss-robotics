@@ -6,7 +6,8 @@ export type NavSection =
   | 'sponsors'
   | 'outreach'
   | 'arcade'
-  | 'team';
+  | 'team'
+  | 'audit';
 
 export interface ResearchPaper {
   id: string;

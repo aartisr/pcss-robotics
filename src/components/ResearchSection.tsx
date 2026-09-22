@@ -142,54 +142,54 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({ onShowToast })
         <div className="absolute -left-20 -bottom-20 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#1d3e70] pb-6">
             <div className="space-y-1.5">
-              <div className="flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-cyan-400 font-bold">
-                <FlaskConical className="w-4 h-4 text-cyan-400" />
+              <div className="flex items-center gap-2 text-[11px] font-mono tracking-wider uppercase text-amber-400 font-bold">
+                <FlaskConical className="w-4 h-4 text-amber-400" />
                 <span>PIONEER CHARTER SCHOOL OF SCIENCE II // DIVISION OF APPLIED CYBERNETICS</span>
               </div>
               <h1 className="text-2xl sm:text-4xl font-serif-academic font-bold text-white tracking-tight leading-tight">
                 {LAB_PROFILE.labName}
               </h1>
-              <p className="text-xs sm:text-sm text-slate-300 font-serif-academic max-w-3xl leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-200 font-serif-academic max-w-3xl leading-relaxed">
                 {LAB_PROFILE.missionStatement}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/10 font-mono text-[11px] space-y-1.5 shrink-0 text-slate-300">
-              <div className="text-[10px] uppercase tracking-wider text-slate-400">Institutional Registry</div>
-              <div><strong>Team Entity:</strong> FTC #23548</div>
-              <div><strong>Location:</strong> Saugus, Massachusetts</div>
+            <div className="p-4 rounded-2xl bg-[#071326] border border-[#1d3e70] font-mono text-[11px] space-y-1.5 shrink-0 text-slate-300">
+              <div className="text-[10px] uppercase tracking-wider text-amber-400 font-bold">Academic Registry</div>
+              <div><strong>Institution:</strong> PCSS II (Saugus, MA)</div>
               <div><strong>Director:</strong> {LAB_PROFILE.director}</div>
-              <div className="text-emerald-400"><strong>Charity Status:</strong> 501(c)(3) Tax Exempt</div>
+              <div><strong>Team Entity:</strong> FTC #23548</div>
+              <div className="text-emerald-400"><strong>Charity Status:</strong> 501(c)(3) Tax-Exempt</div>
             </div>
           </div>
 
           {/* Academic Laboratory KPIs */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-2 font-mono">
-            <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-[#071326] border border-[#1d3e70] space-y-1">
               <div className="text-[10px] text-slate-400 uppercase">Working Papers</div>
-              <div className="text-lg sm:text-xl font-bold text-white">4 Preprints</div>
-              <div className="text-[10px] text-cyan-400">PCSS Tech Reports</div>
+              <div className="text-lg sm:text-xl font-bold text-amber-300">5 Preprints</div>
+              <div className="text-[10px] text-sky-400">PCSS Tech Reports</div>
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-[#071326] border border-[#1d3e70] space-y-1">
               <div className="text-[10px] text-slate-400 uppercase">Odometry Drift</div>
-              <div className="text-lg sm:text-xl font-bold text-cyan-300">2.1 mm / 30m</div>
+              <div className="text-lg sm:text-xl font-bold text-sky-300">2.1 mm / 30m</div>
               <div className="text-[10px] text-slate-400">500Hz Optical EKF</div>
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-[#071326] border border-[#1d3e70] space-y-1">
               <div className="text-[10px] text-slate-400 uppercase">Loop Execution</div>
-              <div className="text-lg sm:text-xl font-bold text-purple-300">500 Hz</div>
+              <div className="text-lg sm:text-xl font-bold text-amber-300">500 Hz</div>
               <div className="text-[10px] text-slate-400">2.0ms Latency Bounded</div>
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5 space-y-1">
+            <div className="p-3.5 rounded-2xl bg-[#071326] border border-[#1d3e70] space-y-1">
               <div className="text-[10px] text-slate-400 uppercase">STEM Grants</div>
-              <div className="text-lg sm:text-xl font-bold text-emerald-400">$38,500</div>
-              <div className="text-[10px] text-slate-400">RTX & MassCEC</div>
+              <div className="text-lg sm:text-xl font-bold text-emerald-400">$48,500</div>
+              <div className="text-[10px] text-slate-400">RTX, MassCEC, FIRST</div>
             </div>
-            <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-white/5 space-y-1 col-span-2 sm:col-span-1">
+            <div className="p-3.5 rounded-2xl bg-[#071326] border border-[#1d3e70] space-y-1 col-span-2 sm:col-span-1">
               <div className="text-[10px] text-slate-400 uppercase">STEM Matriculation</div>
-              <div className="text-lg sm:text-xl font-bold text-amber-300">94.2%</div>
+              <div className="text-lg sm:text-xl font-bold text-amber-400">94.2%</div>
               <div className="text-[10px] text-slate-400">4-Year Cohort Rate</div>
             </div>
           </div>
@@ -197,26 +197,26 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({ onShowToast })
       </div>
 
       {/* Research Navigation Tabs */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1d3e70] pb-4">
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setActiveTab('papers')}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-2 ${
               activeTab === 'papers'
-                ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-950'
-                : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-black/50'
+                : 'bg-[#0B1E3B] hover:bg-[#112A4F] text-slate-200 border border-[#1d3e70]'
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Technical Papers & Preprints (4)</span>
+            <span>Technical Papers & Preprints (5)</span>
           </button>
 
           <button
             onClick={() => setActiveTab('workbench')}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-2 ${
               activeTab === 'workbench'
-                ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-950'
-                : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                ? 'bg-sky-500 text-slate-950 font-bold shadow-md shadow-black/50'
+                : 'bg-[#0B1E3B] hover:bg-[#112A4F] text-slate-200 border border-[#1d3e70]'
             }`}
           >
             <Calculator className="w-3.5 h-3.5" />
@@ -227,8 +227,8 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({ onShowToast })
             onClick={() => setActiveTab('instrumentation')}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-2 ${
               activeTab === 'instrumentation'
-                ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-950'
-                : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                ? 'bg-sky-500 text-slate-950 font-bold shadow-md shadow-black/50'
+                : 'bg-[#0B1E3B] hover:bg-[#112A4F] text-slate-200 border border-[#1d3e70]'
             }`}
           >
             <Microscope className="w-3.5 h-3.5" />
@@ -239,16 +239,16 @@ export const ResearchSection: React.FC<ResearchSectionProps> = ({ onShowToast })
             onClick={() => setActiveTab('personnel')}
             className={`px-4 py-2 rounded-xl text-xs font-mono font-semibold transition flex items-center gap-2 ${
               activeTab === 'personnel'
-                ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-950'
-                : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                ? 'bg-amber-500 text-slate-950 font-bold shadow-md shadow-black/50'
+                : 'bg-[#0B1E3B] hover:bg-[#112A4F] text-slate-200 border border-[#1d3e70]'
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Lab Fellows & Grants</span>
+            <span>Faculty, Fellows & Grants</span>
           </button>
         </div>
 
-        <div className="text-[11px] font-mono text-slate-400 hidden sm:block">
+        <div className="text-[11px] font-mono text-amber-400 hidden sm:block">
           LaTeX & BibTeX Enabled Repository
         </div>
       </div>

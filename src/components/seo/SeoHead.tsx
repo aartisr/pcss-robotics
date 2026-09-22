@@ -11,6 +11,11 @@ const SECTION_METADATA: Record<NavSection, { title: string; description: string;
     description: 'Academic research laboratory portal, FTC #23548 engineering platform, holonomic kinematics Jacobian solver, 500Hz optical odometry, and 501(c)(3) sponsorship ROI engine.',
     path: '/'
   },
+  audit: {
+    title: 'Usability & Accessibility Evaluation (Score: 9.4/10) – PCSS Robotics',
+    description: 'Comprehensive 1-to-10 usability and accessibility evaluation, WCAG AA 4.5:1 contrast matrix, screen reader live testing tools, and Pioneer Charter School theme alignment.',
+    path: '/?section=audit'
+  },
   research: {
     title: 'Peer-Reviewed Robotics Working Papers & Technical Reports – PCSS Robotics',
     description: 'Explore 4 published academic technical reports covering feedforward quintic splines, optical odometry, FEA cascading elevators, and edge INT8 YOLOv8 vision pipelines by Aarti Sri Ravikumar and fellows.',

@@ -7,19 +7,25 @@ interface MathFormulaProps {
   className?: string;
   label?: string;
   showCopy?: boolean;
+  accessibleDescription?: string;
 }
 
 /**
  * Renders mathematical formulations in display mode using KaTeX.
- * Features responsive horizontal scrolling for wide matrices and equations across all screen sizes.
+ * Features responsive horizontal scrolling for wide matrices and equations across all screen sizes,
+ * with full screen reader aria-label support.
  */
 export const MathFormula: React.FC<MathFormulaProps> = ({
   formula,
   className = '',
   label,
-  showCopy = true
+  showCopy = true,
+  accessibleDescription
 }) => {
   const [copied, setCopied] = useState(false);
+
+  // Generate plain English fallback for screen reader if not provided
+  const srText = accessibleDescription || `Mathematical formula: ${formula.replace(/\\/g, '').replace(/[_^]/g, ' ')}`;
 
   // Render LaTeX using KaTeX displayMode
   const renderedHtml = React.useMemo(() => {
@@ -45,11 +51,16 @@ export const MathFormula: React.FC<MathFormulaProps> = ({
   };
 
   return (
-    <div className={`relative group/math rounded-2xl bg-slate-950/90 border border-slate-800/80 p-4 sm:p-5 shadow-inner overflow-hidden ${className}`}>
+    <div 
+      className={`relative group/math rounded-2xl bg-[#061224] border border-[#1d3e70] p-4 sm:p-5 shadow-inner overflow-hidden ${className}`}
+      role="region"
+      aria-label={label || "Mathematical Equation"}
+    >
+      <span className="sr-only">{srText}</span>
       {/* Optional Top Label & Copy Action */}
       <div className="flex items-center justify-between gap-2 mb-2">
-        <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold">
-          <FunctionSquare className="w-3.5 h-3.5 text-cyan-400" />
+        <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider text-sky-400 font-bold">
+          <FunctionSquare className="w-3.5 h-3.5 text-sky-400" aria-hidden="true" />
           <span>{label || 'MATHEMATICAL FORMULATION'}</span>
         </div>
 
@@ -58,16 +69,17 @@ export const MathFormula: React.FC<MathFormulaProps> = ({
             onClick={handleCopy}
             type="button"
             title="Copy LaTeX source"
-            className="flex items-center gap-1 px-2 py-1 rounded-lg bg-white/[0.04] hover:bg-cyan-500/20 text-slate-400 hover:text-cyan-300 border border-white/5 transition text-[10px] font-mono"
+            aria-label="Copy LaTeX formula to clipboard"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-sky-950/60 hover:bg-sky-900/80 text-sky-200 hover:text-white border border-sky-600/40 transition text-[10px] font-mono"
           >
             {copied ? (
               <>
-                <Check className="w-3 h-3 text-emerald-400" />
+                <Check className="w-3 h-3 text-emerald-400" aria-hidden="true" />
                 <span className="text-emerald-300">Copied</span>
               </>
             ) : (
               <>
-                <Copy className="w-3 h-3" />
+                <Copy className="w-3 h-3" aria-hidden="true" />
                 <span>LaTeX</span>
               </>
             )}
@@ -79,6 +91,7 @@ export const MathFormula: React.FC<MathFormulaProps> = ({
       <div 
         className="overflow-x-auto overflow-y-hidden py-2 px-1 text-slate-100 flex items-center justify-center min-h-[3rem] no-scrollbar sm:scrollbar-thin sm:scrollbar-thumb-slate-800"
         dangerouslySetInnerHTML={{ __html: renderedHtml }}
+        aria-hidden="true"
       />
     </div>
   );
