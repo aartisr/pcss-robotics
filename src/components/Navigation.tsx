@@ -20,8 +20,11 @@ import {
   SunMoon,
   Eye,
   BookOpen,
-  Compass
+  Compass,
+  ArrowLeft
 } from 'lucide-react';
+
+const SCHOOL_CLUBS_URL = 'https://saugus.pioneercss.org/apps/departments/clubs.jsp';
 
 interface NavigationProps {
   activeSection: NavSection;
@@ -208,7 +211,7 @@ export const Navigation: React.FC<NavigationProps> = ({
         <div className="w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3 min-w-0">
           
           {/* Column 1: Left Brand Mark */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex flex-col shrink-0">
             <button
               onClick={() => onNavigate('home')}
               className="flex items-center gap-2.5 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 rounded-xl"
@@ -227,11 +230,16 @@ export const Navigation: React.FC<NavigationProps> = ({
                     #23548
                   </span>
                 </div>
-                <span className="text-[10px] text-slate-300 font-mono hidden 2xl:block leading-none pt-0.5">
-                  Pioneer Charter School of Science II &bull; Saugus MA
-                </span>
               </div>
             </button>
+            <a
+              href={SCHOOL_CLUBS_URL}
+              className="hidden lg:inline-flex items-center gap-1 self-start pl-[3.05rem] pt-0.5 text-[11px] font-medium leading-none text-sky-300 hover:text-white focus-visible:text-white focus-visible:outline-none focus-visible:underline underline-offset-2 transition-colors"
+              aria-label="Back to Pioneer Charter School of Science II clubs and activities"
+            >
+              <ArrowLeft className="w-3 h-3" aria-hidden="true" />
+              <span>Back to School Clubs</span>
+            </a>
           </div>
 
           {/* Column 2: Center Navigation (Desktop Only, guaranteed flex containment) */}
@@ -501,6 +509,14 @@ export const Navigation: React.FC<NavigationProps> = ({
             aria-label="Mobile Navigation Menu"
             className="lg:hidden border-b border-[#1d3e70] bg-[#071326] px-4 pt-3 pb-6 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto no-scrollbar w-full max-w-full animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl"
           >
+            <a
+              href={SCHOOL_CLUBS_URL}
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-2.5 px-3.5 py-3 rounded-xl border border-sky-500/30 bg-sky-950/40 text-sm font-semibold text-sky-200 hover:bg-sky-950/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 min-h-[48px]"
+            >
+              <ArrowLeft className="w-4 h-4 shrink-0" aria-hidden="true" />
+              <span>Back to PCSS II Clubs &amp; Activities</span>
+            </a>
             {/* Quick Search in Mobile */}
             <button
               onClick={() => {
