@@ -10,6 +10,7 @@ import { SectionHeaderBreadcrumb } from './components/SectionHeaderBreadcrumb';
 import { ToastContainer } from './components/ToastContainer';
 import { CelestialStarfield, CelestialAura } from './components/CelestialStarfield';
 import { SeoHead } from './components/seo/SeoHead';
+import { AnalyticsPreferences } from './components/AnalyticsPreferences';
 import { useUrlNavigation } from './hooks/useUrlNavigation';
 import { useScrollPosition } from './hooks/useScrollPosition';
 import { useToastNotifications } from './hooks/useToastNotifications';
@@ -82,6 +83,7 @@ export default function App() {
     <div className="min-h-screen bg-[#071326] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200 relative pb-16 md:pb-0 w-full max-w-full overflow-x-hidden">
       {/* Dynamic SEO, Meta & Structured Data Synchronizer */}
       <SeoHead activeSection={activeSection} />
+      <AnalyticsPreferences activeSection={activeSection} />
 
       {/* Heavenly Celestial Starfield Background */}
       <CelestialStarfield aura={aura} />
@@ -380,6 +382,7 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-4">
+              <button type="button" onClick={() => window.dispatchEvent(new Event('open-analytics-preferences'))} className="hover:text-white transition py-1">Analytics choices</button>
               <a
                 href="https://www.pcssiirobotics.org/"
                 target="_blank"
