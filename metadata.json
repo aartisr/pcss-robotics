@@ -1,6 +1,6 @@
 {
   "name": "PCSS II Robotics | Student Engineering in Saugus, MA",
-  "description": "Robotics projects, technical notes, simulations, and STEM outreach at Pioneer Charter School of Science II (PCSS II). Site author: Aarti S Ravikumar — https://ai-aarti.com/.",
+  "description": "Robotics projects, technical notes, simulations, and STEM outreach at Pioneer Charter School of Science II (PCSS II).",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

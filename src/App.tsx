@@ -376,7 +376,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>&copy; {new Date().getFullYear()} PCSS II Robotics · <a href="https://ai-aarti.com/" rel="author" className="text-sky-300 underline underline-offset-4 hover:text-white">Aarti S Ravikumar</a>, site author · Pioneer Charter School of Science II (PCSS II).</span>
+              <span>&copy; {new Date().getFullYear()} PCSS II Robotics · Pioneer Charter School of Science II (PCSS II) · Site by <a href="https://ai-aarti.com/" rel="author" className="text-slate-300 hover:text-white underline underline-offset-4 transition-colors">Aarti S Ravikumar</a></span>
             </div>
 
             <div className="flex items-center gap-4">

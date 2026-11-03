@@ -25,7 +25,7 @@ export const SECTION_METADATA: Record<NavSection, SectionMetadata> = {
   home: {
     path: '/',
     title: 'PCSS II Robotics | Student Engineering in Saugus, MA',
-    description: 'Explore robotics projects, technical notes, simulations, and STEM outreach from Pioneer Charter School of Science II in Saugus, Massachusetts. Site author: Aarti S Ravikumar.',
+    description: 'Explore robotics projects, technical notes, simulations, and STEM outreach from Pioneer Charter School of Science II in Saugus, Massachusetts.',
     heading: 'PCSS II Robotics: student engineering and STEM outreach',
     summary: 'Explore the robotics work of students at Pioneer Charter School of Science II (PCSS II) in Saugus, Massachusetts. The site brings together robot engineering, technical notes, interactive simulations, and team activities.',
     highlights: ['Robot design and engineering', 'Technical notes and interactive simulations', 'Team and community activities']
@@ -80,11 +80,11 @@ export const SECTION_METADATA: Record<NavSection, SectionMetadata> = {
   },
   team: {
     path: '/team/',
-    title: 'Team and Site Author | PCSS II Robotics',
-    description: 'Meet PCSS II Robotics at Pioneer Charter School of Science II. This website is authored by Aarti S Ravikumar, whose portfolio is at ai-aarti.com.',
-    heading: 'The PCSS II Robotics team and site author',
-    summary: 'Meet students involved with robotics at Pioneer Charter School of Science II in Saugus. This website is authored by Aarti S Ravikumar, with a portfolio and project record at ai-aarti.com.',
-    highlights: ['Student team and roles', 'Projects and activities', 'Author portfolio']
+    title: 'Team | PCSS II Robotics',
+    description: 'Meet the PCSS II Robotics students and explore their projects and activities at Pioneer Charter School of Science II.',
+    heading: 'Meet the PCSS II Robotics team',
+    summary: 'Meet students involved with robotics at Pioneer Charter School of Science II in Saugus and explore their team projects and activities.',
+    highlights: ['Student team and roles', 'Projects and activities', 'STEM collaboration']
   },
   audit: {
     path: '/audit/',

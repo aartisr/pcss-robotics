@@ -61,8 +61,8 @@ function pageBody(section: NavSection) {
     <h1 style="font-size:2rem;line-height:1.2">${escapeHtml(page.heading)}</h1>
     <p>${escapeHtml(page.summary)}</p>
     <ul>${highlights}</ul>
-    <p>Site author: <a href="${AUTHOR.url}" rel="author" style="color:#7dd3fc">${escapeHtml(AUTHOR.name)}</a> · School: <a href="${SCHOOL.url}" style="color:#7dd3fc">${escapeHtml(SCHOOL.name)}</a></p>
     <nav aria-label="Explore PCSS II Robotics">${links}</nav>
+    <footer style="border-top:1px solid #1d3e70;margin-top:2rem;padding-top:1rem;color:#94a3b8;font-size:.75rem">Site by <a href="${AUTHOR.url}" rel="author" style="color:#cbd5e1">${escapeHtml(AUTHOR.name)}</a></footer>
   </main>`;
 }
 
