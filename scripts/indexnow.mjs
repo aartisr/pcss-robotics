@@ -10,7 +10,7 @@ const endpoint = 'https://api.indexnow.org/indexnow';
 const keyPattern = /^[A-Za-z0-9-]{8,128}$/;
 
 function usage() {
-  console.log(`Usage: npm run indexnow -- [--dry-run] [--sitemap PATH] [--key KEY] [--key-file PATH] [--key-location URL] [--batch-size N]
+  console.log(`Usage: npm run indexnow -- [--dry-run] [--sitemap PATH] [--key KEY] [--key-file PATH] [--key-location URL] [--batch-size N] [--skip-key-verification]
        npm run indexnow -- --init-key
 
 Reads page URLs from public/sitemap.xml by default and submits them to IndexNow.
@@ -23,6 +23,7 @@ Options:
   --key KEY        Use this key instead of auto-detecting a key file
   --key-file PATH  Read the key from a local file outside public/
   --key-location URL  Live HTTPS URL of the key file (for a subpath site)
+  --skip-key-verification  Skip the local live-key fetch when a network proxy blocks it
   --batch-size N   URLs per POST, 1-10000 (default: 1000)
   --help           Show this help`);
 }
@@ -32,6 +33,7 @@ function optionsFrom(argv) {
   for (let i = 0; i < argv.length; i++) {
     const arg = argv[i];
     if (arg === '--dry-run') options.dryRun = true;
+    else if (arg === '--skip-key-verification') options.skipKeyVerification = true;
     else if (arg === '--init-key') options.initKey = true;
     else if (arg === '--help' || arg === '-h') options.help = true;
     else if (arg === '--sitemap' || arg === '--key' || arg === '--key-file' || arg === '--key-location' || arg === '--batch-size') {
@@ -124,7 +126,7 @@ function resolveKey(options) {
   return key;
 }
 
-async function verifiedKeyLocation(origin, key, explicit, urls) {
+async function verifiedKeyLocation(origin, key, explicit, urls, skipVerification) {
   const location = explicit ?? `${origin}/${key}.txt`;
   const url = new URL(location);
   if (url.protocol !== 'https:' || url.origin !== origin || url.username || url.password || url.search || url.hash || !url.pathname.endsWith(`/${key}.txt`)) {
@@ -133,6 +135,10 @@ async function verifiedKeyLocation(origin, key, explicit, urls) {
   const scope = new URL('.', url).href;
   if (urls.some((page) => !page.startsWith(scope))) {
     throw new Error(`All submitted URLs must be within the key file scope: ${scope}`);
+  }
+  if (skipVerification) {
+    console.warn(`Skipping local key fetch for ${location}; IndexNow will validate the key.`);
+    return location;
   }
   const response = await fetch(location, { signal: AbortSignal.timeout(10000), redirect: 'follow' });
   if (!response.ok || response.url !== location || (await response.text()).trim() !== key) {
@@ -190,7 +196,7 @@ async function main() {
   }
 
   const key = resolveKey(options);
-  const keyLocation = await verifiedKeyLocation(origin, key, options.keyLocation, urls);
+  const keyLocation = await verifiedKeyLocation(origin, key, options.keyLocation, urls, options.skipKeyVerification);
   for (let i = 0; i < batches.length; i++) {
     await postBatch(host, key, keyLocation, batches[i], i + 1);
   }

@@ -17,6 +17,8 @@ The `indexnow` script reads every canonical page URL from `public/sitemap.xml` a
 
 The script rejects off-host sitemap URLs, deduplicates entries, verifies the deployed key file, and accepts IndexNow's HTTP 200 or 202 response. It retries temporary 429 and server errors. Use `--sitemap PATH`, `--key KEY`, or `--batch-size N` when needed; run `npm run indexnow -- --help` for the full CLI. IndexNow requests notification and does not guarantee indexing. Submit after publishing or changing pages rather than repeatedly submitting unchanged URLs.
 
+If a local network proxy blocks access to a verified live key file, run with `--skip-key-verification`. The script still checks the local key file, HTTPS host, and URL scope; IndexNow performs its own ownership check after receiving the request.
+
 Protocol reference: https://www.indexnow.org/documentation
 
 ## GitHub Pages guide
