@@ -49,6 +49,16 @@ for (const [name, pkg] of Object.entries(lock.packages)) {
   if (pkg.resolved && new URL(pkg.resolved).hostname !== 'registry.npmjs.org') {
     throw new Error(`Nonpublic package URL in lockfile: ${name}`);
   }
+  for (const [nativePackage, expectedVersion] of Object.entries(pkg.optionalDependencies ?? {})) {
+    if (!/(?:linux-x64-gnu|linux-x64)$/.test(nativePackage)) continue;
+    const available = Object.entries(lock.packages).some(([path, entry]) =>
+      (path === `node_modules/${nativePackage}` || path.endsWith(`/node_modules/${nativePackage}`))
+        && entry.version === expectedVersion
+    );
+    if (!available) {
+      throw new Error(`Missing Linux native dependency in lockfile: ${nativePackage}@${expectedVersion}`);
+    }
+  }
 }
 
 console.log('Vercel output and public npm lockfile verified.');
