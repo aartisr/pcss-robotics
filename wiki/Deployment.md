@@ -13,7 +13,7 @@ The live site's canonical address is [https://www.pcssiirobotics.org/](https://w
 
 ## Companion guide: GitHub Pages
 
-The `docs/` folder contains a small static guide with a `noindex` directive. The `.github/workflows/pages.yml` workflow uploads and deploys this folder after changes to it on `main`, or when run manually.
+The `docs/` folder contains a small static guide. The `.github/workflows/pages.yml` workflow uploads and deploys this folder after changes to it on `main`, or when run manually. Its canonical URL is the GitHub Pages address; the main robotics site remains on Vercel.
 
 In repository **Settings → Pages**, choose **GitHub Actions** as the build and deployment source. GitHub Pages for a private repository requires an eligible GitHub plan. The Pages site is public even if the repository itself is private.
 

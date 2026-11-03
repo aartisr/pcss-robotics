@@ -1,17 +1,12 @@
 {
   "version": 2,
+  "framework": "vite",
+  "installCommand": "npm ci --registry=https://registry.npmjs.org/ --replace-registry-host=never",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "public": false,
   "cleanUrls": true,
-  "trailingSlash": false,
-  "rewrites": [
-    {
-      "source": "/api/health",
-      "destination": "/api/health"
-    },
-    {
-      "source": "/((?!api/|assets/|homecards/|images/|sponsors/|llms|robots\\.txt|sitemap\\.xml|manifest\\.json|.*\\..*).*)",
-      "destination": "/index.html"
-    }
-  ],
+  "trailingSlash": true,
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -48,7 +43,20 @@
       ]
     },
     {
-      "source": "/(robots\\.txt|sitemap\\.xml|llms\\.txt|llms-full\\.txt)",
+      "source": "/sitemap.xml",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/xml; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/(robots\\.txt|llms\\.txt|llms-full\\.txt)",
       "headers": [
         {
           "key": "Content-Type",

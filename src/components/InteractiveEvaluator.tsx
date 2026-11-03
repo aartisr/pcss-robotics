@@ -49,7 +49,7 @@ export const InteractiveEvaluator: React.FC = () => {
   const handleCopySummary = () => {
     const text = `PCSS Robotics Evaluation Summary:
 • Overall Ecosystem Score: ${calculatedScore.toFixed(1)} / 10
-• GitHub Repository (aartisr/pcss-robotics): ${repoScore.toFixed(1)} / 10
+• Site Implementation: ${repoScore.toFixed(1)} / 10
 • Production Website (pcssiirobotics.org): ${websiteScore.toFixed(1)} / 10
 
 Category Breakdown:
@@ -106,7 +106,7 @@ ${categories
       {/* Recalculated Gauges */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/50 flex flex-col items-center">
-          <span className="text-xs font-medium text-slate-400 mb-2">Adjusted Repo Score</span>
+          <span className="text-xs font-medium text-slate-400 mb-2">Adjusted Implementation Score</span>
           <ScoreGauge score={repoScore} size={110} strokeWidth={8} colorScheme="amber" />
         </div>
         <div className="p-4 rounded-xl border border-slate-800 bg-slate-900/50 flex flex-col items-center">

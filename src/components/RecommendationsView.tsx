@@ -36,7 +36,7 @@ export const RecommendationsView: React.FC = () => {
             Remediation Roadmap: From 7.9 to 9.5+
           </h3>
           <p className="text-xs text-slate-400 mt-1">
-            Prioritized engineering checklist to address identified repository gaps, image payloads, and canonical SEO splits.
+            Prioritized engineering checklist for site performance, accessibility, and discoverability.
           </p>
         </div>
 

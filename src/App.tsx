@@ -2,14 +2,6 @@ import React, { useState } from 'react';
 import { NavSection } from './types';
 import { Navigation } from './components/Navigation';
 import { HeroSection } from './components/HeroSection';
-import { RobotEngineeringSection } from './components/RobotEngineeringSection';
-import { AutonomousSimulator } from './components/AutonomousSimulator';
-import { ResearchSection } from './components/ResearchSection';
-import { SponsorCommandCenter } from './components/SponsorCommandCenter';
-import { OutreachSection } from './components/OutreachSection';
-import { ArcadeMiniGame } from './components/ArcadeMiniGame';
-import { TeamSection } from './components/TeamSection';
-import { AuditEvaluationSection } from './components/AuditEvaluationSection';
 import { AiAssistantModal } from './components/AiAssistantModal';
 import { StudentJoinModal } from './components/StudentJoinModal';
 import { CommandPaletteModal } from './components/CommandPaletteModal';
@@ -25,7 +17,6 @@ import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { 
   Bot, 
   ShieldCheck, 
-  Github, 
   Globe, 
   ArrowRight,
   GraduationCap,
@@ -35,6 +26,15 @@ import {
   ArrowUp,
   Award
 } from 'lucide-react';
+
+const ResearchSection = React.lazy(() => import('./components/ResearchSection').then((module) => ({ default: module.ResearchSection })));
+const RobotEngineeringSection = React.lazy(() => import('./components/RobotEngineeringSection').then((module) => ({ default: module.RobotEngineeringSection })));
+const AutonomousSimulator = React.lazy(() => import('./components/AutonomousSimulator').then((module) => ({ default: module.AutonomousSimulator })));
+const SponsorCommandCenter = React.lazy(() => import('./components/SponsorCommandCenter').then((module) => ({ default: module.SponsorCommandCenter })));
+const OutreachSection = React.lazy(() => import('./components/OutreachSection').then((module) => ({ default: module.OutreachSection })));
+const ArcadeMiniGame = React.lazy(() => import('./components/ArcadeMiniGame').then((module) => ({ default: module.ArcadeMiniGame })));
+const TeamSection = React.lazy(() => import('./components/TeamSection').then((module) => ({ default: module.TeamSection })));
+const AuditEvaluationSection = React.lazy(() => import('./components/AuditEvaluationSection').then((module) => ({ default: module.AuditEvaluationSection })));
 
 export default function App() {
   const { activeSection, navigateTo } = useUrlNavigation('home');
@@ -109,6 +109,7 @@ export default function App() {
 
       {/* Main Dynamic View Content */}
       <main id="main-content" className="flex-1 w-full relative z-10">
+        <React.Suspense fallback={<div className="max-w-7xl mx-auto px-4 py-20 text-slate-300" role="status">Loading section…</div>}>
         {activeSection === 'home' && (
           <div className="space-y-12">
             <HeroSection
@@ -277,6 +278,7 @@ export default function App() {
         {activeSection === 'outreach' && <OutreachSection />}
         {activeSection === 'arcade' && <ArcadeMiniGame />}
         {activeSection === 'team' && <TeamSection />}
+        </React.Suspense>
       </main>
 
       {/* Floating Action Controls */}
@@ -355,18 +357,18 @@ export default function App() {
             </div>
 
             <div className="flex flex-wrap items-center gap-4 text-xs font-medium">
-              <button onClick={() => navigateTo('home')} className="hover:text-white transition py-1">Home</button>
-              <button onClick={() => navigateTo('audit')} className="text-amber-300 hover:text-amber-200 transition font-bold py-1 flex items-center gap-1">
+              <a href="/" onClick={(event) => { event.preventDefault(); navigateTo('home'); }} className="hover:text-white transition py-1">Home</a>
+              <a href="/audit/" onClick={(event) => { event.preventDefault(); navigateTo('audit'); }} className="text-amber-300 hover:text-amber-200 transition font-bold py-1 flex items-center gap-1">
                 <Award className="w-3.5 h-3.5 text-amber-400" />
                 <span>Audit & Scorecard</span>
-              </button>
-              <button onClick={() => navigateTo('research')} className="text-sky-300 hover:text-sky-200 transition font-semibold py-1">Research & Papers</button>
-              <button onClick={() => navigateTo('robots')} className="hover:text-white transition py-1">Robots & CAD</button>
-              <button onClick={() => navigateTo('simulator')} className="hover:text-white transition py-1">Autonomous Lab</button>
-              <button onClick={() => navigateTo('sponsors')} className="hover:text-white transition py-1">501(c)(3) Sponsors</button>
-              <button onClick={() => navigateTo('outreach')} className="hover:text-white transition py-1">Circuit 2026</button>
-              <button onClick={() => navigateTo('arcade')} className="hover:text-white transition py-1">Cyber Arcade</button>
-              <button onClick={() => navigateTo('team')} className="hover:text-white transition py-1">Team</button>
+              </a>
+              <a href="/research/" onClick={(event) => { event.preventDefault(); navigateTo('research'); }} className="text-sky-300 hover:text-sky-200 transition font-semibold py-1">Research & Papers</a>
+              <a href="/robots/" onClick={(event) => { event.preventDefault(); navigateTo('robots'); }} className="hover:text-white transition py-1">Robots & CAD</a>
+              <a href="/simulator/" onClick={(event) => { event.preventDefault(); navigateTo('simulator'); }} className="hover:text-white transition py-1">Autonomous Lab</a>
+              <a href="/sponsors/" onClick={(event) => { event.preventDefault(); navigateTo('sponsors'); }} className="hover:text-white transition py-1">Sponsors</a>
+              <a href="/outreach/" onClick={(event) => { event.preventDefault(); navigateTo('outreach'); }} className="hover:text-white transition py-1">STEM Outreach</a>
+              <a href="/arcade/" onClick={(event) => { event.preventDefault(); navigateTo('arcade'); }} className="hover:text-white transition py-1">Cyber Arcade</a>
+              <a href="/team/" onClick={(event) => { event.preventDefault(); navigateTo('team'); }} className="hover:text-white transition py-1">Team</a>
               <button onClick={() => setIsStudentModalOpen(true)} className="text-sky-300 hover:text-sky-200 transition font-bold py-1">Join Team</button>
             </div>
           </div>
@@ -374,20 +376,10 @@ export default function App() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-400">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>&copy; {new Date().getFullYear()} PCSS II Robotics. Pioneer Charter School of Science II. All contributions tax-deductible under 501(c)(3) status.</span>
+              <span>&copy; {new Date().getFullYear()} PCSS II Robotics · <a href="https://ai-aarti.com/" rel="author" className="text-sky-300 underline underline-offset-4 hover:text-white">Aarti S Ravikumar</a>, site author · Pioneer Charter School of Science II (PCSS II).</span>
             </div>
 
             <div className="flex items-center gap-4">
-              <a
-                href="https://github.com/aartisr/pcss-robotics"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white transition flex items-center gap-1 py-1"
-                aria-label="View source repository on GitHub (opens in new tab)"
-              >
-                <Github className="w-3.5 h-3.5" aria-hidden="true" />
-                <span>GitHub</span>
-              </a>
               <a
                 href="https://www.pcssiirobotics.org/"
                 target="_blank"

@@ -80,10 +80,11 @@ interface ChatMessage {
 const FIELD_WIDTH = 800;
 const FIELD_HEIGHT = 500;
 const ROBOT_SIZE = 34;
+const arenaWebSocketUrl = import.meta.env.VITE_ARENA_WS_URL?.trim();
 
 export const ArcadeMiniGame: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [activeTab, setActiveTab] = useState<GameMode>('multiplayer');
+  const [activeTab, setActiveTab] = useState<GameMode>(arenaWebSocketUrl ? 'multiplayer' : 'local2p');
   const [soundMuted, setSoundMuted] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
@@ -148,7 +149,7 @@ export const ArcadeMiniGame: React.FC = () => {
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search);
       const r = params.get('room');
-      if (r) {
+      if (r && arenaWebSocketUrl) {
         setRoomName(r);
         setActiveTab('multiplayer');
       }
@@ -164,7 +165,7 @@ export const ArcadeMiniGame: React.FC = () => {
 
   // Connect WebSocket when tab is 'multiplayer'
   useEffect(() => {
-    if (activeTab !== 'multiplayer') {
+    if (activeTab !== 'multiplayer' || !arenaWebSocketUrl) {
       if (wsRef.current) {
         wsRef.current.close();
         wsRef.current = null;
@@ -174,13 +175,12 @@ export const ArcadeMiniGame: React.FC = () => {
     }
 
     let isSubscribed = true;
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const host = window.location.host;
-    const wsUrl = `${protocol}//${host}/ws?room=${encodeURIComponent(roomName)}&name=${encodeURIComponent(
-      playerName
-    )}&alliance=${selectedAlliance}`;
+    const wsUrl = new URL(arenaWebSocketUrl);
+    wsUrl.searchParams.set('room', roomName);
+    wsUrl.searchParams.set('name', playerName);
+    wsUrl.searchParams.set('alliance', selectedAlliance);
 
-    const socket = new WebSocket(wsUrl);
+    const socket = new WebSocket(wsUrl.toString());
     wsRef.current = socket;
 
     socket.onopen = () => {
@@ -726,16 +726,14 @@ export const ArcadeMiniGame: React.FC = () => {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/40 font-mono shadow-lg shadow-purple-950/30">
               <Gamepad2 className="w-3.5 h-3.5 text-purple-400" />
-              <span>FTC ALLIANCE CYBER ARENA // REAL-TIME MULTIPLAYER</span>
+              <span>FTC ALLIANCE CYBER ARENA</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
               <span>Kraken Alliance Duel</span>
-              <span className="text-xs px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/40 font-mono font-normal">
-                WebSocket 30Hz
-              </span>
+              {arenaWebSocketUrl && <span className="text-xs px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/40 font-mono font-normal">Live Online</span>}
             </h2>
             <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
-              Holonomic Mecanum dueling simulator. Connect with teammates across browser sessions in real-time, scoop submersible samples, execute defensive bumper checks, and score in the high basket!
+              Holonomic Mecanum dueling simulator. Play together on one keyboard, scoop submersible samples, execute defensive bumper checks, and score in the high basket!
             </p>
           </div>
 
@@ -753,7 +751,7 @@ export const ArcadeMiniGame: React.FC = () => {
             </button>
 
             <div className="p-1 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-1">
-              <button
+              {arenaWebSocketUrl && <button
                 onClick={() => setActiveTab('multiplayer')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                   activeTab === 'multiplayer'
@@ -763,7 +761,7 @@ export const ArcadeMiniGame: React.FC = () => {
               >
                 <Users className="w-3.5 h-3.5" />
                 <span>Live Online (WS)</span>
-              </button>
+              </button>}
               <button
                 onClick={() => setActiveTab('local2p')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${

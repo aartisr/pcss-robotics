@@ -1,46 +1,38 @@
 import { useState, useEffect, useCallback } from 'react';
-import { NavSection } from '../types';
+import type { NavSection } from '../types';
+import { SECTION_METADATA } from '../seo/siteMetadata';
 
-const VALID_SECTIONS: NavSection[] = [
-  'home',
-  'research',
-  'robots',
-  'simulator',
-  'sponsors',
-  'outreach',
-  'arcade',
-  'team'
-];
+const SECTIONS = Object.keys(SECTION_METADATA) as NavSection[];
+
+function sectionFromLocation(): NavSection {
+  const path = window.location.pathname.replace(/\/+$/, '') || '/';
+  const legacy = new URLSearchParams(window.location.search).get('section') as NavSection;
+  if (path === '/' && SECTIONS.includes(legacy)) return legacy;
+  const route = SECTIONS.find((section) => SECTION_METADATA[section].path.replace(/\/+$/, '') === path);
+  if (route) return route;
+
+  // Keep older links working and replace them with the new canonical path.
+  return SECTIONS.includes(legacy) ? legacy : 'home';
+}
 
 export function useUrlNavigation(initialFallback: NavSection = 'home') {
-  const [activeSection, setActiveSection] = useState<NavSection>(() => {
-    if (typeof window !== 'undefined') {
-      const searchParams = new URLSearchParams(window.location.search);
-      const sectionParam = searchParams.get('section') as NavSection;
-      if (sectionParam && VALID_SECTIONS.includes(sectionParam)) {
-        return sectionParam;
-      }
-    }
-    return initialFallback;
-  });
+  const [activeSection, setActiveSection] = useState<NavSection>(() =>
+    typeof window === 'undefined' ? initialFallback : sectionFromLocation()
+  );
 
   const navigateTo = useCallback((section: NavSection) => {
+    window.history.pushState({ section }, '', SECTION_METADATA[section].path);
     setActiveSection(section);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
-  // Listen to browser popstate (back/forward button)
   useEffect(() => {
-    const handlePopState = (event: PopStateEvent) => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const sectionParam = searchParams.get('section') as NavSection;
-      if (sectionParam && VALID_SECTIONS.includes(sectionParam)) {
-        setActiveSection(sectionParam);
-      } else if (!sectionParam) {
-        setActiveSection('home');
-      }
-    };
-
+    const section = sectionFromLocation();
+    const canonicalPath = SECTION_METADATA[section].path;
+    if (window.location.pathname !== canonicalPath || window.location.search) {
+      window.history.replaceState({ section }, '', canonicalPath);
+    }
+    const handlePopState = () => setActiveSection(sectionFromLocation());
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);

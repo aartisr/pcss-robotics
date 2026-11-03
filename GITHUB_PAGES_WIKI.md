@@ -2,7 +2,7 @@
 
 ## GitHub Pages
 
-The static guide in `docs/` is published by `.github/workflows/pages.yml`. It links readers to the canonical site at `https://www.pcssiirobotics.org/` and is marked `noindex` to avoid duplicate search results. The workflow uploads only `docs/`.
+The static guide in `docs/` is published by `.github/workflows/pages.yml`. It links readers to the primary site at `https://www.pcssiirobotics.org/` and has its own canonical GitHub Pages URL and sitemap. The workflow uploads only `docs/`.
 
 1. Push these files to `main` after reviewing the repository changes.
 2. In repository **Settings → Pages**, set **Build and deployment → Source** to **GitHub Actions**.

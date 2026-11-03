@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Github, Code2, AlertTriangle, CheckCircle, FileText, GitCommit, Layers, Terminal, Sparkles } from 'lucide-react';
+import { Code2, AlertTriangle, CheckCircle, FileText, GitCommit, Layers, Terminal, Sparkles } from 'lucide-react';
 
 export const RepoAuditView: React.FC = () => {
   const [selectedSubTab, setSelectedSubTab] = useState<'architecture' | 'hygiene' | 'dependencies' | 'cicd'>('architecture');
@@ -10,15 +10,14 @@ export const RepoAuditView: React.FC = () => {
       <div className="rounded-xl border border-slate-800 bg-slate-900/70 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-            <Github className="w-4 h-4" />
-            Repository Evaluation &bull; Score: 7.2 / 10
+            <Code2 className="w-4 h-4" />
+            Internal Implementation Evaluation &bull; Score: 7.2 / 10
           </div>
           <h3 className="text-2xl font-bold text-white tracking-tight">
-            aartisr/pcss-robotics
+            PCSS II Robotics implementation
           </h3>
           <p className="text-slate-400 text-xs sm:text-sm mt-1 max-w-2xl">
-            Target: <code className="text-cyan-300 font-mono bg-slate-950 px-1.5 py-0.5 rounded">https://github.com/aartisr/pcss-robotics.git</code>
-            &bull; Licensed under MIT &bull; React 19 + Vite 6 + TanStack Ecosystem
+            Review of site structure, maintainability, dependencies, and deployment readiness.
           </p>
         </div>
 
@@ -26,14 +25,6 @@ export const RepoAuditView: React.FC = () => {
           <span className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-950/60 text-amber-300 border border-amber-800/40">
             Rating: 7.2 / 10 (Grade B)
           </span>
-          <a
-            href="https://github.com/aartisr/pcss-robotics"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition"
-          >
-            Open on GitHub &rarr;
-          </a>
         </div>
       </div>
 

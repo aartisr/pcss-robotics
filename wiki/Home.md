@@ -13,4 +13,4 @@ Site author: [Aarti S Ravikumar](https://ai-aarti.com/).
 - [[Search and Indexing]] — canonical URLs, discovery pages, and IndexNow.
 - [[Arcade]] — local and online game modes.
 
-The GitHub Pages guide is a secondary project entry point. It is marked `noindex`; use the official website when sharing or citing site content.
+The GitHub Pages guide is a secondary project entry point. Use the official website when sharing or citing current team content.

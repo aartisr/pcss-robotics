@@ -4,7 +4,7 @@ export default function handler(req: any, res: any) {
   res.status(200).json({
     status: 'ok',
     app: 'PCSS II Robotics (FTC #23548)',
-    platform: 'Vercel Serverless Edge',
+    platform: 'Vercel Function',
     time: new Date().toISOString(),
     organization: 'Pioneer Charter School of Science II',
     nonprofitStatus: '501(c)(3) Public Charity'

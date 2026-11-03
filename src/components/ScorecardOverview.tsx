@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScoreGauge } from './ScoreGauge';
 import { OVERALL_SCORES, REPO_METRICS, WEBSITE_METRICS } from '../data/evaluationData';
-import { ExternalLink, Github, Globe, Award, AlertTriangle, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { ExternalLink, Code2, Globe, Award, AlertTriangle, CheckCircle2, ShieldAlert } from 'lucide-react';
 
 interface ScorecardOverviewProps {
   onSelectTab: (tab: 'rubric' | 'repo' | 'website' | 'recommendations' | 'evaluator') => void;
@@ -22,11 +22,7 @@ export const ScorecardOverview: React.FC<ScorecardOverviewProps> = ({ onSelectTa
               PCSS II Robotics (FTC #23548) Evaluation
             </h2>
             <p className="text-slate-400 text-sm max-w-3xl leading-relaxed">
-              In-depth assessment of the open-source GitHub repository{' '}
-              <span className="text-cyan-300 font-mono text-xs bg-slate-800/80 px-1.5 py-0.5 rounded">
-                aartisr/pcss-robotics
-              </span>{' '}
-              and the live production platform at{' '}
+              In-depth assessment of the site implementation and production platform at{' '}
               <span className="text-cyan-300 font-mono text-xs bg-slate-800/80 px-1.5 py-0.5 rounded">
                 https://www.pcssiirobotics.org/
               </span>
@@ -35,16 +31,6 @@ export const ScorecardOverview: React.FC<ScorecardOverviewProps> = ({ onSelectTa
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <a
-              href="https://github.com/aartisr/pcss-robotics"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 transition text-sm font-medium shadow-sm"
-            >
-              <Github className="w-4 h-4 text-cyan-400" />
-              <span>Inspect GitHub Repo</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
-            </a>
             <a
               href="https://www.pcssiirobotics.org/"
               target="_blank"
@@ -61,13 +47,13 @@ export const ScorecardOverview: React.FC<ScorecardOverviewProps> = ({ onSelectTa
 
       {/* Main Scorecard Pillars */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* GitHub Repo Score Card */}
+        {/* Implementation score card */}
         <div className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/60 p-6 flex flex-col justify-between hover:border-slate-700 transition">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 text-slate-300 font-semibold text-sm">
-                <Github className="w-4 h-4 text-cyan-400" />
-                <span>GitHub Repository</span>
+                <Code2 className="w-4 h-4 text-cyan-400" />
+                <span>Site Implementation</span>
               </div>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-950/60 text-amber-300 border border-amber-800/40">
                 Grade: {OVERALL_SCORES.repoGrade}
@@ -102,7 +88,7 @@ export const ScorecardOverview: React.FC<ScorecardOverviewProps> = ({ onSelectTa
             onClick={() => onSelectTab('repo')}
             className="mt-6 w-full py-2 px-3 rounded-lg text-xs font-semibold bg-slate-800/80 hover:bg-slate-700/80 text-cyan-300 border border-slate-700/60 transition"
           >
-            Explore Full Repo Audit &rarr;
+            Explore Implementation Review &rarr;
           </button>
         </div>
 

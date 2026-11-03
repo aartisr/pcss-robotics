@@ -1,55 +1,20 @@
-# PCSS II Robotics (FIRST Tech Challenge Team #23548)
+# PCSS II Robotics
 
-> Pioneer Charter School of Science II Robotics is a 501(c)(3) non-profit student-led competitive robotics organization and academic research laboratory in Saugus, Massachusetts.
+> Student robotics projects, technical notes, simulations, and STEM outreach associated with Pioneer Charter School of Science II (PCSS II) in Saugus, Massachusetts.
 
-## Core Metadata
-- Name: PCSS II Robotics (FTC #23548)
-- Institution: Pioneer Charter School of Science II
-- Tax Status: 501(c)(3) Public Charity (100% Tax-Deductible Contributions)
-- Location: Saugus, Massachusetts (Essex & Middlesex Counties)
-- Contact Email: robotics@pcss2.org
-- Official Website: https://www.pcssiirobotics.org
-- GitHub Repository: https://github.com/aartisr/pcss-robotics
+Website: https://www.pcssiirobotics.org/
+Site author: Aarti S Ravikumar — https://ai-aarti.com/
+School: Pioneer Charter School of Science II (PCSS II) — https://saugus.pioneercss.org/
 
-## Leadership & Student Research Fellows
-- Faculty Advisor / Director: Dr. Marcus Vance, Ph.D. (Aerospace Systems & Control Theory)
-- Lead Systems Fellow & Flight Lead: Aarti Sri Ravikumar (Grade 9)
-  - Portfolio: https://ai-aarti.com
-  - Research & Publications: https://publications.ai-aarti.com
-  - Focus: CubeSat Flight Software, Telemetry Pipelines, Java FTC SDK & Holonomic Control
-- Kinematics & FEA Fellow: Kavya P. (Grade 11)
-- Embedded Signal Architecture Fellow: Devon M. (Grade 11)
-- Educational Outreach Fellow: Elena R. (Grade 10)
+## Start here
 
-## Peer-Reviewed Technical Working Papers
-1. "Closed-Loop Feedforward Quintic Spline Tracking and High-Frequency Optical Odometry on 4-Mecanum Holonomic Platforms" (Report: PCSS-TR-2025-01, DOI: 10.5281/zenodo.108923548)
-   - Authors: Aarti Sri Ravikumar, Dr. Marcus Vance, Kavya P.
-2. "Finite Element Kinematic Optimization of Dual-Stage Cascading Carbon/Aluminum Elevators under Extreme Shock Loading" (Report: PCSS-TR-2025-02, DOI: 10.5281/zenodo.108923549)
-   - Authors: Kavya P., Aarti Sri Ravikumar, Dr. Marcus Vance
-3. "Real-Time Edge Computer Vision: Quantized 60 FPS Submersible Sample Classification on Low-Power Snapdragon Architecture" (Report: PCSS-TR-2025-03, DOI: 10.5281/zenodo.108923550)
-   - Authors: Devon M., Aarti Sri Ravikumar, Dr. Marcus Vance
-4. "Longitudinal Socio-Educational Impact of Secondary Open-Source Robotics Research: A 4-Year Cohort Study" (Report: PCSS-TR-2025-04, DOI: 10.5281/zenodo.108923551)
-   - Authors: Elena R., Dr. Marcus Vance, Aarti Sri Ravikumar
+- [Home](https://www.pcssiirobotics.org/): Overview of the site and its sections.
+- [Research and technical notes](https://www.pcssiirobotics.org/research/): Robotics controls, mechanical design, and computer vision topics.
+- [Robot engineering and CAD](https://www.pcssiirobotics.org/robots/): Designs, mechanisms, and robot histories.
+- [Autonomous simulator](https://www.pcssiirobotics.org/simulator/): Educational path planning and control interactions.
+- [STEM outreach](https://www.pcssiirobotics.org/outreach/): Student events and community activities.
+- [Team and author](https://www.pcssiirobotics.org/team/): Team information and the author's portfolio.
 
-## Flagship Robot: Kraken V2 (2025–2026 INTO THE DEEP)
-- Chassis: 4x REV HD Hex Mecanum Drivetrain with SparkFun OTOS 500Hz Optical Tracking Odometry.
-- Elevator: Dual-stage cascading CNC 6061-T6 aluminum lift (42-inch extension in 0.65s).
-- Vision: INT8 quantized YOLOv8 neural network at 60 FPS on Qualcomm Snapdragon 410c.
-- Autonomous Trajectory: $C^2$ Quintic Hermite Splines with feedforward acceleration control.
+For a longer plain-text overview, see https://www.pcssiirobotics.org/llms-full.txt.
 
-## 501(c)(3) Corporate Sponsorship & Partnership Tiers
-- Title / Platinum ($5,000+): Primary robot hull & pit banner placement, VIP match access, W-9 tax packet.
-- Gold ($2,500+): Large robot hull branding, team apparel inclusion, regional event booth.
-- Silver ($1,000+): Medium robot hull logo, digital sponsor roll.
-- Bronze ($500+): Team shirt mention & website link.
-- In-Kind: Raw stock aluminum, CNC tooling, 3D printing filaments, and electronics.
-
-## Primary Web Endpoints
-- Home & Flagship Hub: https://www.pcssiirobotics.org/
-- Research Working Papers: https://www.pcssiirobotics.org/?section=research
-- Robot Engineering & CAD: https://www.pcssiirobotics.org/?section=robots
-- 500Hz Odometry Simulator: https://www.pcssiirobotics.org/?section=simulator
-- Sponsor Tax Credit Calculator: https://www.pcssiirobotics.org/?section=sponsors
-- Circuit 2026 STEM Outreach: https://www.pcssiirobotics.org/?section=outreach
-- Cyber Arcade Arena: https://www.pcssiirobotics.org/?section=arcade
-- Team Roster: https://www.pcssiirobotics.org/?section=team
+Technical reports, test results, sponsorship terms, and event dates should be checked against their linked primary sources before quotation. This site does not guarantee third-party citation or indexing.

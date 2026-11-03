@@ -1,6 +1,6 @@
 {
-  "name": "PCSS II Robotics Portal & Evaluation",
-  "description": "Engineering laboratory portal, autonomous simulation platform, and accessibility evaluation suite for Pioneer Charter School of Science II Robotics (FTC #23548).",
+  "name": "PCSS II Robotics | Student Engineering in Saugus, MA",
+  "description": "Robotics projects, technical notes, simulations, and STEM outreach at Pioneer Charter School of Science II (PCSS II). Site author: Aarti S Ravikumar — https://ai-aarti.com/.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

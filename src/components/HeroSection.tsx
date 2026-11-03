@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { TEAM_PROFILE } from '../data/roboticsData';
-import { LAB_PROFILE, RESEARCH_PAPERS } from '../data/researchData';
 import { NavSection } from '../types';
 import celestialHeroImg from '../assets/celestial_robot_hero.jpg';
 import labHeroWebp from '../assets/robotics-lab-hero.webp';
@@ -93,6 +92,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             <p className="text-base sm:text-lg text-slate-200 max-w-2xl leading-relaxed">
               Operating from <strong className="text-white font-bold">Pioneer Charter School of Science II</strong> in Saugus, Massachusetts, our student research fellows and faculty engineer competition robots through peer-reviewed principles—coupling <span className="text-sky-300 font-mono font-medium">500Hz optical state estimation</span>, <span className="text-amber-300 font-mono font-medium">C² quintic splines</span>, and <span className="text-sky-300 font-mono font-medium">finite element dynamics</span> with STEM outreach across the North Shore.
+            </p>
+            <p className="text-sm text-slate-300">
+              Site author: <a href="https://ai-aarti.com/" rel="author" className="text-sky-300 underline underline-offset-4 hover:text-white">Aarti S Ravikumar</a>
+              {' '}· Pioneer Charter School of Science II (PCSS II)
             </p>
 
             {/* ACADEMIC RESEARCH & LAB QUICK ACTION GATEWAYS */}

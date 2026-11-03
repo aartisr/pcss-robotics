@@ -52,7 +52,7 @@ export const RubricMatrix: React.FC = () => {
                   : 'text-slate-400 hover:text-white'
               }`}
             >
-              GitHub Repo
+              Implementation
             </button>
             <button
               onClick={() => setFilter('website')}
@@ -107,7 +107,7 @@ export const RubricMatrix: React.FC = () => {
                         {cat.name}
                       </h4>
                       <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
-                        {cat.target === 'repo' ? 'GitHub' : 'Website'}
+                        {cat.target === 'repo' ? 'Implementation' : 'Website'}
                       </span>
                       <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-cyan-950/60 text-cyan-300 border border-cyan-800/40">
                         Weight: {cat.weight}%

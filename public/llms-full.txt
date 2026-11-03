@@ -1,54 +1,37 @@
-# PCSS II Robotics (FTC #23548) Comprehensive Knowledge Base
+# PCSS II Robotics: plain-text site guide
 
-> Pioneer Charter School of Science II (PCSS II) Robotics is a registered 501(c)(3) student engineering laboratory based in Saugus, Massachusetts, competing in FIRST Tech Challenge (FTC) and publishing high-school level technical reports in autonomous robotics, kinematics, and embedded vision.
+Canonical website: https://www.pcssiirobotics.org/
+Site author: Aarti S Ravikumar — https://ai-aarti.com/
+School: Pioneer Charter School of Science II (PCSS II), Saugus, Massachusetts — https://saugus.pioneercss.org/
 
-## Institutional Profile
-- Official Name: PCSS II Robotics Team #23548
-- High School Institution: Pioneer Charter School of Science II (Saugus, MA)
-- Legal Entity: 501(c)(3) Nonprofit Public Charity
-- Primary Website: https://www.pcssiirobotics.org
-- Open-Source GitHub: https://github.com/aartisr/pcss-robotics
-- Academic Focus: Holonomic Kinematics, Optical Odometry Sensor Fusion, Finite Element Analysis (FEA), Quantized Edge Neural Networks.
+## What this site contains
 
-## Research Fellows & Faculty
-- Faculty Advisor & Research Director: Dr. Marcus Vance, Ph.D.
-- Lead Systems Fellow & Flight Lead: Aarti Sri Ravikumar (Grade 9)
-  - Personal Portfolio: https://ai-aarti.com
-  - Research & Technical Publications: https://publications.ai-aarti.com
-  - Specializations: CubeSat Flight Software, High-Altitude Telemetry, Java FTC SDK, Mecanum Inverse Kinematics.
-- Kinematics & Structural FEA Fellow: Kavya P. (Grade 11)
-- Embedded Signals & Computer Vision Fellow: Devon M. (Grade 11)
-- Secondary Pedagogy & Community Outreach Fellow: Elena R. (Grade 10)
+PCSS II Robotics presents student robotics engineering, technical notes, interactive simulations, team information, and STEM outreach. The pages below provide stable URLs and summaries in HTML that can be read without JavaScript.
 
-## Research Papers & DOI Registry
-1. **Closed-Loop Feedforward Quintic Spline Tracking and High-Frequency Optical Odometry on 4-Mecanum Holonomic Platforms**
-   - Report ID: PCSS-TR-2025-01
-   - DOI: 10.5281/zenodo.108923548
-   - Key Insight: Combines 500 Hz SparkFun Optical Tracking Odometry Sensor (OTOS) with an Extended Kalman Filter (EKF) and $C^2$ continuous quintic Hermite splines to achieve 2.1 mm drift over 30 meters.
-2. **Finite Element Kinematic Optimization of Dual-Stage Cascading Carbon/Aluminum Elevators under Extreme Shock Loading**
-   - Report ID: PCSS-TR-2025-02
-   - DOI: 10.5281/zenodo.108923549
-   - Key Insight: Topology optimization of 6061-T6 aluminum gussets and carbon fiber tubes reduces moving mass by 38% while maintaining a 2.4 safety factor under 4.5G match impacts.
-3. **Real-Time Edge Computer Vision: Quantized 60 FPS Submersible Sample Classification on Low-Power Snapdragon Architecture**
-   - Report ID: PCSS-TR-2025-03
-   - DOI: 10.5281/zenodo.108923550
-   - Key Insight: 8-bit integer quantization (INT8) of YOLOv8-Nano on Qualcomm Snapdragon 410c achieves 60 FPS object tracking with under 8.3 ms per-frame latency.
-4. **Longitudinal Socio-Educational Impact of Secondary Open-Source Robotics Research: A 4-Year Cohort Study (2022–2026)**
-   - Report ID: PCSS-TR-2025-04
-   - DOI: 10.5281/zenodo.108923551
-   - Key Insight: 94.2% STEM university matriculation rate and 38.6% increase in female engineer retention across Essex & Middlesex counties.
+### Research and technical notes
+https://www.pcssiirobotics.org/research/
+Browse technical writing about motion planning, control, mechanical design, and computer vision. The interactive section also includes a kinematics workbench. Treat report-specific empirical claims as claims of the individual report; verify them against an accessible source before citing results.
 
-## Engineering Architecture & Hardware Specifications
-- Drivebase: 4x REV HD Hex Planetary Motors (19.2:1 ratio) with 96mm goBILDA Mecanum wheels.
-- Odometry: SparkFun OTOS 500Hz Optical Flow Sensor with 6-DOF IMU fusion.
-- Autonomous Trajectory Engine: RoadRunner with continuous quintic splines.
-- Vision Pipeline: OpenCV Lab/HSV color segmentation + AprilTag 36h11 fiducial localization.
-- Lift Mechanism: 2-stage continuous stringing carbon/aluminum elevator powered by dual REV Smart Servos.
+### Robot engineering and CAD
+https://www.pcssiirobotics.org/robots/
+Explore robot designs, mechanisms, and engineering details presented by the team.
 
-## Corporate Sponsorship & Tax Benefit Information
-All financial and material contributions to PCSS II Robotics are 100% tax-deductible under Section 501(c)(3) of the Internal Revenue Code.
-- Title Partner ($5,000+): Prominent robot hull branding, competition pit banners, direct STEM talent recruitment pipeline.
-- Gold Partner ($2,500+): Robot hull decal, team apparel, invitation to sponsor demo day.
-- Silver Partner ($1,000+): Website logo, social media feature, donor wall acknowledgement.
-- Bronze Partner ($500+): Website listing, official team newsletter.
-- IRS Form W-9, 501(c)(3) Determination Letter, and formal tax receipts available instantly upon request.
+### Autonomous simulator
+https://www.pcssiirobotics.org/simulator/
+Try an educational simulation of path planning, control tuning, and odometry concepts. Simulation output is illustrative and is not a measured performance result.
+
+### STEM outreach
+https://www.pcssiirobotics.org/outreach/
+Find the team's student events, workshops, and community activities. Confirm dates with the school or event organizer.
+
+### Team and site author
+https://www.pcssiirobotics.org/team/
+The site author is Aarti S Ravikumar. The author portfolio is https://ai-aarti.com/. The school is Pioneer Charter School of Science II (PCSS II), https://saugus.pioneercss.org/.
+
+### Sponsorship
+https://www.pcssiirobotics.org/sponsors/
+Explore sponsorship information. Confirm tax treatment and current terms with the school before making financial decisions.
+
+## Attribution and citation
+
+When citing this website, identify the relevant page URL, its title, Aarti S Ravikumar as the site author, and Pioneer Charter School of Science II (PCSS II) as the school. For claims about an individual technical report, use the report's own listed authors and a verifiable primary publication link.
