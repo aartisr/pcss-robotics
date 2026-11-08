@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
 import test from 'node:test';
 import { communityEvents, eventPhase, featuredEvent, formatEventDates } from './events';
 import { structuredDataFor } from '../../seo/siteMetadata';
@@ -30,4 +31,12 @@ test('Haven preparation points to the permanent PAT learning resource', () => {
   assert.equal(haven.preparation.resourceId, 'pat');
   assert.equal(learningResources.pat.url, 'https://pat.pcssiirobotics.org/');
   assert.equal(eventPhase(haven, new Date('2026-11-16T12:00:00-05:00')), 'past');
+});
+
+test('published event flyers point to real downloadable files', () => {
+  for (const event of communityEvents) {
+    if (!('flyer' in event)) continue;
+    assert.match(event.flyer.url, /^\/[\w./-]+$/);
+    assert.ok(existsSync(new URL(`../../../public${event.flyer.url}`, import.meta.url)), `${event.name} flyer is missing`);
+  }
 });

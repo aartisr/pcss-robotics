@@ -1,4 +1,4 @@
-import { ArrowUpRight, BookOpen, CalendarDays, Check, Clock3, Code2, Gamepad2, History, MapPin, Sparkles, Trophy, Users } from 'lucide-react';
+import { ArrowUpRight, BookOpen, CalendarDays, Check, Clock3, Code2, Download, Gamepad2, History, MapPin, Sparkles, Trophy, Users } from 'lucide-react';
 import { communityEvents, eventPhase, featuredEvent, formatEventDates, type CommunityEvent } from '../features/events/events';
 import { learningResources } from '../features/learning/resources';
 
@@ -19,6 +19,11 @@ function EventLink({ event, prominent = false }: { event: CommunityEvent; promin
       {event.registrationLabel ?? `Explore ${event.name}`} <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
     </a>
   );
+}
+
+function EventFlyerLink({ event }: { event: CommunityEvent }) {
+  if (!event.flyer) return null;
+  return <a href={event.flyer.url} download={event.flyer.fileName} aria-label={`Download ${event.name} flyer`} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-bold text-white transition hover:border-white/60 hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"><Download className="h-4 w-4" aria-hidden="true" />Download Flyer</a>;
 }
 
 function EventFacts({ event }: { event: CommunityEvent }) {
@@ -59,6 +64,7 @@ function FeaturedEvent({ event }: { event: CommunityEvent }) {
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 sm:text-base">{event.details}</p>
           <div className="mt-7 flex flex-wrap items-center gap-4">
             <EventLink event={event} prominent />
+            <EventFlyerLink event={event} />
             {event.registrationUrl && phase !== 'past' && <span className="text-xs text-slate-300">Event site opens in a new tab</span>}
           </div>
         </div>
@@ -97,6 +103,7 @@ function EventHistory({ events }: { events: readonly CommunityEvent[] }) {
               {event.highlights.map(highlight => <li key={highlight} className="rounded-full border border-sky-400/20 bg-sky-400/10 px-3 py-1 text-xs font-medium text-sky-100">{highlight}</li>)}
             </ul>
             {event.preparation && <a href={learningResources[event.preparation.resourceId].url} target="_blank" rel="noopener noreferrer" className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-sky-300 underline underline-offset-4 hover:text-sky-200">Keep learning with {learningResources[event.preparation.resourceId].name} <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>}
+            {event.flyer && <div className="mt-5"><EventFlyerLink event={event} /></div>}
             <p className="mt-6 flex items-center gap-2 text-xs text-slate-400"><MapPin className="h-4 w-4" aria-hidden="true" />{event.place}</p>
           </article>
         ))}

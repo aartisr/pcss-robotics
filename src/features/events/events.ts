@@ -21,6 +21,7 @@ export interface CommunityEvent {
   experienceTitle: string;
   experienceBody: string;
   highlights: string[];
+  flyer?: { url: string; fileName: string };
   registrationUrl?: string;
   registrationLabel?: string;
   questions?: { question: string; answer: string }[];
@@ -54,6 +55,7 @@ export const communityEvents = [
     experienceTitle: 'A place to start. A place to surprise yourself.',
     experienceBody: 'A jam is a short, collaborative build session. The goal is to leave with something playable and a story about how you made it.',
     highlights: ['No coding experience needed', 'Free food and a T-shirt', 'Surprise prizes for the top three projects'],
+    flyer: { url: '/hackclub-haven-flyer.jpg', fileName: 'hackclub-haven-flyer.jpg' },
     registrationUrl: 'https://haven.hackclub.com/',
     registrationLabel: 'Find your Haven event',
     questions: [

@@ -38,6 +38,8 @@ npm run build
 
 Add one record to `src/features/events/events.ts`. Give it a stable `id`, start and end timestamps with time zone offsets, the venue or area, summary, highlights, and an optional registration URL. The event page, homepage feature, and history update from that catalog. Events move from upcoming to live to past based on their timestamps; the next upcoming event is featured automatically. Keep completed events in the catalog as history instead of leaving stale registration calls to action.
 
+For a downloadable flyer, place the original file in `public/` and set that event’s optional `flyer.url` and `flyer.fileName`. The download link appears in the event hero and remains available when the event moves into history.
+
 Haven’s local details come from the PCSS II Robotics flyer: November 14–15, 2026, 10 a.m.–4 p.m. each day, beginner guidance, food, a T-shirt, and surprise prizes for the top three projects. The flyer does not specify an exact venue. The current button uses Hack Club’s official Haven page until a local registration URL is available. Circuit’s June 6–7, 2026 dates come from the older event draft previously in this repository. Do not add attendance totals or outcomes without a source.
 
 ## Browser storage and arcade
