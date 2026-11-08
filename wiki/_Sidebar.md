@@ -6,4 +6,4 @@
 - [[Search and Indexing]]
 - [[Arcade]]
 
-[Official website](https://www.pcssiirobotics.org/) · [Author](https://ai-aarti.com/)
+[Official website](https://www.pcssiirobotics.org/) · [Aarti S Ravikumar](https://ai-aarti.com/) · [PCSS II](https://saugus.pioneercss.org/)

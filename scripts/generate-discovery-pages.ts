@@ -57,7 +57,7 @@ function pageBody(section: NavSection) {
   }).join(' · ');
   const highlights = page.highlights.map((item) => `<li>${escapeHtml(item)}</li>`).join('');
   return `<main id="content" style="max-width:74rem;margin:2rem auto;padding:1.5rem;color:#f1f5f9;font:1rem/1.65 system-ui,sans-serif">
-    <p><a href="/" style="color:#7dd3fc">PCSS II Robotics</a> · ${escapeHtml(SCHOOL.name)}</p>
+    <p><a href="/" style="color:#7dd3fc">PCSS II Robotics</a> · <a href="${SCHOOL.url}" style="color:#7dd3fc">${escapeHtml(SCHOOL.name)} (${escapeHtml(SCHOOL.shortName)})</a></p>
     <h1 style="font-size:2rem;line-height:1.2">${escapeHtml(page.heading)}</h1>
     <p>${escapeHtml(page.summary)}</p>
     <ul>${highlights}</ul>

@@ -19,10 +19,40 @@ const required = [
 ];
 const forbidden = /github\.com\/(?!(?:sponsors\/|aartisr\/pcss-robotics(?:[/?#"'\s<>]|$)))[^/\s"'<>]+\/[^/\s"'<>]+|artifactory|jfrog|npm\.pkg\.github/i;
 const textExtensions = /\.(?:html|js|css|json|txt|xml)$/;
+const siteUrl = 'https://www.pcssiirobotics.org';
+const author = { name: 'Aarti S Ravikumar', url: 'https://ai-aarti.com/' };
+const school = { name: 'Pioneer Charter School of Science II', url: 'https://saugus.pioneercss.org/' };
 
 for (const file of required) {
   if (!existsSync(new URL(file, dist))) {
     throw new Error(`Missing Vercel output: ${file}`);
+  }
+}
+
+for (const file of required.filter((item) => item.endsWith('index.html'))) {
+  const html = readFileSync(new URL(file, dist), 'utf8');
+  const path = file === 'index.html' ? '/' : `/${file.slice(0, -'index.html'.length)}`;
+  const canonical = `${siteUrl}${path}`;
+  const schema = html.match(/<script id="site-jsonld" type="application\/ld\+json">([\s\S]*?)<\/script>/);
+  const body = html.split('</head>')[1] ?? '';
+  if (!html.includes(`<link rel="canonical" href="${canonical}"`) ||
+      !html.includes(`<meta name="author" content="${author.name}"`) ||
+      !html.includes(`<link rel="author" href="${author.url}"`) ||
+      !body.includes(`href="${author.url}"`) ||
+      !body.includes(`href="${school.url}"`) || !schema) {
+    throw new Error(`Missing canonical or linked author/school attribution in ${file}`);
+  }
+  const graph = JSON.parse(schema[1])['@graph'];
+  const person = graph.find((item) => item['@type'] === 'Person');
+  const organization = graph.find((item) => item['@type'] === 'EducationalOrganization');
+  const club = graph.find((item) => item['@id'] === `${siteUrl}/#organization`);
+  const page = graph.find((item) => item['@type'] === 'WebPage');
+  if (person?.name !== author.name || person?.url !== author.url ||
+      organization?.name !== school.name || organization?.url !== school.url ||
+      club?.parentOrganization?.['@id'] !== organization['@id'] ||
+      page?.url !== canonical || page?.author?.['@id'] !== person['@id'] ||
+      page?.publisher?.['@id'] !== club['@id'] || page?.about?.['@id'] !== organization['@id']) {
+    throw new Error(`Inconsistent author, school, or publisher structured data in ${file}`);
   }
 }
 

@@ -7,7 +7,8 @@ export const AUTHOR = {
   url: 'https://ai-aarti.com/'
 };
 export const SCHOOL = {
-  name: 'Pioneer Charter School of Science II (PCSS II)',
+  name: 'Pioneer Charter School of Science II',
+  shortName: 'PCSS II',
   url: 'https://saugus.pioneercss.org/'
 };
 export const SHARE_IMAGE = `${SITE_URL}/images/robotics-lab-hero.webp`;
@@ -97,6 +98,7 @@ export function structuredDataFor(section: NavSection) {
   const pageUrl = `${SITE_URL}${page.path}`;
   const personId = `${AUTHOR.url}#person`;
   const schoolId = `${SCHOOL.url}#school`;
+  const clubId = `${SITE_URL}/#organization`;
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -104,14 +106,13 @@ export function structuredDataFor(section: NavSection) {
         '@type': 'Person',
         '@id': personId,
         name: AUTHOR.name,
-        alternateName: 'Aarti Sri Ravikumar',
-        url: AUTHOR.url,
-        affiliation: { '@id': schoolId }
+        url: AUTHOR.url
       },
       {
         '@type': 'EducationalOrganization',
         '@id': schoolId,
         name: SCHOOL.name,
+        alternateName: SCHOOL.shortName,
         url: SCHOOL.url,
         address: {
           '@type': 'PostalAddress',
@@ -121,11 +122,19 @@ export function structuredDataFor(section: NavSection) {
         }
       },
       {
+        '@type': 'Organization',
+        '@id': clubId,
+        name: 'PCSS II Robotics',
+        url: `${SITE_URL}/`,
+        parentOrganization: { '@id': schoolId }
+      },
+      {
         '@type': 'WebSite',
         '@id': `${SITE_URL}/#website`,
         name: 'PCSS II Robotics',
         url: `${SITE_URL}/`,
         creator: { '@id': personId },
+        publisher: { '@id': clubId },
         about: { '@id': schoolId },
         inLanguage: 'en-US'
       },
@@ -137,6 +146,7 @@ export function structuredDataFor(section: NavSection) {
         description: page.description,
         isPartOf: { '@id': `${SITE_URL}/#website` },
         author: { '@id': personId },
+        publisher: { '@id': clubId },
         about: { '@id': schoolId },
         inLanguage: 'en-US'
       },
@@ -149,7 +159,7 @@ export function structuredDataFor(section: NavSection) {
         endDate: event.endsAt,
         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
         ...('venue' in event ? { location: { '@type': 'Place', name: event.venue } } : {}),
-        organizer: { '@type': 'Organization', name: event.host },
+        organizer: { '@id': clubId },
         url: `${SITE_URL}/outreach/#${event.id}`,
         ...('registrationUrl' in event ? { sameAs: event.registrationUrl } : {})
       })) : [])

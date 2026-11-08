@@ -1,6 +1,6 @@
 # PCSS II Robotics
 
-Project documentation for the website associated with Pioneer Charter School of Science II (PCSS II).
+Project documentation for the website associated with [Pioneer Charter School of Science II (PCSS II)](https://saugus.pioneercss.org/).
 
 The [official website](https://www.pcssiirobotics.org/) is the source for current team, research, robot, and outreach information. This wiki explains how to develop and maintain the website.
 

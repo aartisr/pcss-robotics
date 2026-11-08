@@ -3,8 +3,8 @@
 > Student robotics projects, technical notes, simulations, and STEM outreach associated with Pioneer Charter School of Science II (PCSS II) in Saugus, Massachusetts.
 
 Website: https://www.pcssiirobotics.org/
-Site author: Aarti S Ravikumar — https://ai-aarti.com/
-School: Pioneer Charter School of Science II (PCSS II) — https://saugus.pioneercss.org/
+Site author: [Aarti S Ravikumar](https://ai-aarti.com/)
+School: [Pioneer Charter School of Science II (PCSS II)](https://saugus.pioneercss.org/)
 
 ## Start here
 
@@ -13,6 +13,8 @@ School: Pioneer Charter School of Science II (PCSS II) — https://saugus.pionee
 - [Robot engineering and CAD](https://www.pcssiirobotics.org/robots/): Designs, mechanisms, and robot histories.
 - [Autonomous simulator](https://www.pcssiirobotics.org/simulator/): Educational path planning and control interactions.
 - [Jams and events](https://www.pcssiirobotics.org/outreach/): Hack Club Haven details, a PAT game programming link, and Circuit 2026 history.
+- [Sponsorship](https://www.pcssiirobotics.org/sponsors/): Ways to support student robotics and request current documentation from the school.
+- [Robotics arcade](https://www.pcssiirobotics.org/arcade/): Interactive robot driving game.
 - [PAT game programming](https://pat.pcssiirobotics.org/): A learning resource linked from the homepage and footer beyond the jam.
 - [Team and author](https://www.pcssiirobotics.org/team/): Ways to participate, school contact information, and the author's portfolio.
 
