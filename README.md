@@ -7,6 +7,8 @@ Public repository: [aartisr/pcss-robotics](https://github.com/aartisr/pcss-robot
 ## Run locally
 
 Use Node.js 22.12 or newer (as declared in `package.json`).
+On this workstation, run `nvm use system` to select the installed Node 22.19.0 before installing.
+The project `.npmrc` uses your user-level npm registry for local installs, including an internal mirror when configured. Keep registry addresses and credentials in your user-level `~/.npmrc`; Vercel explicitly installs from the public npm registry.
 
 ```sh
 npm ci
