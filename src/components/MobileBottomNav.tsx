@@ -1,115 +1,23 @@
-import React from 'react';
-import { NavSection } from '../types';
-import { 
-  Home, 
-  Compass, 
-  Activity, 
-  HeartHandshake, 
-  Search,
-  Users,
-  Sparkles
-} from 'lucide-react';
+import { Home, Search, Sparkles, Users } from 'lucide-react';
+import type { NavSection } from '../types';
 
 interface MobileBottomNavProps {
   activeSection: NavSection;
   onNavigate: (section: NavSection) => void;
-  onOpenStudentModal: () => void;
   onOpenCommandPalette: () => void;
 }
 
-export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
-  activeSection,
-  onNavigate,
-  onOpenStudentModal,
-  onOpenCommandPalette
-}) => {
-  return (
-    <nav 
-      aria-label="Mobile Bottom Navigation"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-2 py-2 bg-[#071326]/95 backdrop-blur-xl border-t border-[#1d3e70] shadow-2xl shadow-black/80"
-    >
-      <div className="flex items-center justify-around max-w-lg mx-auto">
-        <button
-          onClick={() => onNavigate('home')}
-          aria-current={activeSection === 'home' ? 'page' : undefined}
-          className={`flex flex-col items-center justify-center gap-1 py-1 px-2 rounded-xl transition min-h-[48px] min-w-[48px] ${
-            activeSection === 'home'
-              ? 'text-sky-300 font-bold bg-sky-950/60 border border-sky-500/30'
-              : 'text-slate-300 hover:text-white'
-          }`}
-          aria-label="Home Overview"
-        >
-          <Home className="w-4 h-4" aria-hidden="true" />
-          <span className="text-[11px] font-medium leading-none">Home</span>
-        </button>
+const destinations = [
+  { section: 'home', label: 'Home', icon: Home },
+  { section: 'team', label: 'Team', icon: Users },
+  { section: 'outreach', label: 'Events', icon: Sparkles }
+] as const;
 
-        <button
-          onClick={() => onNavigate('team')}
-          aria-current={activeSection === 'team' ? 'page' : undefined}
-          className={`flex flex-col items-center justify-center gap-1 py-1 px-2 rounded-xl transition min-h-[48px] min-w-[48px] ${
-            activeSection === 'team'
-              ? 'text-sky-300 font-bold bg-sky-950/60 border border-sky-500/30'
-              : 'text-slate-300 hover:text-white'
-          }`}
-          aria-label="Team Roster & Hub"
-        >
-          <Users className="w-4 h-4" aria-hidden="true" />
-          <span className="text-[11px] font-medium leading-none">Team</span>
-        </button>
-
-        <button
-          onClick={() => onNavigate('outreach')}
-          aria-current={activeSection === 'outreach' ? 'page' : undefined}
-          className={`flex flex-col items-center justify-center gap-1 py-1 px-2 rounded-xl transition min-h-[48px] min-w-[48px] relative ${
-            activeSection === 'outreach'
-              ? 'text-amber-300 font-bold bg-amber-950/60 border border-amber-500/30'
-              : 'text-slate-300 hover:text-amber-300'
-          }`}
-          aria-label="Circuit 2026 Outreach"
-        >
-          <Sparkles className="w-4 h-4 text-amber-400" aria-hidden="true" />
-          <span className="text-[11px] font-medium leading-none">Outreach</span>
-        </button>
-
-        <button
-          onClick={() => onNavigate('robots')}
-          aria-current={activeSection === 'robots' ? 'page' : undefined}
-          className={`flex flex-col items-center justify-center gap-1 py-1 px-2 rounded-xl transition min-h-[48px] min-w-[48px] ${
-            activeSection === 'robots'
-              ? 'text-sky-300 font-bold bg-sky-950/60 border border-sky-500/30'
-              : 'text-slate-300 hover:text-white'
-          }`}
-          aria-label="Robots & CAD"
-        >
-          <Compass className="w-4 h-4" aria-hidden="true" />
-          <span className="text-[11px] font-medium leading-none">CAD</span>
-        </button>
-
-        <button
-          onClick={() => onNavigate('simulator')}
-          aria-current={activeSection === 'simulator' ? 'page' : undefined}
-          className={`flex flex-col items-center justify-center gap-1 py-1 px-2 rounded-xl transition min-h-[48px] min-w-[48px] ${
-            activeSection === 'simulator'
-              ? 'text-sky-300 font-bold bg-sky-950/60 border border-sky-500/30'
-              : 'text-slate-300 hover:text-white'
-          }`}
-          aria-label="Field Simulator"
-        >
-          <Activity className="w-4 h-4" aria-hidden="true" />
-          <span className="text-[11px] font-medium leading-none">Sim</span>
-        </button>
-
-        {/* Quick Search */}
-        <button
-          onClick={onOpenCommandPalette}
-          className="flex flex-col items-center justify-center gap-1 py-1 px-2 rounded-xl text-slate-300 hover:text-white min-h-[48px] min-w-[48px]"
-          aria-label="Search and Commands"
-        >
-          <Search className="w-4 h-4 text-sky-400" aria-hidden="true" />
-          <span className="text-[11px] font-medium leading-none">Search</span>
-        </button>
-      </div>
-    </nav>
-  );
-};
-
+export function MobileBottomNav({ activeSection, onNavigate, onOpenCommandPalette }: MobileBottomNavProps) {
+  return <nav aria-label="Quick navigation" className="fixed bottom-0 left-0 right-0 z-40 border-t border-[#1d3e70] bg-[#071326]/95 px-2 py-2 shadow-2xl shadow-black/80 backdrop-blur-xl md:hidden">
+    <div className="mx-auto flex max-w-lg items-center justify-around">
+      {destinations.map(({ section, label, icon: Icon }) => <button key={section} type="button" onClick={() => onNavigate(section)} aria-current={activeSection === section ? 'page' : undefined} className={`flex min-h-12 min-w-14 flex-col items-center justify-center gap-1 rounded-xl px-3 text-xs font-medium ${activeSection === section ? 'bg-sky-950 text-sky-200' : 'text-slate-300 hover:text-white'}`}><Icon className="h-5 w-5" aria-hidden="true" /><span>{label}</span></button>)}
+      <button type="button" onClick={onOpenCommandPalette} className="flex min-h-12 min-w-14 flex-col items-center justify-center gap-1 rounded-xl px-3 text-xs font-medium text-slate-300 hover:text-white" aria-label="Search all pages"><Search className="h-5 w-5" aria-hidden="true" /><span>Search</span></button>
+    </div>
+  </nav>;
+}

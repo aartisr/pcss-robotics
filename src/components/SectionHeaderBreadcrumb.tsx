@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavSection } from '../types';
-import { ChevronRight, Home, Search, Compass, Activity, HeartHandshake, Sparkles, Gamepad2, Users, FlaskConical, Award } from 'lucide-react';
+import { ChevronRight, Home, Search, Compass, Activity, HeartHandshake, Sparkles, Gamepad2, Users, FlaskConical } from 'lucide-react';
 
 interface SectionHeaderBreadcrumbProps {
   activeSection: NavSection;
@@ -11,47 +11,42 @@ interface SectionHeaderBreadcrumbProps {
 const SECTION_METADATA: Record<NavSection, { title: string; subtitle: string; icon: React.ReactNode }> = {
   home: {
     title: 'Overview',
-    subtitle: 'PCSS II Autonomous Systems Lab & Flagship Kraken V2',
+    subtitle: 'Student robotics and community events',
     icon: <Home className="w-3.5 h-3.5" />
   },
-  audit: {
-    title: 'Usability & Accessibility Evaluation (1–10)',
-    subtitle: 'Comprehensive 9.4/10 Scorecard, WCAG AA Contrast Matrix & Live Testing Tools',
-    icon: <Award className="w-3.5 h-3.5 text-amber-400" />
-  },
   research: {
-    title: 'Laboratory Research & Technical Papers',
-    subtitle: 'Preprints, Kinematics Solver, Metrology Registry & BibTeX',
+    title: 'Robotics Learning Lab',
+    subtitle: 'Explore mecanum drive motion',
     icon: <FlaskConical className="w-3.5 h-3.5 text-sky-400" />
   },
   robots: {
     title: 'Robots & CAD Subsystems',
-    subtitle: 'Kraken V2, Scrapyard, & Daydream Onshape Archives',
+    subtitle: 'Robot designs and mechanisms',
     icon: <Compass className="w-3.5 h-3.5 text-sky-400" />
   },
   simulator: {
     title: 'Autonomous Lab & Field Simulator',
-    subtitle: '500Hz Optical Odometry & Quintic Spline Kinematics',
+    subtitle: 'Explore motion planning and control',
     icon: <Activity className="w-3.5 h-3.5 text-emerald-400" />
   },
   sponsors: {
-    title: '501(c)(3) Corporate Sponsorship Command',
-    subtitle: 'Tax-Deductible STEM ROI Engine & W-9 Packet',
+    title: 'Support Student Robotics',
+    subtitle: 'Ways to help and school contact information',
     icon: <HeartHandshake className="w-3.5 h-3.5 text-amber-400" />
   },
   outreach: {
-    title: 'Circuit 2026 & Youth Outreach',
-    subtitle: 'Mentoring 450+ Middle Schoolers Across North Shore MA',
+    title: 'Jams & Community Events',
+    subtitle: 'Hack Club Haven and our event history',
     icon: <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
   },
   arcade: {
-    title: 'Cyber Driver Arcade Arena',
-    subtitle: 'Real-time FTC TeleOp Field Simulator & Sample Collector',
+    title: 'Robotics Arcade',
+    subtitle: 'A playful driving simulation',
     icon: <Gamepad2 className="w-3.5 h-3.5 text-purple-400" />
   },
   team: {
-    title: 'Team Roster & Skunkworks Leads',
-    subtitle: 'Student Engineers & Mentors Across 5 Specialized Divisions',
+    title: 'Team',
+    subtitle: 'People and projects',
     icon: <Users className="w-3.5 h-3.5 text-sky-400" />
   }
 };

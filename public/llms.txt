@@ -9,11 +9,12 @@ School: Pioneer Charter School of Science II (PCSS II) — https://saugus.pionee
 ## Start here
 
 - [Home](https://www.pcssiirobotics.org/): Overview of the site and its sections.
-- [Research and technical notes](https://www.pcssiirobotics.org/research/): Robotics controls, mechanical design, and computer vision topics.
+- [Robotics learning lab](https://www.pcssiirobotics.org/research/): Interactive mecanum drive model with educational wheel speed estimates.
 - [Robot engineering and CAD](https://www.pcssiirobotics.org/robots/): Designs, mechanisms, and robot histories.
 - [Autonomous simulator](https://www.pcssiirobotics.org/simulator/): Educational path planning and control interactions.
-- [STEM outreach](https://www.pcssiirobotics.org/outreach/): Student events and community activities.
-- [Team and author](https://www.pcssiirobotics.org/team/): Team information and the author's portfolio.
+- [Jams and events](https://www.pcssiirobotics.org/outreach/): Hack Club Haven details, a PAT game programming link, and Circuit 2026 history.
+- [PAT game programming](https://pat.pcssiirobotics.org/): A learning resource linked from the homepage and footer beyond the jam.
+- [Team and author](https://www.pcssiirobotics.org/team/): Ways to participate, school contact information, and the author's portfolio.
 
 For a longer plain-text overview, see https://www.pcssiirobotics.org/llms-full.txt.
 

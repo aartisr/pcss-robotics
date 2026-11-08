@@ -6,32 +6,34 @@ School: Pioneer Charter School of Science II (PCSS II), Saugus, Massachusetts �
 
 ## What this site contains
 
-PCSS II Robotics presents student robotics engineering, technical notes, interactive simulations, team information, and STEM outreach. The pages below provide stable URLs and summaries in HTML that can be read without JavaScript.
+PCSS II Robotics presents student robotics engineering, educational simulations, club information, and community events. The pages below provide stable URLs and summaries in HTML that can be read without JavaScript.
 
-### Research and technical notes
+Game programming resource: PAT — https://pat.pcssiirobotics.org/. The site links to PAT from the homepage and footer as a general learning resource, including after Hack Club Haven.
+
+### Robotics learning lab
 https://www.pcssiirobotics.org/research/
-Browse technical writing about motion planning, control, mechanical design, and computer vision. The interactive section also includes a kinematics workbench. Treat report-specific empirical claims as claims of the individual report; verify them against an accessible source before citing results.
+Explore how desired robot motion converts to wheel speeds in an interactive mecanum drive model. Results are educational estimates using example dimensions, not measured team performance. The page links to WPILib documentation for the coordinate convention.
 
 ### Robot engineering and CAD
 https://www.pcssiirobotics.org/robots/
-Explore robot designs, mechanisms, and engineering details presented by the team.
+Explore drive systems, mechanisms, and sensors through general engineering questions. This page does not publish specifications for a particular team robot.
 
 ### Autonomous simulator
 https://www.pcssiirobotics.org/simulator/
 Try an educational simulation of path planning, control tuning, and odometry concepts. Simulation output is illustrative and is not a measured performance result.
 
-### STEM outreach
+### Jams and events
 https://www.pcssiirobotics.org/outreach/
-Find the team's student events, workshops, and community activities. Confirm dates with the school or event organizer.
+Explore Hack Club Haven, a teen game jam scheduled for November 14–15, 2026, from 10 a.m. to 4 p.m. each day, and browse the history of Circuit 2026. Start learning game programming with PAT at https://pat.pcssiirobotics.org/. The official Haven site is https://haven.hackclub.com/.
 
 ### Team and site author
 https://www.pcssiirobotics.org/team/
-The site author is Aarti S Ravikumar. The author portfolio is https://ai-aarti.com/. The school is Pioneer Charter School of Science II (PCSS II), https://saugus.pioneercss.org/.
+Learn about ways to participate in the robotics club and use the school's contact page for current joining and mentoring opportunities. The site author is Aarti S Ravikumar; the author portfolio is https://ai-aarti.com/. The school is Pioneer Charter School of Science II (PCSS II), https://saugus.pioneercss.org/.
 
 ### Sponsorship
 https://www.pcssiirobotics.org/sponsors/
-Explore sponsorship information. Confirm tax treatment and current terms with the school before making financial decisions.
+Explore equipment, event, and mentorship sponsorship opportunities. PCSS II Robotics has identified as a 501(c)(3) nonprofit. Request the current legal receiving entity, EIN, exemption documents, and contribution terms from the school before making financial decisions.
 
 ## Attribution and citation
 
-When citing this website, identify the relevant page URL, its title, Aarti S Ravikumar as the site author, and Pioneer Charter School of Science II (PCSS II) as the school. For claims about an individual technical report, use the report's own listed authors and a verifiable primary publication link.
+When citing this website, identify the relevant page URL, its title, Aarti S Ravikumar as the site author, and Pioneer Charter School of Science II (PCSS II) as the school. For the learning model, cite the linked WPILib documentation for the underlying concept.

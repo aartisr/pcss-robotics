@@ -21,4 +21,5 @@ jobs:
       - name: Install from the public npm registry
         run: npm ci --registry=https://registry.npmjs.org/ --replace-registry-host=never
       - run: npm run lint
+      - run: npm test
       - run: npm run build

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { NavSection } from '../types';
 import { SECTION_METADATA } from '../seo/siteMetadata';
+import { canonicalSectionUrl } from '../lib/sectionUrl';
 
 const SECTIONS = Object.keys(SECTION_METADATA) as NavSection[];
 
@@ -28,9 +29,9 @@ export function useUrlNavigation(initialFallback: NavSection = 'home') {
 
   useEffect(() => {
     const section = sectionFromLocation();
-    const canonicalPath = SECTION_METADATA[section].path;
-    if (window.location.pathname !== canonicalPath || window.location.search) {
-      window.history.replaceState({ section }, '', canonicalPath);
+    const canonicalUrl = canonicalSectionUrl(section, window.location.search, window.location.hash);
+    if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== canonicalUrl) {
+      window.history.replaceState({ section }, '', canonicalUrl);
     }
     const handlePopState = () => setActiveSection(sectionFromLocation());
     window.addEventListener('popstate', handlePopState);

@@ -93,7 +93,11 @@ export const ArcadeMiniGame: React.FC = () => {
   const [myPlayerId, setMyPlayerId] = useState<string | null>(null);
   const [roomName, setRoomName] = useState('prime-arena');
   const [playerName, setPlayerName] = useState(() => {
-    return localStorage.getItem('pilot_callsign') || `Pilot_${Math.floor(100 + Math.random() * 900)}`;
+    try {
+      return localStorage.getItem('pilot_callsign') || `Pilot_${Math.floor(100 + Math.random() * 900)}`;
+    } catch {
+      return `Pilot_${Math.floor(100 + Math.random() * 900)}`;
+    }
   });
   const [selectedAlliance, setSelectedAlliance] = useState<Alliance>('blue');
   const [netLatency, setNetLatency] = useState(18);
@@ -159,7 +163,11 @@ export const ArcadeMiniGame: React.FC = () => {
   // Save callsign
   useEffect(() => {
     if (playerName) {
-      localStorage.setItem('pilot_callsign', playerName);
+      try {
+        localStorage.setItem('pilot_callsign', playerName);
+      } catch {
+        // The name still works for this session when storage is unavailable.
+      }
     }
   }, [playerName]);
 
@@ -726,14 +734,14 @@ export const ArcadeMiniGame: React.FC = () => {
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-purple-950/80 text-purple-300 border border-purple-800/40 font-mono shadow-lg shadow-purple-950/30">
               <Gamepad2 className="w-3.5 h-3.5 text-purple-400" />
-              <span>FTC ALLIANCE CYBER ARENA</span>
+              <span>Robotics arcade</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
-              <span>Kraken Alliance Duel</span>
+              <span>Robot driving game</span>
               {arenaWebSocketUrl && <span className="text-xs px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/40 font-mono font-normal">Live Online</span>}
             </h2>
             <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
-              Holonomic Mecanum dueling simulator. Play together on one keyboard, scoop submersible samples, execute defensive bumper checks, and score in the high basket!
+              Drive with a friend on one keyboard, collect game pieces, and try to score.
             </p>
           </div>
 
@@ -771,7 +779,7 @@ export const ArcadeMiniGame: React.FC = () => {
                 }`}
               >
                 <Swords className="w-3.5 h-3.5" />
-                <span>Local 2-Player (Split-Key)</span>
+                <span>Two players, one keyboard</span>
               </button>
             </div>
           </div>

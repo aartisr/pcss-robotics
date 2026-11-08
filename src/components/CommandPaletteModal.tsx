@@ -13,23 +13,17 @@ import {
   Users, 
   GraduationCap, 
   Download, 
-  Layers, 
   Cpu, 
   Check, 
   Command,
-  FileText,
-  FlaskConical,
   BookOpen,
-  Calculator,
-  Microscope,
-  Award
 } from 'lucide-react';
 
 interface CommandPaletteModalProps {
   isOpen: boolean;
   onClose: () => void;
   onNavigate: (section: NavSection) => void;
-  onOpenAi: () => void;
+  onOpenGuide: () => void;
   onOpenStudentModal: () => void;
   onOpenW9Modal: () => void;
   onToggleAura: () => void;
@@ -37,7 +31,7 @@ interface CommandPaletteModalProps {
 
 interface PaletteItem {
   id: string;
-  category: 'Navigation' | 'Actions' | 'Robots' | 'Sponsors & Charity';
+  category: 'Navigation' | 'Actions' | 'Support';
   title: string;
   subtitle: string;
   icon: React.ReactNode;
@@ -49,7 +43,7 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
   isOpen,
   onClose,
   onNavigate,
-  onOpenAi,
+  onOpenGuide,
   onOpenStudentModal,
   onOpenW9Modal,
   onToggleAura
@@ -57,59 +51,33 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   const items: PaletteItem[] = [
     // Navigation
     {
       id: 'nav-home',
       category: 'Navigation',
-      title: 'Lab Overview & Flagship Robot',
-      subtitle: 'Kraken V2 specifications, laboratory mission & metrics',
+      title: 'Home overview',
+      subtitle: 'Meet the team and explore what we build',
       icon: <Cpu className="w-4 h-4 text-cyan-400" />,
       keywords: ['home', 'overview', 'kraken', 'stats', 'mission', 'about'],
       action: () => onNavigate('home')
     },
     {
-      id: 'nav-audit',
-      category: 'Navigation',
-      title: 'Usability & Accessibility Evaluation (Score: 9.4 / 10)',
-      subtitle: 'Official 1-to-10 rubric evaluation, WCAG AA contrast matrix & screen reader audit',
-      icon: <Award className="w-4 h-4 text-amber-400" />,
-      keywords: ['audit', 'evaluation', 'score', 'usability', 'accessibility', 'wcag', 'contrast', 'rubric', 'ratings', '1-10', 'screen reader'],
-      action: () => onNavigate('audit')
-    },
-    {
       id: 'nav-research',
       category: 'Navigation',
-      title: 'Laboratory Research Papers & Preprints',
-      subtitle: '4 peer-reviewed technical reports, LaTeX theorems & BibTeX',
-      icon: <FlaskConical className="w-4 h-4 text-cyan-400" />,
-      keywords: ['research', 'papers', 'latex', 'bibtex', 'equations', 'theorems', 'kinematics', 'preprints', 'doi', 'scholar', 'ieee'],
-      action: () => onNavigate('research')
-    },
-    {
-      id: 'nav-workbench',
-      category: 'Actions',
-      title: 'Kinematics & PIDF Lab Workbench',
-      subtitle: 'Solve holonomic Mecanum Jacobian matrix and live motor RPM',
-      icon: <Calculator className="w-4 h-4 text-cyan-400" />,
-      keywords: ['jacobian', 'matrix', 'kinematics', 'pid', 'pidf', 'solver', 'calculator', 'workbench', 'controls'],
-      action: () => onNavigate('research')
-    },
-    {
-      id: 'nav-metrology',
-      category: 'Actions',
-      title: 'Laboratory Metrology & Instrumentation Registry',
-      subtitle: 'Haas CNC, Formlabs SLA 25µm, Markforged Carbon Fiber, Tektronix',
-      icon: <Microscope className="w-4 h-4 text-purple-400" />,
-      keywords: ['instrumentation', 'metrology', 'haas', 'cnc', 'formlabs', 'sla', 'oscilloscope', 'equipment'],
+      title: 'Robotics learning lab',
+      subtitle: 'Explore mecanum drive motion',
+      icon: <BookOpen className="w-4 h-4 text-cyan-400" />,
+      keywords: ['research', 'learning', 'kinematics', 'mecanum', 'calculator', 'wheel speed'],
       action: () => onNavigate('research')
     },
     {
       id: 'nav-robots',
       category: 'Navigation',
-      title: 'Robots & CAD Subsystems',
-      subtitle: 'Kraken V2, Scrapyard, Daydream Onshape designs',
+      title: 'Robot engineering',
+      subtitle: 'Explore the decisions behind a robot design',
       icon: <Compass className="w-4 h-4 text-cyan-400" />,
       keywords: ['robots', 'cad', 'onshape', 'hardware', 'subsystems', 'slides'],
       action: () => onNavigate('robots')
@@ -117,8 +85,8 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
     {
       id: 'nav-simulator',
       category: 'Navigation',
-      title: 'Autonomous Field Simulator (144")',
-      subtitle: '500Hz optical odometry, RoadRunner splines, into the deep',
+      title: 'Autonomous field simulator',
+      subtitle: 'Explore path planning and control concepts',
       icon: <Activity className="w-4 h-4 text-cyan-400" />,
       keywords: ['simulator', 'autonomous', 'telemetry', 'field', 'roadrunner', 'otos'],
       action: () => onNavigate('simulator')
@@ -126,26 +94,26 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
     {
       id: 'nav-sponsors',
       category: 'Navigation',
-      title: '501(c)(3) Corporate Sponsorship Command',
-      subtitle: 'Tax write-off ROI calculator, tiers, brand impressions',
+      title: 'Support student robotics',
+      subtitle: 'Explore ways to help and contact the school',
       icon: <HeartHandshake className="w-4 h-4 text-purple-400" />,
-      keywords: ['sponsor', 'tax', '501c3', 'donate', 'w9', 'corporate', 'roi'],
+      keywords: ['sponsor', 'support', 'donate', 'mentor', 'corporate'],
       action: () => onNavigate('sponsors')
     },
     {
       id: 'nav-outreach',
       category: 'Navigation',
-      title: 'Circuit 2026 & Youth Outreach',
-      subtitle: 'Mentoring 450+ middle schoolers, community workshops',
+      title: 'Hack Club Haven, jams & event history',
+      subtitle: 'Upcoming game jam and the Circuit 2026 archive',
       icon: <Sparkles className="w-4 h-4 text-emerald-400" />,
-      keywords: ['outreach', 'circuit', 'middle school', 'stem', 'workshops', 'mentorship'],
+      keywords: ['outreach', 'haven', 'hack club', 'game jam', 'circuit', 'events', 'history'],
       action: () => onNavigate('outreach')
     },
     {
       id: 'nav-arcade',
       category: 'Navigation',
-      title: 'Cyber Driver Arcade (TeleOp Arena)',
-      subtitle: 'Drive Kraken V2 and collect game samples in real-time',
+      title: 'Robotics arcade',
+      subtitle: 'Try a playful robot driving simulation',
       icon: <Gamepad2 className="w-4 h-4 text-amber-400" />,
       keywords: ['arcade', 'game', 'play', 'drive', 'teleop', 'sample'],
       action: () => onNavigate('arcade')
@@ -153,8 +121,8 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
     {
       id: 'nav-team',
       category: 'Navigation',
-      title: 'Team Roster & Skunkworks Leads',
-      subtitle: 'Hardware, software, electrical, and business divisions',
+      title: 'Team and ways to participate',
+      subtitle: 'Explore club activities and how to get involved',
       icon: <Users className="w-4 h-4 text-slate-300" />,
       keywords: ['team', 'members', 'roster', 'students', 'mentors', 'leads'],
       action: () => onNavigate('team')
@@ -165,16 +133,16 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
       id: 'action-student',
       category: 'Actions',
       title: 'Join PCSS II Robotics (Grades 6–12)',
-      subtitle: 'Submit quick application — zero prior experience required',
+      subtitle: 'Find out how to ask the school about joining',
       icon: <GraduationCap className="w-4 h-4 text-cyan-400" />,
       keywords: ['join', 'apply', 'student', 'freshman', 'middle school', 'signup'],
       action: onOpenStudentModal
     },
     {
       id: 'action-w9',
-      category: 'Sponsors & Charity',
-      title: 'Request IRS 501(c)(3) Tax Exemption Packet & W-9',
-      subtitle: 'Download official entity determination letter & W-9 for tax deductions',
+      category: 'Support',
+      title: 'Ask about sponsorship documentation',
+      subtitle: 'Contact the school for current forms and terms',
       icon: <Download className="w-4 h-4 text-emerald-400" />,
       keywords: ['w9', 'tax', 'irs', 'packet', 'deduction', 'form'],
       action: onOpenW9Modal
@@ -182,11 +150,11 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
     {
       id: 'action-ai',
       category: 'Actions',
-      title: 'Ask RoboBot AI Strategy Engine',
-      subtitle: 'Query robot rules, match strategy, and autonomous algorithms',
+      title: 'Open site guide',
+      subtitle: 'Find a page or section of the website',
       icon: <Bot className="w-4 h-4 text-purple-400" />,
-      keywords: ['ai', 'robobot', 'chat', 'ask', 'strategy', 'gemini', 'rules'],
-      action: onOpenAi
+      keywords: ['guide', 'help', 'pages', 'navigate', 'find'],
+      action: onOpenGuide
     },
     {
       id: 'action-aura',
@@ -213,9 +181,11 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
+      const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       setQuery('');
       setSelectedIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 50);
+      const focusFrame = requestAnimationFrame(() => inputRef.current?.focus());
+      return () => { cancelAnimationFrame(focusFrame); previouslyFocused?.focus(); };
     }
   }, [isOpen]);
 
@@ -225,7 +195,13 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'ArrowDown') {
+    if (e.key === 'Tab' && dialogRef.current) {
+      const controls = Array.from(dialogRef.current.querySelectorAll<HTMLElement>('input, button:not([disabled])'));
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last?.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first?.focus(); }
+    } else if (e.key === 'ArrowDown') {
       e.preventDefault();
       setSelectedIndex((prev) => (prev + 1) % Math.max(1, filtered.length));
     } else if (e.key === 'ArrowUp') {
@@ -250,6 +226,10 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
       onClick={onClose}
     >
       <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search pages and actions"
         className="w-full max-w-xl rounded-3xl border border-white/15 bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-2xl shadow-2xl shadow-cyan-950/60 overflow-hidden flex flex-col max-h-[80vh]"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
@@ -260,12 +240,15 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
           <input
             ref={inputRef}
             type="text"
+            aria-label="Search pages and actions"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Type a command, robot, or search (e.g., 'W-9', 'Simulator', 'Join', 'CAD')..."
+            placeholder="Search pages and actions (e.g. events, team, robots)..."
             className="w-full bg-transparent text-sm text-white placeholder-slate-400 focus:outline-none"
           />
           <button
+            type="button"
+            aria-label="Close search"
             onClick={onClose}
             className="px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] font-mono text-slate-400 hover:text-white transition"
           >
@@ -281,13 +264,13 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
               <p className="text-xs">No matching actions or pages found for &quot;{query}&quot;.</p>
               <button
                 onClick={() => {
-                  onOpenAi();
+                  onOpenGuide();
                   onClose();
                 }}
                 className="inline-flex items-center gap-1 text-xs text-cyan-400 font-bold hover:underline"
               >
                 <Bot className="w-3.5 h-3.5" />
-                <span>Ask RoboBot AI instead &rarr;</span>
+                <span>Open the site guide &rarr;</span>
               </button>
             </div>
           ) : (

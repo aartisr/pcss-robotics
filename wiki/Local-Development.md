@@ -13,6 +13,6 @@ npm run dev
 
 The development server runs on port 3000. Run `npm run lint` for TypeScript checking and `npm run build` to produce the release files in `dist`.
 
-The committed lockfile uses the public npm registry. Developers who need a corporate registry should configure it in their own user-level npm settings or environment. Do not commit a private registry URL or credentials.
+The committed lockfile uses the public npm registry. Developers who need another registry should configure it in their own user-level npm settings or environment. Do not commit registry credentials.
 
 The Vite development command serves the frontend. The standalone `server.ts` is a separate WebSocket application; see [[Arcade]].

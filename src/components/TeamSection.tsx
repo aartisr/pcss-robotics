@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { TeamMember, CompetitionChallenge, StrategicProposal, FacultyMentor } from '../types';
 import { 
   INITIAL_TEAM_ROSTER, 
@@ -44,8 +44,9 @@ const STORAGE_KEYS = {
 };
 
 export const TeamSection: React.FC = () => {
+  const planningMenuRef = useRef<HTMLDetailsElement>(null);
   // Tab navigation
-  const [activeTab, setActiveTab] = useState<'mentors' | 'roster' | 'competitions' | 'proposals' | 'database'>('mentors');
+  const [activeTab, setActiveTab] = useState<'mentors' | 'roster' | 'competitions' | 'proposals' | 'database'>('roster');
 
   // Core reactive data with localStorage sync
   const [mentors, setMentors] = useState<FacultyMentor[]>(() => {
@@ -539,152 +540,40 @@ export const TeamSection: React.FC = () => {
         <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-cyan-950/80 text-cyan-300 border border-cyan-500/30 font-mono">
             <Users className="w-3.5 h-3.5 text-cyan-400" />
-            <span>PCSS II APPLIED CYBERNETICS // TEAM HEADQUARTERS</span>
+            <span>PCSS II Robotics</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Student Roster, Competitions & Proposals
+            Our team
           </h1>
           <p className="text-sm text-slate-400 max-w-3xl leading-relaxed">
-            Collaborative team portal for Pioneer Charter School of Science II (FTC #23548). All members can track squad rosters, register competition deadlines, propose new club initiatives, and coordinate team gear.
+            Meet the students and mentors who make PCSS II Robotics a team.
           </p>
+          <p className="max-w-3xl rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-xs leading-relaxed text-amber-100">Edits and apparel notes on this page are saved only in this browser. They are not submitted to the school or shared with other visitors.</p>
         </div>
 
-        {/* Global Action Bar */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={handleOpenAddMentor}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-950/40 transition"
-          >
-            <GraduationCap className="w-4 h-4" />
-            <span>+ Add Mentor</span>
-          </button>
-
-          <button
-            onClick={() => {
-              setEditingStudent(null);
-              setStudentForm({
-                name: '',
-                grade: 'Grade 9',
-                division: 'Software & Autonomous',
-                role: '',
-                specialty: '',
-                competition: '',
-                tshirtSize: 'M',
-                tshirtColor: 'Pink'
-              });
-              setIsAddStudentOpen(true);
-            }}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold shadow-lg shadow-cyan-950/40 transition"
-          >
-            <UserPlus className="w-4 h-4" />
-            <span>+ Add Student</span>
-          </button>
-
-          <button
-            onClick={handleOpenAddCompetition}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-950/40 transition"
-          >
-            <Award className="w-4 h-4" />
-            <span>+ Add Competition</span>
-          </button>
-
-          <button
-            onClick={handleOpenAddProposal}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-lg shadow-purple-950/40 transition"
-          >
-            <Lightbulb className="w-4 h-4" />
-            <span>+ Propose Idea</span>
-          </button>
-
-          <button
-            onClick={handleExportCsv}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-white/10 text-xs font-medium transition"
-            title="Export full roster as CSV spreadsheet"
-          >
-            <Download className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="hidden sm:inline">Export CSV</span>
-          </button>
-        </div>
       </div>
 
-      {/* Top Level Navigation Tabs */}
-      <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-slate-900/90 border border-white/10 backdrop-blur-xl">
-        <button
-          onClick={() => setActiveTab('mentors')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition ${
-            activeTab === 'mentors'
-              ? 'bg-blue-600/30 text-blue-300 border border-blue-500/50 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
-          }`}
-        >
-          <GraduationCap className="w-4 h-4 text-blue-400" />
-          <span>Mentors & Teachers ({mentors.length})</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('roster')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition ${
-            activeTab === 'roster'
-              ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
-          }`}
-        >
-          <Users className="w-4 h-4" />
-          <span>Team Roster & Gear ({members.length})</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('competitions')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition ${
-            activeTab === 'competitions'
-              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
-          }`}
-        >
-          <Award className="w-4 h-4" />
-          <span>Competitions & Challenges ({competitions.length})</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('proposals')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition ${
-            activeTab === 'proposals'
-              ? 'bg-purple-500/20 text-purple-300 border border-purple-500/40 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
-          }`}
-        >
-          <Lightbulb className="w-4 h-4" />
-          <span>Strategic Proposals ({proposals.length})</span>
-        </button>
-
-        <button
-          onClick={() => setActiveTab('database')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition ml-auto ${
-            activeTab === 'database'
-              ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
-              : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
-          }`}
-        >
-          <Database className="w-4 h-4 text-amber-400" />
-          <span>Free Database Guide</span>
-        </button>
-      </div>
+      <nav aria-label="Team sections" className="flex flex-wrap items-center gap-2 border-b border-white/10 pb-4">
+        <button type="button" onClick={() => { setActiveTab('roster'); planningMenuRef.current?.removeAttribute('open'); }} aria-pressed={activeTab === 'roster'} className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition ${activeTab === 'roster' ? 'bg-cyan-600 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white'}`}>Students ({members.length})</button>
+        <button type="button" onClick={() => { setActiveTab('mentors'); planningMenuRef.current?.removeAttribute('open'); }} aria-pressed={activeTab === 'mentors'} className={`rounded-xl px-4 py-2.5 text-sm font-semibold transition ${activeTab === 'mentors' ? 'bg-cyan-600 text-white' : 'text-slate-300 hover:bg-white/10 hover:text-white'}`}>Mentors ({mentors.length})</button>
+        <details ref={planningMenuRef} className="relative group">
+          <summary className="cursor-pointer list-none rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-300 hover:bg-white/10 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-sky-400">Planning tools</summary>
+          <div className="absolute left-0 top-full z-20 mt-2 w-60 rounded-xl border border-white/10 bg-slate-900 p-2 shadow-xl">
+            {([['competitions', 'Competitions'], ['proposals', 'Ideas & proposals'], ['database', 'Database guide']] as const).map(([tab, label]) => <button key={tab} type="button" onClick={() => { setActiveTab(tab); planningMenuRef.current?.removeAttribute('open'); }} className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${activeTab === tab ? 'bg-sky-600 text-white' : 'text-slate-200 hover:bg-slate-800'}`}>{label}</button>)}
+          </div>
+        </details>
+      </nav>
 
       {/* TAB 0: MENTORS & TEACHERS */}
       {activeTab === 'mentors' && (
         <div className="space-y-8 animate-in fade-in duration-200">
-          {/* Section Header matching screenshot visual language */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-2 border-b border-white/5">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-blue-500/10 text-blue-400 border border-blue-500/30 font-mono">
-                <GraduationCap className="w-3.5 h-3.5 text-blue-400" />
-                <span>MENTORS & TEACHERS</span>
-              </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                Guides who raise the ceiling
+                Mentors & teachers
               </h2>
               <p className="text-xs sm:text-sm text-slate-400 max-w-3xl leading-relaxed">
-                Mentors coach decision quality, review design tradeoffs, and model professional engineering standards.
+                Meet the adults who support student learning and robot builds.
               </p>
             </div>
 
@@ -693,142 +582,27 @@ export const TeamSection: React.FC = () => {
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-950/40 transition shrink-0"
             >
               <Plus className="w-4 h-4" />
-              <span>+ Add Mentor / Faculty</span>
+              <span>Add mentor</span>
             </button>
           </div>
 
-          {/* Mentors Grid Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {mentors.map((mentor) => (
-              <div
-                key={mentor.id}
-                className="p-6 sm:p-7 rounded-3xl bg-slate-900/80 border border-white/10 hover:border-blue-500/40 transition flex flex-col justify-between space-y-5 backdrop-blur-xl shadow-xl shadow-slate-950/40 group"
-              >
-                <div className="space-y-4">
-                  {/* Top Header: Avatar + Title/Role + Edit/Delete */}
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-3.5">
-                      <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 border-2 border-blue-500/30 bg-slate-950 shadow-md">
-                        {mentor.avatarUrl ? (
-                          <img
-                            src={mentor.avatarUrl}
-                            alt={mentor.name}
-                            className="w-full h-full object-cover"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center font-bold text-lg text-blue-400 font-mono bg-blue-950/40">
-                            {mentor.name.slice(0, 2).toUpperCase()}
-                          </div>
-                        )}
-                      </div>
-
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-lg sm:text-xl font-extrabold text-white">
-                            {mentor.name}
-                          </h3>
-                          {mentor.isLead && (
-                            <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950 text-blue-300 border border-blue-500/30">
-                              Lead
-                            </span>
-                          )}
-                        </div>
-                        <div className="text-xs sm:text-sm font-bold text-blue-400 mt-0.5">
-                          {mentor.role}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center gap-1 shrink-0">
-                      <button
-                        onClick={() => handleOpenEditMentor(mentor)}
-                        className="p-2 rounded-xl bg-white/[0.04] hover:bg-blue-500/20 text-slate-400 hover:text-blue-300 border border-white/5 transition"
-                        title="Edit mentor profile"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteMentor(mentor.id, mentor.name)}
-                        className="p-2 rounded-xl bg-white/[0.04] hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-white/5 transition"
-                        title="Delete mentor"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Tagline */}
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-                    {mentor.tagline}
-                  </p>
-
-                  {/* Highlight Stat (e.g. 12 seasons STUDENT TEAMS COACHED) */}
-                  <div className="flex items-baseline gap-2 py-1">
-                    <span className="text-2xl font-black text-white font-mono">
-                      {mentor.seasonsCount} seasons
-                    </span>
-                    <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-slate-400">
-                      {mentor.statLabel || 'STUDENT TEAMS COACHED'}
-                    </span>
-                  </div>
-
-                  {/* Bio */}
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    {mentor.bio}
-                  </p>
-
-                  {/* Guiding Quote with Border Accent */}
-                  {mentor.quote && (
-                    <div className="pl-3.5 border-l-2 border-blue-400/80 py-1 bg-blue-950/20 rounded-r-xl pr-3">
-                      <p className="text-xs italic text-slate-300 font-medium">
-                        &ldquo;{mentor.quote}&rdquo;
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Skill Pills & Footer */}
-                <div className="pt-3 border-t border-white/[0.08] flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap gap-1.5">
-                    {mentor.expertiseTags.map((tag, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 rounded-full text-[11px] font-medium bg-blue-950/70 text-blue-300 border border-blue-500/30"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  {mentor.email && (
-                    <a
-                      href={`mailto:${mentor.email}`}
-                      className="text-[11px] font-mono text-slate-400 hover:text-cyan-300 transition flex items-center gap-1.5"
-                    >
-                      <Mail className="w-3.5 h-3.5 text-blue-400" />
-                      <span>{mentor.email}</span>
-                    </a>
-                  )}
-                </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {mentors.length === 0 && <p className="col-span-full rounded-xl border border-white/10 bg-slate-900 p-6 text-sm text-slate-300">No mentors are listed in this browser.</p>}
+            {mentors.map(mentor => <article key={mentor.id} className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 sm:p-6">
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-400/10 text-sm font-bold text-blue-200" aria-hidden="true">{mentor.name.split(' ').slice(-1)[0].slice(0, 2).toUpperCase()}</div>
+                <div><h3 className="text-lg font-semibold text-white">{mentor.name}</h3><p className="mt-1 text-sm text-blue-200">{mentor.role}</p></div>
               </div>
-            ))}
-          </div>
-
-          {/* Quick Notice to add and maintain */}
-          <div className="p-4 rounded-2xl bg-blue-950/30 border border-blue-500/20 flex items-center justify-between text-xs text-blue-200">
-            <div className="flex items-center gap-2.5">
-              <Sparkles className="w-4 h-4 text-blue-400 shrink-0" />
-              <span>
-                Faculty profiles and coaching records are synchronized with local persistence. You can add new mentors, update bios, and maintain expertise tags anytime.
-              </span>
-            </div>
-            <button
-              onClick={handleOpenAddMentor}
-              className="px-3 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold transition text-xs shrink-0"
-            >
-              Add Mentor
-            </button>
+              {mentor.tagline && <p className="mt-4 text-sm leading-relaxed text-slate-300">{mentor.tagline}</p>}
+              <details className="mt-4 border-t border-white/10 pt-3"><summary className="cursor-pointer text-sm font-medium text-slate-200 hover:text-white">More about {mentor.name}</summary>
+                <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-300">
+                  {mentor.bio && <p>{mentor.bio}</p>}
+                  {mentor.expertiseTags.length > 0 && <p><strong className="text-white">Focus:</strong> {mentor.expertiseTags.join(', ')}</p>}
+                  {mentor.email && <a href={`mailto:${mentor.email}`} className="block text-sky-300 underline underline-offset-4">Email {mentor.name}</a>}
+                  <div className="flex gap-3 pt-2"><button type="button" onClick={() => handleOpenEditMentor(mentor)} className="text-sky-300 underline underline-offset-4">Edit</button><button type="button" onClick={() => handleDeleteMentor(mentor.id, mentor.name)} className="text-rose-300 underline underline-offset-4">Remove</button></div>
+                </div>
+              </details>
+            </article>)}
           </div>
         </div>
       )}
@@ -836,250 +610,37 @@ export const TeamSection: React.FC = () => {
       {/* TAB 1: TEAM ROSTER & GEAR TRACKER */}
       {activeTab === 'roster' && (
         <div className="space-y-6">
-          {/* T-Shirt & Quick Stats Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-white/10 space-y-1">
-              <div className="text-[11px] font-mono text-slate-400">Total Members</div>
-              <div className="text-xl font-bold text-white flex items-center gap-2">
-                <span>{members.length}</span>
-                <span className="text-[11px] font-normal text-cyan-400">Grades 9–12</span>
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-white/10 space-y-1">
-              <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
-                <Shirt className="w-3.5 h-3.5 text-pink-400" />
-                <span>Pink Gear Orders</span>
-              </div>
-              <div className="text-xl font-bold text-pink-400 flex items-center gap-2">
-                <span>{pinkCount}</span>
-                <span className="text-[10px] font-mono text-slate-400">Requests</span>
-              </div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-white/10 space-y-1">
-              <div className="text-[11px] font-mono text-slate-400">Size S Orders</div>
-              <div className="text-xl font-bold text-cyan-300">{tshirtStats['S'] || 0}</div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-white/10 space-y-1">
-              <div className="text-[11px] font-mono text-slate-400">Size M Orders</div>
-              <div className="text-xl font-bold text-cyan-300">{tshirtStats['M'] || 0}</div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-white/10 space-y-1">
-              <div className="text-[11px] font-mono text-slate-400">Size L Orders</div>
-              <div className="text-xl font-bold text-cyan-300">{tshirtStats['L'] || 0}</div>
-            </div>
-
-            <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-white/10 space-y-1">
-              <div className="text-[11px] font-mono text-slate-400">Pending Sizes</div>
-              <div className="text-xl font-bold text-amber-400">
-                {members.filter(m => !m.tshirtSize && m.grade !== 'Faculty Advisor').length}
-              </div>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div><h2 className="text-2xl font-bold text-white">Students</h2><p className="mt-1 text-sm text-slate-400">Browse the roster or search for a name.</p></div>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={() => { setEditingStudent(null); setStudentForm({ name: '', grade: 'Grade 9', division: 'Software & Autonomous', role: '', specialty: '', competition: '', tshirtSize: 'M', tshirtColor: 'Pink' }); setIsAddStudentOpen(true); }} className="rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-cyan-500">Add student</button>
+              <button type="button" onClick={handleExportCsv} className="rounded-xl border border-white/20 px-4 py-2.5 text-sm text-slate-200 hover:bg-white/10">Export CSV</button>
             </div>
           </div>
-
-          {/* Search and Filters */}
-          <div className="flex flex-col md:flex-row gap-3 items-center justify-between p-3.5 rounded-2xl bg-slate-900/60 border border-white/10">
-            {/* Search Input */}
-            <div className="relative w-full md:w-80">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search students, specialty, competition..."
-                className="w-full pl-9 pr-4 py-2 bg-slate-950 rounded-xl border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition"
-              />
-              {searchQuery && (
-                <button 
-                  onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-white text-xs"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
-
-            {/* Filter Pills */}
-            <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-              {/* Grade Filter */}
-              <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-white/10 text-xs">
-                <span className="text-[10px] font-mono text-slate-500 px-2 uppercase">Grade:</span>
-                {['All', 'Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].map(grade => (
-                  <button
-                    key={grade}
-                    onClick={() => setSelectedGrade(grade)}
-                    className={`px-2 py-1 rounded-lg text-xs transition ${
-                      selectedGrade === grade
-                        ? 'bg-cyan-600 text-white font-semibold'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {grade === 'All' ? 'All' : grade.replace('Grade ', 'G')}
-                  </button>
-                ))}
-              </div>
-
-              {/* Division Select */}
-              <select
-                value={selectedDivision}
-                onChange={(e) => setSelectedDivision(e.target.value)}
-                className="px-3 py-1.5 rounded-xl bg-slate-950 border border-white/10 text-xs text-slate-300 focus:outline-none focus:border-cyan-500"
-              >
-                <option value="All">All Divisions</option>
-                <option value="Software & Autonomous">Software & Autonomous</option>
-                <option value="Hardware & CAD">Hardware & CAD</option>
-                <option value="Electrical & Systems">Electrical & Systems</option>
-                <option value="Business & Outreach">Business & Outreach</option>
-                <option value="Mentorship">Mentorship</option>
-              </select>
-            </div>
+          <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto_auto]">
+            <label className="block"><span className="sr-only">Search students</span><input type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} placeholder="Search students" className="min-h-11 w-full rounded-xl border border-white/10 bg-slate-900 px-4 text-sm text-white placeholder-slate-400 focus:border-cyan-400 focus:outline-none" /></label>
+            <label className="flex items-center gap-2 text-sm text-slate-300"><span>Grade</span><select value={selectedGrade} onChange={(event) => setSelectedGrade(event.target.value)} className="min-h-11 rounded-xl border border-white/10 bg-slate-900 px-3 text-sm text-white"><option value="All">All</option>{['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12'].map(grade => <option key={grade} value={grade}>{grade}</option>)}</select></label>
+            <label className="flex items-center gap-2 text-sm text-slate-300"><span>Division</span><select value={selectedDivision} onChange={(event) => setSelectedDivision(event.target.value)} className="min-h-11 max-w-48 rounded-xl border border-white/10 bg-slate-900 px-3 text-sm text-white"><option value="All">All</option><option value="Software & Autonomous">Software & Autonomous</option><option value="Hardware & CAD">Hardware & CAD</option><option value="Electrical & Systems">Electrical & Systems</option><option value="Business & Outreach">Business & Outreach</option><option value="Mentorship">Mentorship</option></select></label>
           </div>
+          <p className="text-sm text-slate-400" role="status">Showing {filteredMembers.length} of {members.length} students</p>
+          <details className="rounded-xl border border-white/10 bg-slate-900/60 p-4"><summary className="cursor-pointer text-sm font-medium text-slate-200">Apparel planning <span className="font-normal text-slate-400">(saved in this browser)</span></summary><div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-300 sm:grid-cols-3"><p>Pink gear requests: <strong className="text-white">{pinkCount}</strong></p><p>Size S: <strong className="text-white">{tshirtStats['S'] || 0}</strong></p><p>Size M: <strong className="text-white">{tshirtStats['M'] || 0}</strong></p><p>Size L: <strong className="text-white">{tshirtStats['L'] || 0}</strong></p><p>Pending sizes: <strong className="text-white">{members.filter(m => !m.tshirtSize && m.grade !== 'Faculty Advisor').length}</strong></p></div></details>
 
-          {/* Student Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredMembers.map((student) => (
-              <div
-                key={student.id}
-                className="p-5 rounded-2xl bg-slate-900/60 border border-white/10 hover:border-cyan-500/40 hover:bg-slate-900/90 transition flex flex-col justify-between space-y-4 group relative"
-              >
-                <div className="space-y-3">
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        {student.profileUrl || student.name.toLowerCase().includes('aarti') ? (
-                          <a
-                            href={student.profileUrl || 'https://ai-aarti.com'}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-bold text-base text-white hover:text-cyan-300 transition group/link inline-flex items-center gap-1.5 underline decoration-cyan-500/30 hover:decoration-cyan-400 underline-offset-4"
-                            title="Visit Aarti Sri Ravikumar's Portfolio (https://ai-aarti.com)"
-                          >
-                            <span>{student.name}</span>
-                            <ExternalLink className="w-3.5 h-3.5 text-cyan-400 opacity-80 group-hover/link:opacity-100 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition shrink-0" />
-                          </a>
-                        ) : (
-                          <h3 className="font-bold text-base text-white group-hover:text-cyan-300 transition">
-                            {student.name}
-                          </h3>
-                        )}
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-cyan-950 text-cyan-300 border border-cyan-800/40">
-                          {student.grade}
-                        </span>
-                      </div>
-                      <div className="text-xs text-slate-400 font-medium mt-0.5">
-                        {student.role}
-                      </div>
-                    </div>
-
-                    {/* Card Actions */}
-                    <div className="flex items-center gap-1 opacity-80 group-hover:opacity-100 transition">
-                      <button
-                        onClick={() => handleOpenEdit(student)}
-                        className="p-1.5 rounded-lg bg-white/[0.05] hover:bg-cyan-950 hover:text-cyan-300 text-slate-400 transition"
-                        title="Edit student details & t-shirt"
-                      >
-                        <Edit3 className="w-3.5 h-3.5" />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteStudent(student.id, student.name)}
-                        className="p-1.5 rounded-lg bg-white/[0.05] hover:bg-rose-950 hover:text-rose-400 text-slate-400 transition"
-                        title="Delete member"
-                      >
-                        <Trash2 className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Division Badge */}
-                  <div>
-                    <span className="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-slate-950 text-slate-300 border border-white/10">
-                      {student.division}
-                    </span>
-                  </div>
-
-                  {/* Specialty / Role */}
-                  <div className="text-xs text-slate-300 leading-relaxed border-t border-white/[0.06] pt-2 space-y-2">
-                    <p>
-                      <strong className="text-cyan-400 font-mono">Specialty: </strong>
-                      <span>{student.specialty}</span>
-                    </p>
-
-                    {/* Dedicated External Research & Portfolio Quick-Links */}
-                    {(student.profileUrl || student.specialtyUrl || student.name.toLowerCase().includes('aarti')) && (
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        <a
-                          href={student.profileUrl || 'https://ai-aarti.com'}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/30 text-[11px] font-mono transition"
-                          title="Visit personal portfolio"
-                        >
-                          <span>Portfolio</span>
-                          <ExternalLink className="w-2.5 h-2.5 text-cyan-400" />
-                        </a>
-                        <a
-                          href={student.specialtyUrl?.replace('pubications.', 'publications.') || 'https://publications.ai-aarti.com'}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-purple-950/80 hover:bg-purple-900 text-purple-300 border border-purple-500/30 text-[11px] font-mono transition"
-                          title="View published technical papers & research"
-                        >
-                          <span>Publications</span>
-                          <ExternalLink className="w-2.5 h-2.5 text-purple-400" />
-                        </a>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Competition Assignment & Due Date */}
-                  {student.competition && (
-                    <div className="p-2 rounded-xl bg-cyan-950/40 border border-cyan-500/20 flex items-center justify-between text-xs font-mono text-cyan-300">
-                      <span className="truncate flex items-center gap-1.5">
-                        <Award className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                        <span className="truncate">{student.competition}</span>
-                      </span>
-                      {student.competitionDeadline && (
-                        <span className="text-[10px] text-amber-300 shrink-0 font-bold ml-2">
-                          {student.competitionDeadline}
-                        </span>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Notes / Special remarks */}
-                  {student.notes && (
-                    <div className="text-[11px] text-slate-400 italic bg-slate-950/50 p-2 rounded-xl border border-white/5">
-                      &quot;{student.notes}&quot;
-                    </div>
-                  )}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredMembers.length === 0 && <p className="col-span-full rounded-xl border border-white/10 bg-slate-900 p-6 text-sm text-slate-300">No students match those filters. Try another name, grade, or division.</p>}
+            {filteredMembers.map(student => <article key={student.id} className="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+              <h3 className="text-lg font-semibold text-white">{student.name}</h3>
+              <p className="mt-1 text-sm text-slate-300">{student.role}</p>
+              <p className="mt-3 text-xs text-sky-300">{student.grade} · {student.division}</p>
+              <details className="mt-4 border-t border-white/10 pt-3"><summary className="cursor-pointer text-sm font-medium text-slate-200 hover:text-white">More about {student.name.split(' ')[0]}</summary>
+                <div className="mt-4 space-y-3 text-sm leading-relaxed text-slate-300">
+                  {student.specialty && <p><strong className="text-white">Focus:</strong> {student.specialty}</p>}
+                  {student.competition && <p><strong className="text-white">Activity:</strong> {student.competition}{student.competitionDeadline ? ` · ${student.competitionDeadline}` : ''}</p>}
+                  <div className="flex flex-wrap gap-3">{student.profileUrl && <a href={student.profileUrl} target="_blank" rel="noopener noreferrer" className="text-sky-300 underline underline-offset-4">Portfolio</a>}{student.specialtyUrl && <a href={student.specialtyUrl} target="_blank" rel="noopener noreferrer" className="text-sky-300 underline underline-offset-4">More work</a>}</div>
+                  {(student.tshirtSize || student.tshirtColor || student.notes) && <details className="rounded-lg bg-slate-800/70 p-3"><summary className="cursor-pointer text-xs font-medium text-slate-300">Local planning notes</summary><div className="mt-2 space-y-1 text-xs text-slate-300">{student.tshirtSize && <p>Shirt size: {student.tshirtSize}</p>}{student.tshirtColor && <p>Shirt color: {student.tshirtColor}</p>}{student.notes && <p>Notes: {student.notes}</p>}</div></details>}
+                  <div className="flex gap-3 pt-2"><button type="button" onClick={() => handleOpenEdit(student)} className="text-sky-300 underline underline-offset-4">Edit</button><button type="button" onClick={() => handleDeleteStudent(student.id, student.name)} className="text-rose-300 underline underline-offset-4">Remove</button></div>
                 </div>
-
-                {/* Card Footer: Gear Status */}
-                <div className="pt-3 border-t border-white/[0.08] flex items-center justify-between text-xs font-mono">
-                  <div className="flex items-center gap-2">
-                    <Shirt className="w-3.5 h-3.5 text-slate-400" />
-                    {student.tshirtSize ? (
-                      <span className="text-slate-200">
-                        Size: <strong className="text-cyan-300">{student.tshirtSize}</strong>
-                      </span>
-                    ) : (
-                      <span className="text-amber-400/80 text-[11px]">Size Pending</span>
-                    )}
-                  </div>
-
-                  {student.tshirtColor ? (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-pink-950/80 text-pink-300 border border-pink-500/30">
-                      {student.tshirtColor}
-                    </span>
-                  ) : (
-                    <span className="text-[10px] text-slate-500">Default Color</span>
-                  )}
-                </div>
-              </div>
-            ))}
+              </details>
+            </article>)}
           </div>
         </div>
       )}
@@ -1093,8 +654,8 @@ export const TeamSection: React.FC = () => {
                 <Award className="w-3.5 h-3.5 text-emerald-400" />
                 <span>SEASON TOURNAMENTS & HACKATHONS</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Season Tournaments & Engineering Challenges</h3>
-              <p className="text-xs sm:text-sm text-slate-400">All registered competitions, aerospace challenges, and target milestone deadlines for 2026</p>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Competitions & challenges</h3>
+              <p className="text-xs sm:text-sm text-slate-400">Team planning records saved in this browser.</p>
             </div>
             <button
               onClick={handleOpenAddCompetition}
@@ -1208,7 +769,7 @@ export const TeamSection: React.FC = () => {
                 <Lightbulb className="w-3.5 h-3.5 text-purple-400" />
                 <span>STUDENT STRATEGIC INITIATIVES</span>
               </div>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Student Strategic Proposals & Initiatives</h3>
+              <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Ideas & proposals</h3>
               <p className="text-xs sm:text-sm text-slate-400">
                 Ideas submitted by team members (featuring proposals on tutoring, curriculum, and inclusive recruitment). Upvote, edit, or submit new initiatives!
               </p>

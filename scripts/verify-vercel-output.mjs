@@ -11,14 +11,13 @@ const required = [
   'outreach/index.html',
   'arcade/index.html',
   'sponsors/index.html',
-  'audit/index.html',
   'robots.txt',
   'sitemap.xml',
   'llms.txt',
   'llms-full.txt',
   '764b7768543ae5888b09743f7aeb1c40.txt',
 ];
-const forbidden = /github\.com\/(?!sponsors\/)[^/\s]+\/[^/\s]+|artifactory|jfrog|npm\.pkg\.github/i;
+const forbidden = /github\.com\/(?!(?:sponsors\/|aartisr\/pcss-robotics(?:[/?#"'\s<>]|$)))[^/\s"'<>]+\/[^/\s"'<>]+|artifactory|jfrog|npm\.pkg\.github/i;
 const textExtensions = /\.(?:html|js|css|json|txt|xml)$/;
 
 for (const file of required) {
@@ -33,7 +32,7 @@ function inspectDirectory(directory) {
     if (entry.isDirectory()) {
       inspectDirectory(path);
     } else if (textExtensions.test(entry.name) && forbidden.test(readFileSync(path, 'utf8'))) {
-      throw new Error(`Private repository or registry reference in deployment output: ${path}`);
+      throw new Error(`Unapproved repository or registry reference in deployment output: ${path}`);
     }
   }
 }

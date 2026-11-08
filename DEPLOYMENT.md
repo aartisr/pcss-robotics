@@ -1,6 +1,6 @@
 # Vercel deployment
 
-The project is configured in `vercel.json` as a Vite site. Vercel runs `npm ci` against the public npm registry with Node 22, then `npm run build` and serves `dist`. The build generates the discovery pages and checks the output for private repository and registry references.
+The [public project repository](https://github.com/aartisr/pcss-robotics) is configured in `vercel.json` as a Vite site. Vercel runs `npm ci` against the public npm registry with Node 22, then `npm run build` and serves `dist`. The build generates discovery pages and checks output for unintended repository and registry references.
 
 In Vercel project settings, use Node.js 22.x. The install command and committed `package-lock.json` use `registry.npmjs.org`. Keep any corporate npm registry configuration in your local user-level `~/.npmrc` or environment; do not add its URL or credentials to this repository or Vercel project settings.
 
