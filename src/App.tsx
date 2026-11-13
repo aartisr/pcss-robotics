@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Navigation } from './components/Navigation';
 import { SectionErrorBoundary } from './components/SectionErrorBoundary';
 import { SiteFooter } from './components/SiteFooter';
@@ -37,6 +37,8 @@ export default function App() {
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [openW9Directly, setOpenW9Directly] = useState(false);
+  const resetW9Modal = useCallback(() => setOpenW9Directly(false), []);
+  const sponsor = useMemo(() => ({ openW9: openW9Directly, resetW9: resetW9Modal }), [openW9Directly, resetW9Modal]);
   const [aura, setAura] = useState<CelestialAura>('cyan');
 
   // Global Keyboard Shortcuts (⌘K, '/', Escape)
@@ -97,7 +99,7 @@ export default function App() {
       {/* Main Dynamic View Content */}
       <main id="main-content" className="flex-1 w-full relative z-10">
         <SectionErrorBoundary key={activeSection}>
-          <PageRenderer data={pageData} onNavigate={navigateTo} sponsor={{ openW9: openW9Directly, resetW9: () => setOpenW9Directly(false) }} />
+          <PageRenderer data={pageData} onNavigate={navigateTo} sponsor={sponsor} />
         </SectionErrorBoundary>
       </main>
 

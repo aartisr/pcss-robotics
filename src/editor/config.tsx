@@ -37,7 +37,9 @@ function safeHref(value: string) {
   } catch { return '#'; }
 }
 
-export function createPageConfig(onNavigate: (section: NavSection) => void, sponsor?: { openW9: boolean; resetW9: () => void }): Config<Props, { title: string; description: string }> {
+type SponsorControls = { openW9: boolean; resetW9: () => void };
+
+export function createPageConfig(onNavigate: (section: NavSection) => void, getSponsor?: () => SponsorControls | undefined): Config<Props, { title: string; description: string }> {
   return {
     root: {
       fields: { title: { type: 'text', label: 'Browser title' }, description: { type: 'textarea', label: 'Search description' } },
@@ -109,7 +111,10 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, spon
         label: 'Site feature',
         fields: { feature: { type: 'select', options: ['events', 'research', 'simulator', 'outreach', 'arcade', 'sponsors'].map(value => ({ label: value[0].toUpperCase() + value.slice(1), value })) } },
         defaultProps: { feature: 'events' },
-        render: ({ feature }) => <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading…</div>}>{feature === 'events' ? <FeaturedEventTeaser onNavigate={onNavigate} /> : feature === 'robots' ? <RobotEngineeringSection /> : feature === 'research' ? <ResearchSection /> : feature === 'simulator' ? <AutonomousSimulator /> : feature === 'team' ? <TeamSection /> : feature === 'outreach' ? <OutreachSection /> : feature === 'arcade' ? <ArcadeMiniGame /> : <SponsorCommandCenter externalOpenW9Modal={sponsor?.openW9} onResetExternalW9Modal={sponsor?.resetW9} />}</React.Suspense>,
+        render: ({ feature }) => {
+          const sponsor = getSponsor?.();
+          return <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading…</div>}>{feature === 'events' ? <FeaturedEventTeaser onNavigate={onNavigate} /> : feature === 'robots' ? <RobotEngineeringSection /> : feature === 'research' ? <ResearchSection /> : feature === 'simulator' ? <AutonomousSimulator /> : feature === 'team' ? <TeamSection /> : feature === 'outreach' ? <OutreachSection /> : feature === 'arcade' ? <ArcadeMiniGame /> : <SponsorCommandCenter externalOpenW9Modal={sponsor?.openW9} onResetExternalW9Modal={sponsor?.resetW9} />}</React.Suspense>;
+        },
       },
       TeamRoster: {
         label: 'Team roster',
@@ -142,6 +147,10 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, spon
   };
 }
 
-export function PageRenderer({ data, onNavigate, sponsor }: { data: Parameters<typeof Render>[0]['data']; onNavigate: (section: NavSection) => void; sponsor?: { openW9: boolean; resetW9: () => void } }) {
-  return <Render config={createPageConfig(onNavigate, sponsor)} data={data} />;
-}
+export const PageRenderer = React.memo(function PageRenderer({ data, onNavigate, sponsor }: { data: Parameters<typeof Render>[0]['data']; onNavigate: (section: NavSection) => void; sponsor?: SponsorControls }) {
+  const sponsorRef = React.useRef(sponsor);
+  sponsorRef.current = sponsor;
+  const getSponsor = React.useCallback(() => sponsorRef.current, []);
+  const config = React.useMemo(() => createPageConfig(onNavigate, getSponsor), [onNavigate, getSponsor]);
+  return <Render config={config} data={data} />;
+});

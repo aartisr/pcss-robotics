@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 export function useScrollPosition(threshold = 400) {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     let ticking = false;
@@ -11,7 +10,6 @@ export function useScrollPosition(threshold = 400) {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentY = window.scrollY;
-          setScrollY(currentY);
           setShowScrollTop(currentY > threshold);
           ticking = false;
         });
@@ -27,5 +25,5 @@ export function useScrollPosition(threshold = 400) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  return { showScrollTop, scrollY, scrollToTop };
+  return { showScrollTop, scrollToTop };
 }
