@@ -35,6 +35,12 @@ for (const file of required.filter((item) => item.endsWith('index.html'))) {
   const canonical = `${siteUrl}${path}`;
   const schema = html.match(/<script id="site-jsonld" type="application\/ld\+json">([\s\S]*?)<\/script>/);
   const body = html.split('</head>')[1] ?? '';
+  if (file === 'index.html' && !html.includes('<link rel="preload" as="image" href="/images/robotics-lab-hero.webp"')) {
+    throw new Error('The home hero must be discoverable before JavaScript runs.');
+  }
+  if (!body.includes('<div id="root"></div><noscript><main') || !body.includes('</main></noscript>')) {
+    throw new Error(`Visible discovery content would flash before React mounts in ${file}`);
+  }
   if (!html.includes(`<link rel="canonical" href="${canonical}"`) ||
       !html.includes(`<meta name="author" content="${author.name}"`) ||
       !html.includes(`<link rel="author" href="${author.url}"`) ||
@@ -70,13 +76,36 @@ function inspectDirectory(directory) {
 inspectDirectory(fileURLToPath(dist));
 
 const lock = JSON.parse(readFileSync(new URL('package-lock.json', root), 'utf8'));
+const manifest = JSON.parse(readFileSync(new URL('package.json', root), 'utf8'));
 const vercel = JSON.parse(readFileSync(new URL('vercel.json', root), 'utf8'));
 if (vercel.framework !== 'vite' || vercel.outputDirectory !== 'dist' || !vercel.installCommand.includes('registry.npmjs.org')) {
   throw new Error('Vercel must build the Vite site using the public npm registry.');
 }
+const directSource = /(?:git\+|git@|ssh:\/\/|https?:\/\/|file:|link:)/i;
+for (const [name, spec] of Object.entries({
+  ...manifest.dependencies,
+  ...manifest.devDependencies,
+  ...manifest.optionalDependencies
+})) {
+  if (directSource.test(spec)) {
+    throw new Error(`Direct dependency source is not allowed in package.json: ${name}`);
+  }
+}
 for (const [name, pkg] of Object.entries(lock.packages)) {
   if (pkg.resolved && new URL(pkg.resolved).hostname !== 'registry.npmjs.org') {
     throw new Error(`Nonpublic package URL in lockfile: ${name}`);
+  }
+  if (typeof pkg.version === 'string' && directSource.test(pkg.version)) {
+    throw new Error(`Direct package source in lockfile: ${name}`);
+  }
+  for (const [dependency, spec] of Object.entries({
+    ...pkg.dependencies,
+    ...pkg.optionalDependencies,
+    ...pkg.peerDependencies
+  })) {
+    if (directSource.test(spec)) {
+      throw new Error(`Direct dependency source in lockfile: ${name} -> ${dependency}`);
+    }
   }
   for (const [nativePackage, expectedVersion] of Object.entries(pkg.optionalDependencies ?? {})) {
     if (!/(?:linux-x64-gnu|linux-x64)$/.test(nativePackage)) continue;

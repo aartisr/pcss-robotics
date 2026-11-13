@@ -1,11 +1,10 @@
 import React from 'react';
 import { NavSection } from '../types';
-import { ChevronRight, Home, Search, Compass, Activity, HeartHandshake, Sparkles, Gamepad2, Users, FlaskConical } from 'lucide-react';
+import { ChevronRight, Home, Compass, Activity, HeartHandshake, Sparkles, Gamepad2, Users, FlaskConical } from 'lucide-react';
 
 interface SectionHeaderBreadcrumbProps {
   activeSection: NavSection;
   onNavigate: (section: NavSection) => void;
-  onOpenCommandPalette: () => void;
 }
 
 const SECTION_METADATA: Record<NavSection, { title: string; subtitle: string; icon: React.ReactNode }> = {
@@ -20,12 +19,12 @@ const SECTION_METADATA: Record<NavSection, { title: string; subtitle: string; ic
     icon: <FlaskConical className="w-3.5 h-3.5 text-sky-400" />
   },
   robots: {
-    title: 'Robots & CAD Subsystems',
+    title: 'Robot engineering',
     subtitle: 'Robot designs and mechanisms',
     icon: <Compass className="w-3.5 h-3.5 text-sky-400" />
   },
   simulator: {
-    title: 'Autonomous Lab & Field Simulator',
+    title: 'Autonomous simulator',
     subtitle: 'Explore motion planning and control',
     icon: <Activity className="w-3.5 h-3.5 text-emerald-400" />
   },
@@ -53,8 +52,7 @@ const SECTION_METADATA: Record<NavSection, { title: string; subtitle: string; ic
 
 export const SectionHeaderBreadcrumb: React.FC<SectionHeaderBreadcrumbProps> = ({
   activeSection,
-  onNavigate,
-  onOpenCommandPalette
+  onNavigate
 }) => {
   if (activeSection === 'home') return null;
 
@@ -78,18 +76,10 @@ export const SectionHeaderBreadcrumb: React.FC<SectionHeaderBreadcrumbProps> = (
           </div>
         </nav>
 
-        <div className="hidden sm:flex items-center gap-3 shrink-0">
+        <div className="hidden md:flex items-center gap-3 shrink-0">
           <span className="text-[11px] text-slate-300 font-mono hidden md:inline truncate max-w-xs">
             {current.subtitle}
           </span>
-          <button
-            onClick={onOpenCommandPalette}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0b1e3b] hover:bg-[#102a52] text-slate-200 hover:text-white border border-[#1d3e70] text-[11px] font-mono transition shrink-0"
-            aria-label="Open command palette search"
-          >
-            <Search className="w-3 h-3 text-sky-400 shrink-0" aria-hidden="true" />
-            <span>⌘K Jump</span>
-          </button>
         </div>
       </div>
     </div>

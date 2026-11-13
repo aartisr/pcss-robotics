@@ -177,11 +177,11 @@ export const Navigation: React.FC<NavigationProps> = ({
                   <span className="font-extrabold text-sm sm:text-base tracking-tight text-white group-hover:text-sky-300 transition whitespace-nowrap">
                     PCSS II Robotics
                   </span>
-                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold font-mono tracking-wider bg-sky-950/90 text-sky-300 border border-sky-500/40 shrink-0">
+                  <span className="hidden sm:inline px-1.5 py-0.5 rounded text-[10px] font-bold font-mono tracking-wider bg-sky-950/90 text-sky-300 border border-sky-500/40 shrink-0">
                     #23548
                   </span>
                 </div>
-                <span className="text-[10px] leading-tight text-slate-300">Pioneer Charter School of Science II</span>
+                <span className="hidden sm:block text-[10px] leading-tight text-slate-300">Pioneer Charter School of Science II</span>
               </div>
             </button>
             <a
@@ -235,7 +235,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                     : 'text-slate-200 hover:text-white hover:bg-white/[0.06]'
                 }`}
                 aria-expanded={moreMenuOpen}
-                aria-haspopup="true"
+                aria-controls="more-navigation-links"
               >
                 <span>More</span>
                 <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${moreMenuOpen ? 'rotate-180 text-sky-300' : ''}`} aria-hidden="true" />
@@ -243,7 +243,7 @@ export const Navigation: React.FC<NavigationProps> = ({
 
               {moreMenuOpen && (
                 <div
-                  role="menu"
+                  id="more-navigation-links"
                   aria-label="Additional Navigation Links"
                   className="absolute left-1/2 -translate-x-1/2 mt-2 w-80 rounded-2xl bg-[#0b1e3b] border border-[#1d3e70] shadow-2xl shadow-black/90 backdrop-blur-2xl p-2 z-[100] animate-in fade-in slide-in-from-top-2 duration-150"
                 >
@@ -251,7 +251,6 @@ export const Navigation: React.FC<NavigationProps> = ({
                     {secondaryNavItems.map((sec) => (
                       <button
                         key={sec.id}
-                        role="menuitem"
                         onClick={() => {
                           onNavigate(sec.id);
                           setMoreMenuOpen(false);
@@ -306,7 +305,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             {/* Quick Jump (⌘K) Search Trigger */}
             <button
               onClick={onOpenCommandPalette}
-              className="flex items-center gap-1.5 sm:gap-2 p-2 sm:px-2.5 sm:py-1.5 rounded-xl bg-[#0b1e3b] hover:bg-[#102a52] text-slate-200 hover:text-white border border-[#1d3e70] text-xs font-mono transition shrink-0 min-h-[44px] min-w-[44px] justify-center"
+              className="hidden lg:flex items-center gap-1.5 sm:gap-2 p-2 sm:px-2.5 sm:py-1.5 rounded-xl bg-[#0b1e3b] hover:bg-[#102a52] text-slate-200 hover:text-white border border-[#1d3e70] text-xs font-mono transition shrink-0 min-h-[44px] min-w-[44px] justify-center"
               title="Open command palette (⌘K or /)"
               aria-label="Open Command Search"
             >
@@ -320,7 +319,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             {/* AI Strategy Copilot Trigger */}
             <button
               onClick={onOpenGuide}
-              className="relative p-2 rounded-xl bg-[#0b1e3b] hover:bg-purple-950/50 text-slate-200 hover:text-purple-300 border border-[#1d3e70] hover:border-purple-500/40 transition shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="relative p-2 rounded-xl bg-[#0b1e3b] hover:bg-purple-950/50 text-slate-200 hover:text-purple-300 border border-[#1d3e70] hover:border-purple-500/40 transition shrink-0 min-h-[44px] min-w-[44px] hidden lg:flex items-center justify-center"
               title="Open site guide"
               aria-label="Open site guide"
             >
@@ -331,7 +330,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             {/* Support action */}
             <button
               onClick={() => onNavigate('sponsors')}
-              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white shadow-md shadow-sky-950/50 border border-sky-400/30 transition whitespace-nowrap shrink-0 min-h-[44px]"
+              className="hidden lg:inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-500 hover:to-blue-600 text-white shadow-md shadow-sky-950/50 border border-sky-400/30 transition whitespace-nowrap shrink-0 min-h-[44px]"
             >
               <HeartHandshake className="w-4 h-4 shrink-0 text-amber-300" aria-hidden="true" />
               <span className="hidden sm:inline">Sponsorship</span>
@@ -359,7 +358,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             role="dialog"
             aria-modal="true"
             aria-label="Mobile Navigation Menu"
-            className="lg:hidden border-b border-[#1d3e70] bg-[#071326] px-4 pt-3 pb-6 space-y-4 max-h-[calc(100vh-4rem)] overflow-y-auto no-scrollbar w-full max-w-full animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl"
+            className="lg:hidden border-b border-[#1d3e70] bg-[#071326] px-4 pt-3 pb-6 space-y-4 max-h-[calc(100dvh-4rem)] overflow-y-auto no-scrollbar w-full max-w-full animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl"
           >
             <a
               href={SCHOOL_CLUBS_URL}
@@ -380,15 +379,14 @@ export const Navigation: React.FC<NavigationProps> = ({
             >
               <span className="flex items-center gap-2">
                 <Search className="w-4 h-4 text-sky-400" aria-hidden="true" />
-                <span>Search commands, CAD, papers, and more...</span>
+                <span>Search pages and site actions</span>
               </span>
-              <kbd className="px-1.5 py-0.5 rounded bg-[#071326] text-[10px] font-mono border border-slate-700 text-slate-300">⌘K</kbd>
             </button>
 
             {/* Navigation Links Grouped Cleanly with 48px Touch Targets */}
             <div className="space-y-1.5" role="navigation" aria-label="Mobile Primary Navigation">
               <div className="text-[10px] font-mono uppercase tracking-wider text-sky-400 px-3 py-1 font-bold">
-                Platform Sections
+                Pages
               </div>
 
               {primaryNavItems.map((item) => (
@@ -421,7 +419,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               ))}
 
               <div className="text-[10px] font-mono uppercase tracking-wider text-sky-400 px-3 py-1 font-bold pt-2">
-                Engineering & Lab Systems
+                Explore more
               </div>
 
               {secondaryNavItems.map((sec) => (

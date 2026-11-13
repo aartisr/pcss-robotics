@@ -548,7 +548,6 @@ export const TeamSection: React.FC = () => {
           <p className="text-sm text-slate-400 max-w-3xl leading-relaxed">
             Meet the students and mentors who make PCSS II Robotics a team.
           </p>
-          <p className="max-w-3xl rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-xs leading-relaxed text-amber-100">Edits and apparel notes on this page are saved only in this browser. They are not submitted to the school or shared with other visitors.</p>
         </div>
 
       </div>
@@ -563,6 +562,7 @@ export const TeamSection: React.FC = () => {
           </div>
         </details>
       </nav>
+      <p className="text-xs leading-relaxed text-slate-400">Changes you make here stay in this browser; they are not shared with the school or other visitors.</p>
 
       {/* TAB 0: MENTORS & TEACHERS */}
       {activeTab === 'mentors' && (
@@ -1033,7 +1033,7 @@ export const TeamSection: React.FC = () => {
       {/* MODAL: ADD / EDIT STUDENT */}
       {isAddStudentOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-150">
-          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 space-y-5 max-h-[calc(100dvh-2rem)] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <UserPlus className="w-4 h-4 text-cyan-400" />
@@ -1062,7 +1062,7 @@ export const TeamSection: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Grade Level</label>
                   <select
@@ -1146,7 +1146,7 @@ export const TeamSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Competition Assigned</label>
                   <input
@@ -1177,7 +1177,7 @@ export const TeamSection: React.FC = () => {
                   <span>Team Apparel Gear Order</span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-slate-400 text-[11px] mb-1">T-Shirt Size</label>
                     <select
@@ -1242,7 +1242,7 @@ export const TeamSection: React.FC = () => {
       {/* MODAL: ADD / EDIT COMPETITION */}
       {isAddCompOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-150">
-          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 sm:p-7 space-y-5 max-h-[calc(100dvh-2rem)] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <Award className="w-5 h-5 text-emerald-400" />
@@ -1274,7 +1274,7 @@ export const TeamSection: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Category</label>
                   <select
@@ -1375,7 +1375,7 @@ export const TeamSection: React.FC = () => {
       {/* MODAL: ADD / EDIT PROPOSAL */}
       {isAddPropOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-150">
-          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-lg rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 sm:p-7 space-y-5 max-h-[calc(100dvh-2rem)] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <Lightbulb className="w-5 h-5 text-purple-400" />
@@ -1407,7 +1407,7 @@ export const TeamSection: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Your Name</label>
                   <input
@@ -1435,7 +1435,7 @@ export const TeamSection: React.FC = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-slate-300 font-medium mb-1">Category</label>
                   <select
@@ -1515,7 +1515,7 @@ export const TeamSection: React.FC = () => {
       {/* MODAL: ADD / EDIT FACULTY MENTOR */}
       {isAddMentorOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-150">
-          <div className="w-full max-w-xl rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 sm:p-7 space-y-5 max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-xl rounded-3xl bg-slate-900 border border-white/10 shadow-2xl p-6 sm:p-7 space-y-5 max-h-[calc(100dvh-2rem)] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/10">
               <div className="flex items-center gap-2">
                 <GraduationCap className="w-4 h-4 text-blue-400" />

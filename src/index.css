@@ -21,6 +21,29 @@ html, body {
   color: #f1f5f9;
 }
 
+main {
+  overflow-wrap: break-word;
+}
+
+.touch-controls {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .touch-controls {
+    display: block;
+  }
+}
+
+/* Keep form controls readable and prevent focus zoom on narrow iOS screens. */
+@media (max-width: 639px) {
+  input:not([type="range"]):not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
 /* Accessible focus rings for all interactive elements across the app */
 :focus-visible {
   outline: 2px solid #38bdf8 !important;

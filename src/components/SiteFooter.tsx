@@ -2,6 +2,7 @@ import type { NavSection } from '../types';
 import { AUTHOR, SCHOOL, SECTION_METADATA } from '../seo/siteMetadata';
 import { learningResources } from '../features/learning/resources';
 import { SchoolSeal } from './SchoolSeal';
+import { posthogConfigured } from '../lib/posthogAnalytics';
 
 const exploreLinks: { section: NavSection; label: string }[] = [
   { section: 'home', label: 'Home' },
@@ -59,7 +60,7 @@ export function SiteFooter({ onNavigate, onOpenStudentModal }: SiteFooterProps) 
         <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
           <span>Site by <a href={AUTHOR.url} rel="author" className="text-slate-200 underline underline-offset-4 hover:text-white">{AUTHOR.name}</a></span>
           <a href={learningResources.pat.url} target="_blank" rel="noopener noreferrer" className="text-sky-300 hover:text-sky-200">Learn game programming with PAT</a>
-          <button type="button" onClick={() => window.dispatchEvent(new Event('open-analytics-preferences'))} className="hover:text-white">Analytics choices</button>
+          {posthogConfigured && <button type="button" onClick={() => window.dispatchEvent(new Event('open-analytics-preferences'))} className="hover:text-white">Analytics choices</button>}
         </div>
       </div>
     </div>

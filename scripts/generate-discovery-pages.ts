@@ -68,9 +68,13 @@ function pageBody(section: NavSection) {
 
 for (const section of Object.keys(SECTION_METADATA) as NavSection[]) {
   const page = SECTION_METADATA[section];
+  // React mounts into #root on every visit. Visible HTML inside that element is
+  // replaced at startup, which flashes an incomplete discovery page first.
+  // Keep the static discovery copy available only to visitors without JS.
   const output = template
     .replace(headPattern, pageHead(section))
-    .replace('<div id="root"></div>', `<div id="root">${pageBody(section)}</div>`);
+    .replace('</head>', `${section === 'home' ? '    <link rel="preload" as="image" href="/images/robotics-lab-hero.webp" fetchpriority="high" />\n  ' : ''}</head>`)
+    .replace('<div id="root"></div>', `<div id="root"></div><noscript>${pageBody(section)}</noscript>`);
   const directory = join(distDir, page.path);
   mkdirSync(directory, { recursive: true });
   writeFileSync(join(directory, 'index.html'), output);

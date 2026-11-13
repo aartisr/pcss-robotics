@@ -18,6 +18,7 @@ export const CelestialStarfield: React.FC<CelestialStarfieldProps> = ({ aura }) 
 
     // Check if user has requested reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const shouldAnimate = !prefersReducedMotion && window.innerWidth >= 768;
 
     let animationFrameId: number | null = null;
     let width = (canvas.width = window.innerWidth);
@@ -30,6 +31,7 @@ export const CelestialStarfield: React.FC<CelestialStarfieldProps> = ({ aura }) 
         if (!canvas) return;
         width = canvas.width = window.innerWidth;
         height = canvas.height = window.innerHeight;
+        if (!shouldAnimate) drawNebulaAndStars();
       }, 150);
     };
 
@@ -104,7 +106,7 @@ export const CelestialStarfield: React.FC<CelestialStarfieldProps> = ({ aura }) 
       // Render twinkling starlight
       for (let i = 0; i < stars.length; i++) {
         const star = stars[i];
-        if (!prefersReducedMotion) {
+        if (shouldAnimate) {
           star.y -= star.speed;
           if (star.y < 0) {
             star.y = height;
@@ -112,7 +114,7 @@ export const CelestialStarfield: React.FC<CelestialStarfieldProps> = ({ aura }) 
           }
         }
 
-        const oscillatingAlpha = prefersReducedMotion
+        const oscillatingAlpha = !shouldAnimate
           ? star.alpha
           : star.alpha + Math.sin(tick * star.twinkleSpeed + i) * 0.25;
         const finalAlpha = Math.max(0.1, Math.min(1, oscillatingAlpha));
@@ -140,30 +142,39 @@ export const CelestialStarfield: React.FC<CelestialStarfieldProps> = ({ aura }) 
       ctx.globalAlpha = 1.0;
     };
 
-    const render = () => {
-      if (document.hidden) {
-        // Stop CPU cycle when browser tab is inactive
-        animationFrameId = requestAnimationFrame(render);
-        return;
+    let lastPaint = 0;
+    const render = (now: number) => {
+      if (now - lastPaint >= 33) {
+        lastPaint = now;
+        tick += 1;
+        drawNebulaAndStars();
       }
+      animationFrameId = requestAnimationFrame(render);
+    };
 
-      tick += 1;
-      drawNebulaAndStars();
-
-      if (!prefersReducedMotion) {
+    const handleVisibility = () => {
+      if (!shouldAnimate) return;
+      if (document.hidden && animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      } else if (!document.hidden && animationFrameId === null) {
+        lastPaint = 0;
         animationFrameId = requestAnimationFrame(render);
       }
     };
 
+    document.addEventListener('visibilitychange', handleVisibility);
+
     // If reduced motion is requested, render once and don't loop
-    if (prefersReducedMotion) {
+    if (!shouldAnimate) {
       drawNebulaAndStars();
-    } else {
-      render();
+    } else if (!document.hidden) {
+      animationFrameId = requestAnimationFrame(render);
     }
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      document.removeEventListener('visibilitychange', handleVisibility);
       if (resizeTimeout) clearTimeout(resizeTimeout);
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };

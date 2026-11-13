@@ -39,7 +39,7 @@ export function SponsorCommandCenter({ externalOpenW9Modal, onResetExternalW9Mod
         </div>
       </header>
 
-      <div className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
         <div className="rounded-3xl border border-sky-400/20 bg-gradient-to-br from-sky-950/70 to-slate-900/70 p-6 sm:p-8">
           <p className="text-xs font-bold uppercase tracking-[.18em] text-sky-300">What a partnership makes possible</p>
           <h2 className="mt-3 text-2xl font-bold tracking-tight text-white">A place to try, fail, learn, and try again.</h2>

@@ -91,7 +91,7 @@ export const Modal: React.FC<ModalProps> = ({
     >
       <div
         ref={modalRef}
-        className={`w-full ${maxWidthStyles[maxWidth]} max-h-[92vh] flex flex-col rounded-3xl bg-slate-900 border border-white/10 shadow-2xl shadow-cyan-950/40 relative overflow-hidden animate-in zoom-in-95 duration-200`}
+        className={`w-full ${maxWidthStyles[maxWidth]} max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2rem)] md:max-h-[calc(100dvh-3rem)] flex flex-col rounded-3xl bg-slate-900 border border-white/10 shadow-2xl shadow-cyan-950/40 relative overflow-hidden animate-in zoom-in-95 duration-200`}
       >
         {/* Modal Header */}
         {(title || subtitle) && (

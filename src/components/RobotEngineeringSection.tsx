@@ -13,7 +13,7 @@ export function RobotEngineeringSection() {
     <div className="space-y-5">
       {ENGINEERING_TOPICS.map((topic, index) => {
         const Icon = icons[topic.id as keyof typeof icons] ?? Lightbulb;
-        return <article key={topic.id} className="grid gap-6 rounded-3xl border border-white/10 bg-slate-900/75 p-6 sm:p-8 md:grid-cols-[.8fr_1.2fr]">
+        return <article key={topic.id} className="grid gap-6 rounded-3xl border border-white/10 bg-slate-900/75 p-6 sm:p-8 md:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)]">
           <div><span className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl bg-sky-400/10 text-sky-300"><Icon className="h-5 w-5" aria-hidden="true" /></span><p className="text-xs font-semibold uppercase tracking-widest text-sky-300">Question {index + 1}</p><h2 className="mt-2 text-2xl font-bold text-white">{topic.title}</h2><p className="mt-2 text-sm font-medium text-amber-200">{topic.question}</p></div>
           <div><p className="text-base leading-relaxed text-slate-300">{topic.summary}</p><ol className="mt-6 space-y-3">{topic.steps.map(step => <li key={step} className="flex items-start gap-3 text-sm text-slate-200"><ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-sky-300" aria-hidden="true" />{step}</li>)}</ol></div>
         </article>;

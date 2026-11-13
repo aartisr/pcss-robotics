@@ -85,8 +85,8 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
     {
       id: 'nav-simulator',
       category: 'Navigation',
-      title: 'Autonomous field simulator',
-      subtitle: 'Explore path planning and control concepts',
+      title: 'Autonomous simulator',
+      subtitle: 'See how waypoints shape a path',
       icon: <Activity className="w-4 h-4 text-cyan-400" />,
       keywords: ['simulator', 'autonomous', 'telemetry', 'field', 'roadrunner', 'otos'],
       action: () => onNavigate('simulator')
@@ -222,7 +222,7 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-start justify-center pt-16 sm:pt-24 p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center sm:items-start justify-center p-4 sm:pt-24 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
       onClick={onClose}
     >
       <div
@@ -230,7 +230,7 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
         role="dialog"
         aria-modal="true"
         aria-label="Search pages and actions"
-        className="w-full max-w-xl rounded-3xl border border-white/15 bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-2xl shadow-2xl shadow-cyan-950/60 overflow-hidden flex flex-col max-h-[80vh]"
+        className="w-full max-w-xl rounded-3xl border border-white/15 bg-gradient-to-b from-slate-900/95 to-slate-950/95 backdrop-blur-2xl shadow-2xl shadow-cyan-950/60 overflow-hidden flex flex-col max-h-[calc(100dvh-2rem)] sm:max-h-[calc(100dvh-7rem)]"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
       >
@@ -244,15 +244,15 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search pages and actions (e.g. events, team, robots)..."
-            className="w-full bg-transparent text-sm text-white placeholder-slate-400 focus:outline-none"
+            className="min-w-0 w-full bg-transparent text-sm text-white placeholder-slate-400 focus:outline-none"
           />
           <button
             type="button"
             aria-label="Close search"
             onClick={onClose}
-            className="px-2 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] font-mono text-slate-400 hover:text-white transition"
+            className="min-h-11 min-w-11 p-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition flex items-center justify-center"
           >
-            ESC
+            <X className="h-5 w-5" aria-hidden="true" />
           </button>
         </div>
 
@@ -317,7 +317,7 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
         </div>
 
         {/* Footer shortcuts hint */}
-        <div className="p-3 border-t border-white/10 bg-slate-950/90 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+        <div className="hidden sm:flex p-3 border-t border-white/10 bg-slate-950/90 text-[11px] font-mono text-slate-400 items-center justify-between">
           <div className="flex items-center gap-3">
             <span>&uarr;&darr; Navigate</span>
             <span>&crarr; Select</span>

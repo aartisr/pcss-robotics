@@ -259,6 +259,11 @@ export const ArcadeMiniGame: React.FC = () => {
   // Keyboard controls listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('input, textarea, select, [contenteditable="true"]')) return;
+      const gameActive = (activeTab === 'local2p' && local2pState === 'playing') ||
+        (activeTab === 'multiplayer' && matchStatus === 'teleop');
+      if (!gameActive) return;
       const key = e.key.toLowerCase();
       keysRef.current[key] = true;
       if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(key)) {
@@ -271,15 +276,19 @@ export const ArcadeMiniGame: React.FC = () => {
       const key = e.key.toLowerCase();
       keysRef.current[key] = false;
     };
+    const clearKeys = () => { keysRef.current = {}; };
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
+    window.addEventListener('blur', clearKeys);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
+      window.removeEventListener('blur', clearKeys);
+      clearKeys();
     };
-  }, []);
+  }, [activeTab, local2pState, matchStatus]);
 
   // Send input tick to WebSocket at 30Hz
   useEffect(() => {
@@ -329,7 +338,7 @@ export const ArcadeMiniGame: React.FC = () => {
       localSamples = localSamplesRef.current;
     }
 
-    const render = () => {
+    const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Cyber Grid Background
@@ -449,12 +458,32 @@ export const ArcadeMiniGame: React.FC = () => {
       });
       particlesRef.current = particlesRef.current.filter((pt) => pt.life > 0);
 
-      animRef.current = requestAnimationFrame(render);
     };
 
-    animRef.current = requestAnimationFrame(render);
+    let lastPaint = 0;
+    const render = (now: number) => {
+      if (now - lastPaint >= 33) {
+        lastPaint = now;
+        draw();
+      }
+      animRef.current = requestAnimationFrame(render);
+    };
+    const handleVisibility = () => {
+      if (document.hidden && animRef.current !== null) {
+        cancelAnimationFrame(animRef.current);
+        animRef.current = null;
+      } else if (!document.hidden && animRef.current === null) {
+        lastPaint = 0;
+        animRef.current = requestAnimationFrame(render);
+      }
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+    draw();
+    if (!document.hidden) animRef.current = requestAnimationFrame(render);
     return () => {
-      if (animRef.current) cancelAnimationFrame(animRef.current);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      if (animRef.current !== null) cancelAnimationFrame(animRef.current);
+      animRef.current = null;
     };
   }, [activeTab, connectedBots, myPlayerId, playerName]);
 
@@ -726,6 +755,25 @@ export const ArcadeMiniGame: React.FC = () => {
     };
   }, [activeTab, local2pState]);
 
+  const touchControl = (key: string, label: string, className = '') => (
+    <button
+      key={key}
+      type="button"
+      aria-label={`Blue player ${label.toLowerCase()}`}
+      onPointerDown={event => {
+        event.preventDefault();
+        event.currentTarget.setPointerCapture(event.pointerId);
+        keysRef.current[key] = true;
+      }}
+      onPointerUp={() => { keysRef.current[key] = false; }}
+      onPointerCancel={() => { keysRef.current[key] = false; }}
+      onLostPointerCapture={() => { keysRef.current[key] = false; }}
+      className={`min-h-12 rounded-xl border border-cyan-400/40 bg-cyan-950 text-base font-bold text-cyan-100 active:bg-cyan-700 touch-none select-none ${className}`}
+    >
+      {label}
+    </button>
+  );
+
   return (
     <section className="py-12 sm:py-16 space-y-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -736,13 +784,14 @@ export const ArcadeMiniGame: React.FC = () => {
               <Gamepad2 className="w-3.5 h-3.5 text-purple-400" />
               <span>Robotics arcade</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
               <span>Robot driving game</span>
               {arenaWebSocketUrl && <span className="text-xs px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/40 font-mono font-normal">Live Online</span>}
-            </h2>
+            </h1>
             <p className="text-sm text-slate-400 max-w-2xl leading-relaxed">
-              Drive with a friend on one keyboard, collect game pieces, and try to score.
+              Start a match, drive with a friend, collect game pieces, and score in your team’s basket.
             </p>
+            <p className="text-sm text-amber-200 md:hidden">On a touch screen, use the blue controls below the field. A second player can join on a keyboard.</p>
           </div>
 
           {/* Controls Bar: Sound & Mode Pill Switcher */}
@@ -754,22 +803,24 @@ export const ArcadeMiniGame: React.FC = () => {
               }}
               className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition"
               title={soundMuted ? 'Unmute Game SFX' : 'Mute Game SFX'}
+              aria-label={soundMuted ? 'Turn game sound on' : 'Turn game sound off'}
             >
               {soundMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-cyan-400" />}
             </button>
 
-            <div className="p-1 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-1">
-              {arenaWebSocketUrl && <button
+            {arenaWebSocketUrl && <div className="p-1 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-1">
+              <button
                 onClick={() => setActiveTab('multiplayer')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
                   activeTab === 'multiplayer'
                     ? 'bg-cyan-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'
                 }`}
+                aria-pressed={activeTab === 'multiplayer'}
               >
                 <Users className="w-3.5 h-3.5" />
-                <span>Live Online (WS)</span>
-              </button>}
+                <span>Play online</span>
+              </button>
               <button
                 onClick={() => setActiveTab('local2p')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
@@ -777,11 +828,12 @@ export const ArcadeMiniGame: React.FC = () => {
                     ? 'bg-purple-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'
                 }`}
+                aria-pressed={activeTab === 'local2p'}
               >
                 <Swords className="w-3.5 h-3.5" />
                 <span>Two players, one keyboard</span>
               </button>
-            </div>
+            </div>}
           </div>
         </div>
 
@@ -888,11 +940,11 @@ export const ArcadeMiniGame: React.FC = () => {
             </div>
 
             {/* Arena Main Display Box */}
-            <div className="p-6 rounded-2xl border border-slate-800 bg-slate-950 space-y-4">
+            <div className="p-3 sm:p-6 rounded-2xl border border-slate-800 bg-slate-950 space-y-4">
               {/* Telemetry Header */}
               <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs border-b border-slate-900 pb-3">
                 {/* Alliance Scores */}
-                <div className="flex items-center gap-6">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
                     <span className="text-slate-400">BLUE ALLIANCE:</span>
@@ -907,7 +959,7 @@ export const ArcadeMiniGame: React.FC = () => {
                 </div>
 
                 {/* Match Timer & State */}
-                <div className="flex items-center gap-4">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4">
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-slate-400" />
                     <span className="text-slate-400">MATCH CLOCK:</span>
@@ -962,23 +1014,23 @@ export const ArcadeMiniGame: React.FC = () => {
                 )}
 
                 {matchStatus === 'finished' && (
-                  <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center space-y-4">
-                    <Trophy className="w-12 h-12 text-amber-400" />
-                    <h3 className="text-2xl font-black text-white">
+                  <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm flex flex-col items-center justify-center p-2 sm:p-6 text-center gap-1 sm:gap-4 overflow-y-auto">
+                    <Trophy className="w-6 h-6 sm:w-12 sm:h-12 shrink-0 text-amber-400" />
+                    <h3 className="text-sm sm:text-2xl font-black text-white">
                       {allianceScores.blue > allianceScores.red
                         ? 'BLUE ALLIANCE VICTORY!'
                         : allianceScores.red > allianceScores.blue
                         ? 'RED ALLIANCE VICTORY!'
                         : 'ALLIANCE TIE!'}
                     </h3>
-                    <div className="flex items-center gap-6 font-mono text-lg">
+                    <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-6 font-mono text-xs sm:text-lg">
                       <span className="text-cyan-400 font-bold">BLUE: {allianceScores.blue} pts</span>
                       <span className="text-slate-500">|</span>
                       <span className="text-rose-400 font-bold">RED: {allianceScores.red} pts</span>
                     </div>
                     <button
                       onClick={handleStartMatch}
-                      className="px-6 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition shadow-lg shadow-cyan-950 font-mono"
+                      className="min-h-10 px-4 sm:px-6 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs transition shadow-lg shadow-cyan-950 font-mono"
                     >
                       LAUNCH REMATCH
                     </button>
@@ -1075,7 +1127,7 @@ export const ArcadeMiniGame: React.FC = () => {
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
                   placeholder="Broadcast message to arena pilots..."
-                  className="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
+                  className="min-w-0 flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
                   maxLength={100}
                 />
                 <button
@@ -1092,20 +1144,20 @@ export const ArcadeMiniGame: React.FC = () => {
 
         {/* --- TAB 2: LOCAL 2-PLAYER SPLIT-KEY BATTLE --- */}
         {activeTab === 'local2p' && (
-          <div className="p-6 rounded-2xl border border-slate-800 bg-slate-950 space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-900 pb-4">
+          <div className="p-3 sm:p-6 rounded-2xl border border-slate-800 bg-slate-950 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-900 pb-4">
               <div>
                 <h3 className="text-lg font-bold text-white flex items-center gap-2">
                   <Swords className="w-5 h-5 text-purple-400" />
-                  <span>Local Same-Device Duel: Blue Kraken vs Red Kraken</span>
+                  <span>Local match</span>
                 </h3>
                 <p className="text-xs text-slate-400 mt-1">
-                  Two students, one keyboard! Player 1 operates WASD + Spacebar. Player 2 operates Arrow Keys + Enter.
+                  Share one keyboard, or play as blue using the touch controls below.
                 </p>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-3 font-mono text-xs">
+              <div className="flex flex-wrap items-center gap-3 min-w-0">
+                <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
                   <span className="text-cyan-400 font-bold">BLUE: {local2pScores.blue}</span>
                   <span className="text-slate-600">|</span>
                   <span className="text-rose-400 font-bold">RED: {local2pScores.red}</span>
@@ -1119,7 +1171,7 @@ export const ArcadeMiniGame: React.FC = () => {
                     className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs font-mono flex items-center gap-1.5 transition"
                   >
                     <Play className="w-3.5 h-3.5" />
-                    <span>Start 2-Player Match</span>
+                    <span>Start match</span>
                   </button>
                 ) : (
                   <button
@@ -1139,13 +1191,15 @@ export const ArcadeMiniGame: React.FC = () => {
                 ref={canvasRef}
                 width={FIELD_WIDTH}
                 height={FIELD_HEIGHT}
+                role="img"
+                aria-label="Robotics game field. Blue scores in the left basket; red scores in the right basket."
                 className="w-full max-w-[800px] aspect-[8/5]"
               />
 
               {local2pState === 'gameover' && (
-                <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center space-y-4">
-                  <Trophy className="w-12 h-12 text-amber-400" />
-                  <h3 className="text-2xl font-black text-white">
+                <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm flex flex-col items-center justify-center p-2 sm:p-6 text-center gap-1 sm:gap-4 overflow-y-auto">
+                  <Trophy className="w-6 h-6 sm:w-12 sm:h-12 shrink-0 text-amber-400" />
+                  <h3 className="text-sm sm:text-2xl font-black text-white">
                     {local2pScores.blue > local2pScores.red
                       ? 'PLAYER 1 (BLUE) WINS!'
                       : local2pScores.red > local2pScores.blue
@@ -1154,7 +1208,7 @@ export const ArcadeMiniGame: React.FC = () => {
                   </h3>
                   <button
                     onClick={startLocal2pMatch}
-                    className="px-6 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs font-mono transition"
+                    className="min-h-10 px-4 sm:px-6 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs font-mono transition"
                   >
                     REMATCH
                   </button>
@@ -1162,29 +1216,42 @@ export const ArcadeMiniGame: React.FC = () => {
               )}
             </div>
 
+            <div className="touch-controls rounded-xl border border-cyan-500/30 bg-cyan-950/20 p-4">
+              <p className="mb-3 text-sm font-semibold text-cyan-100">Blue player touch controls</p>
+              <div className="mx-auto grid max-w-56 grid-cols-3 gap-2">
+                <span aria-hidden="true" />
+                {touchControl('w', 'Up')}
+                <span aria-hidden="true" />
+                {touchControl('a', 'Left')}
+                {touchControl('s', 'Down')}
+                {touchControl('d', 'Right')}
+                {touchControl(' ', 'Boost', 'col-span-3')}
+              </div>
+            </div>
+
             {/* Split Key Control Guide */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div className="p-4 rounded-xl bg-cyan-950/30 border border-cyan-800/40 space-y-2">
                 <div className="flex items-center gap-2 text-cyan-400 font-bold">
                   <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
-                  <span>PLAYER 1: BLUE KRAKEN</span>
+                  <span>Blue player</span>
                 </div>
-                <div className="text-slate-300 space-y-1 text-[11px]">
-                  <div>&bull; <strong className="text-white">W / A / S / D</strong>: Holonomic Vector Drive</div>
-                  <div>&bull; <strong className="text-white">SPACEBAR</strong>: Overclock Turbo Boost</div>
-                  <div>&bull; <strong className="text-cyan-300">Goal</strong>: Scoop samples & score in Blue Basket (Left)</div>
+                <div className="text-slate-300 space-y-1">
+                  <div><strong className="text-white">Move:</strong> W, A, S, D</div>
+                  <div><strong className="text-white">Speed boost:</strong> Spacebar</div>
+                  <div><strong className="text-cyan-300">Score:</strong> Pick up pieces and drive to the blue basket on the left.</div>
                 </div>
               </div>
 
               <div className="p-4 rounded-xl bg-rose-950/30 border border-rose-800/40 space-y-2">
                 <div className="flex items-center gap-2 text-rose-400 font-bold">
                   <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
-                  <span>PLAYER 2: RED KRAKEN</span>
+                  <span>Red player</span>
                 </div>
-                <div className="text-slate-300 space-y-1 text-[11px]">
-                  <div>&bull; <strong className="text-white">ARROW KEYS</strong>: Holonomic Vector Drive</div>
-                  <div>&bull; <strong className="text-white">ENTER / SHIFT</strong>: Overclock Turbo Boost</div>
-                  <div>&bull; <strong className="text-rose-300">Goal</strong>: Scoop samples & score in Red Basket (Right)</div>
+                <div className="text-slate-300 space-y-1">
+                  <div><strong className="text-white">Move:</strong> Arrow keys</div>
+                  <div><strong className="text-white">Speed boost:</strong> Enter or Shift</div>
+                  <div><strong className="text-rose-300">Score:</strong> Pick up pieces and drive to the red basket on the right.</div>
                 </div>
               </div>
             </div>

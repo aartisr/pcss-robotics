@@ -24,7 +24,7 @@ export function useUrlNavigation(initialFallback: NavSection = 'home') {
   const navigateTo = useCallback((section: NavSection) => {
     window.history.pushState({ section }, '', SECTION_METADATA[section].path);
     setActiveSection(section);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
   useEffect(() => {

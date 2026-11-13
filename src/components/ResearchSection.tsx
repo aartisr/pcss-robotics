@@ -57,7 +57,7 @@ export function ResearchSection() {
         <div className="rounded-3xl border border-white/10 bg-slate-900/80 p-5 sm:p-7">
           <h2 className="mb-2 flex items-center gap-2 text-xl font-semibold text-white"><Compass className="h-5 w-5 text-emerald-300" aria-hidden="true" /> Wheel speed estimate</h2>
           <p className="mb-7 text-sm leading-relaxed text-slate-400">Positive and negative values show opposite wheel directions. The bars compare speed magnitude.</p>
-          <div className="space-y-6" aria-live="polite">
+          <div className="space-y-6">
             {wheelSpeeds.map(wheel => <div key={wheel.label}>
               <div className="mb-2 flex items-center justify-between gap-3 text-sm"><span className="font-medium text-slate-200">{wheel.label}</span><span className="tabular-nums font-semibold text-white">{wheel.rpm >= 0 ? '+' : ''}{wheel.rpm.toFixed(1)} rpm</span></div>
               <div className="h-2.5 overflow-hidden rounded-full bg-slate-700"><div className="h-full rounded-full bg-sky-400 transition-[width] duration-150" style={{ width: `${Math.abs(wheel.rpm) / maxSpeed * 100}%` }} /></div>

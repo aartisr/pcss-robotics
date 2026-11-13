@@ -14,7 +14,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({ toasts, onDismis
     <div 
       aria-live="polite"
       aria-atomic="true"
-      className="fixed bottom-20 sm:bottom-6 sm:right-6 left-4 right-4 sm:left-auto z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none"
+      className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] sm:bottom-6 sm:right-6 left-4 right-4 sm:left-auto z-50 flex flex-col gap-2 max-w-sm w-auto sm:w-full pointer-events-none"
     >
       {toasts.map((toast) => {
         let borderClass = 'border-cyan-500/50 bg-slate-950/90 text-white shadow-cyan-950/50';

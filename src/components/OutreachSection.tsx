@@ -52,14 +52,14 @@ function FeaturedEvent({ event }: { event: CommunityEvent }) {
       <div className={`pointer-events-none absolute -right-24 -top-36 h-96 w-96 rounded-full border-[64px] opacity-90 ${accent ? 'border-[#ff8b22]/80' : 'border-sky-500/60'}`} aria-hidden="true" />
       <div className="pointer-events-none absolute -left-40 bottom-0 h-80 w-80 rounded-full border-[55px] border-[#e09c55]/60" aria-hidden="true" />
       <div className={`pointer-events-none absolute right-0 top-0 h-full w-1/2 bg-gradient-to-bl via-transparent to-transparent ${accent ? 'from-[#9cb51e]/50' : 'from-sky-600/30'}`} aria-hidden="true" />
-      <div className="relative z-10 grid gap-10 p-6 sm:p-10 lg:grid-cols-[1.15fr_.85fr] lg:p-14">
+      <div className="relative z-10 grid gap-10 p-6 sm:p-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,.85fr)] lg:p-14">
         <div className="flex flex-col justify-center">
           <div className="mb-6 flex flex-wrap items-center gap-2">
             <span className={`rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[.18em] ${accent ? 'border-lime-200/30 bg-lime-200/15 text-lime-100' : 'border-sky-200/30 bg-sky-200/15 text-sky-100'}`}>{phase === 'past' ? 'From the archive' : phase === 'live' ? 'Happening now' : 'Coming next'}</span>
             <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-semibold text-white">{event.format}</span>
           </div>
           <p className={`mb-3 text-sm font-bold uppercase tracking-[.22em] ${accent ? 'text-[#d5ea68]' : 'text-sky-300'}`}>{event.partner ? `${event.partner} × ${event.host}` : event.host}</p>
-          <h2 className="max-w-2xl text-5xl font-black leading-[.98] tracking-tight text-white sm:text-6xl lg:text-7xl">{event.name}<span className={accent ? 'text-[#c7db35]' : 'text-sky-300'}>.</span></h2>
+          <h2 className="max-w-2xl text-4xl font-black leading-[1.05] tracking-tight text-white sm:text-6xl lg:text-6xl xl:text-7xl">{event.name}<span className={accent ? 'text-[#c7db35]' : 'text-sky-300'}>.</span></h2>
           <p className="mt-6 max-w-xl text-xl font-semibold leading-snug text-white sm:text-2xl">{event.summary}</p>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-slate-200 sm:text-base">{event.details}</p>
           <div className="mt-7 flex flex-wrap items-center gap-4">
@@ -118,7 +118,7 @@ function EventPreparation({ event }: { event: CommunityEvent }) {
   const resource = learningResources[preparation.resourceId];
   const isPast = eventPhase(event) === 'past';
   const accent = event.tone === 'citrus';
-  return <section aria-labelledby="event-preparation-title" className={`grid gap-8 rounded-3xl border p-6 sm:p-9 lg:grid-cols-[1.2fr_.8fr] lg:items-center ${accent ? 'border-lime-400/25 bg-[#172a27]' : 'border-sky-400/25 bg-[#102545]'}`}>
+  return <section aria-labelledby="event-preparation-title" className={`grid gap-8 rounded-3xl border p-6 sm:p-9 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,.8fr)] lg:items-center ${accent ? 'border-lime-400/25 bg-[#172a27]' : 'border-sky-400/25 bg-[#102545]'}`}>
     <div>
       <p className={`flex items-center gap-2 text-xs font-bold uppercase tracking-[.2em] ${accent ? 'text-lime-300' : 'text-sky-300'}`}><BookOpen className="h-4 w-4" aria-hidden="true" />{isPast ? 'Keep learning' : 'Before the jam'}</p>
       <h2 id="event-preparation-title" className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">{isPast ? resource.title : preparation.title}</h2>
@@ -147,7 +147,7 @@ export function OutreachSection() {
 
       <EventPreparation event={featured} />
 
-      <section aria-labelledby="haven-experience-title" className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:gap-12">
+      <section aria-labelledby="haven-experience-title" className="grid gap-8 lg:grid-cols-[minmax(0,.7fr)_minmax(0,1.3fr)] lg:gap-12">
         <div>
           <p className="text-xs font-bold uppercase tracking-[.2em] text-lime-300">{eventPhase(featured) === 'past' ? 'Event highlights' : 'What to expect'}</p>
           <h2 id="haven-experience-title" className="mt-3 text-3xl font-black tracking-tight text-white sm:text-4xl">{featured.experienceTitle}</h2>
@@ -172,11 +172,10 @@ export function OutreachSection() {
 
       <EventHistory events={pastEvents} />
 
-      <div className="flex flex-col gap-4 rounded-3xl border border-sky-500/20 bg-[#0b1e3b] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+      {eventPhase(featured) !== 'past' && <div className="flex flex-col gap-4 rounded-3xl border border-sky-500/20 bg-[#0b1e3b] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
         <div><p className="text-xs font-bold uppercase tracking-[.2em] text-sky-300">Join the community</p><h2 className="mt-2 text-xl font-bold text-white">The next project starts with showing up.</h2></div>
         <EventLink event={featured} />
-        {eventPhase(featured) === 'past' && <span className="text-sm text-slate-300">Watch this space for the next event.</span>}
-      </div>
+      </div>}
     </div>
   );
 }

@@ -49,7 +49,7 @@ export function AnalyticsPreferences({ activeSection }: { activeSection: NavSect
   };
 
   return (
-    <aside aria-label="Analytics preferences" className="fixed bottom-20 md:bottom-5 left-4 right-4 z-[100] mx-auto max-w-lg rounded-2xl border border-sky-500/40 bg-[#0b1e3b] p-5 text-sm text-slate-100 shadow-2xl shadow-black/60">
+    <aside aria-label="Analytics preferences" className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] md:bottom-5 left-4 right-4 z-[100] mx-auto max-w-lg max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-2xl border border-sky-500/40 bg-[#0b1e3b] p-5 text-sm text-slate-100 shadow-2xl shadow-black/60">
       <h2 className="font-semibold text-white">Help us improve this site?</h2>
       <p className="mt-2 text-slate-300">
         With your permission, we use PostHog to count page visits. Click tracking, session recordings, and personal profiles are off. You can change this choice in the footer.
