@@ -6,6 +6,7 @@ import {
   INITIAL_PROPOSALS,
   INITIAL_FACULTY_MENTORS
 } from '../data/teamRosterData';
+import { downloadRosterCsv } from '../lib/rosterCsv';
 import { 
   Users, 
   UserPlus, 
@@ -486,28 +487,7 @@ export const TeamSection: React.FC = () => {
 
   // Export Roster as CSV
   const handleExportCsv = () => {
-    const headers = ['Grade', 'Name', 'Division', 'Role', 'Competition', 'Deadline', 'T-Shirt Size', 'T-Shirt Color', 'Specialty', 'Notes'];
-    const rows = members.map(m => [
-      m.grade,
-      `"${m.name}"`,
-      `"${m.division}"`,
-      `"${m.role}"`,
-      `"${m.competition || ''}"`,
-      `"${m.competitionDeadline || ''}"`,
-      `"${m.tshirtSize || ''}"`,
-      `"${m.tshirtColor || ''}"`,
-      `"${m.specialty || ''}"`,
-      `"${m.notes || ''}"`
-    ]);
-
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `PCSS_Robotics_Team_Roster_${new Date().toISOString().split('T')[0]}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    downloadRosterCsv(members);
   };
 
   // Filtered members
@@ -614,7 +594,7 @@ export const TeamSection: React.FC = () => {
             <div><h2 className="text-2xl font-bold text-white">Students</h2><p className="mt-1 text-sm text-slate-400">Browse the roster or search for a name.</p></div>
             <div className="flex flex-wrap gap-2">
               <button type="button" onClick={() => { setEditingStudent(null); setStudentForm({ name: '', grade: 'Grade 9', division: 'Software & Autonomous', role: '', specialty: '', competition: '', tshirtSize: 'M', tshirtColor: 'Pink' }); setIsAddStudentOpen(true); }} className="rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-cyan-500">Add student</button>
-              <button type="button" onClick={handleExportCsv} className="rounded-xl border border-white/20 px-4 py-2.5 text-sm text-slate-200 hover:bg-white/10">Export CSV</button>
+              <button type="button" onClick={handleExportCsv} className="rounded-xl border border-white/20 px-4 py-2.5 text-sm text-slate-200 hover:bg-white/10">Export all {members.length} records</button>
             </div>
           </div>
           <div className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto_auto]">
