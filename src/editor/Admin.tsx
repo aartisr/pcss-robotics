@@ -7,9 +7,17 @@ import type { NavSection } from '../types';
 
 const labels: Record<NavSection, string> = { home: 'Home', robots: 'Robots', research: 'Research', simulator: 'Simulator', team: 'Team', outreach: 'Outreach', arcade: 'Arcade', sponsors: 'Sponsors' };
 
+async function editorResponse(response: Response) {
+  if (!response.headers.get('content-type')?.includes('application/json')) {
+    throw new Error(`Editor API is unavailable (HTTP ${response.status}). Check the /api/editor route in this deployment.`);
+  }
+  return response.json();
+}
+
 export default function Admin() {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [configured, setConfigured] = useState(true);
+  const [serviceError, setServiceError] = useState('');
   const [password, setPassword] = useState('');
   const [page, setPage] = useState<NavSection>('home');
   const [data, setData] = useState<Data>(defaultPage('home'));
@@ -19,7 +27,14 @@ export default function Admin() {
   const config = useMemo(() => createPageConfig(() => {}), []);
 
   useEffect(() => {
-    fetch('/api/editor?session=1', { credentials: 'same-origin' }).then(response => response.json()).then(result => { setAuthenticated(Boolean(result.authenticated)); setConfigured(Boolean(result.configured)); }).catch(() => { setAuthenticated(false); setConfigured(false); });
+    fetch('/api/editor?session=1', { credentials: 'same-origin' })
+      .then(async response => {
+        const result = await editorResponse(response);
+        if (!response.ok) throw new Error(`Editor API returned HTTP ${response.status}.`);
+        setAuthenticated(Boolean(result.authenticated));
+        setConfigured(Boolean(result.configured));
+      })
+      .catch(error => { setAuthenticated(false); setServiceError(error instanceof Error ? error.message : 'Editor API is unavailable.'); });
   }, []);
 
   useEffect(() => {
@@ -42,7 +57,7 @@ export default function Admin() {
     setMessage('Signing in…');
     try {
       const response = await fetch('/api/editor', { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ action: 'login', password }) });
-      const result = await response.json();
+      const result = await editorResponse(response);
       if (!response.ok) throw new Error(result.error ?? 'Sign in failed.');
       setPassword('');
       setMessage('');
@@ -54,7 +69,7 @@ export default function Admin() {
     setMessage('Publishing…');
     try {
       const response = await fetch(`/api/editor?page=${page}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify({ action: 'save', data: next }) });
-      const result = await response.json();
+      const result = await editorResponse(response);
       if (!response.ok) throw new Error(result.error ?? 'Publish failed.');
       setData(next);
       setDirty(false);
@@ -66,7 +81,7 @@ export default function Admin() {
   }
 
   if (authenticated === null) return <div className="flex min-h-screen items-center justify-center bg-slate-950 text-slate-200">Opening editor…</div>;
-  if (!authenticated) return <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4 text-white"><form onSubmit={login} className="w-full max-w-sm rounded-3xl border border-slate-700 bg-slate-900 p-8 shadow-2xl"><p className="text-sm font-semibold text-sky-300">PCSS II Robotics</p><h1 className="mt-2 text-3xl font-bold">Page editor</h1><p className="mt-3 text-sm text-slate-300">Enter your editor password to continue.</p><label htmlFor="editor-password" className="mt-7 block text-sm font-semibold">Password</label><input id="editor-password" type="password" autoComplete="current-password" value={password} onChange={event => setPassword(event.target.value)} className="mt-2 min-h-12 w-full rounded-xl border border-slate-600 bg-slate-950 px-4 text-white focus:border-sky-400 focus:outline-none" required /><button type="submit" className="mt-5 min-h-12 w-full rounded-xl bg-sky-600 px-4 font-bold hover:bg-sky-500">Sign in</button>{message && <p role="alert" className="mt-4 text-sm text-amber-300">{message}</p>}{!configured && <p className="mt-4 text-sm text-slate-400">Set ADMIN_PASSWORD and ADMIN_SESSION_SECRET in your server configuration.</p>}</form></main>;
+  if (!authenticated) return <main className="flex min-h-screen items-center justify-center bg-slate-950 px-4 text-white"><form onSubmit={login} className="w-full max-w-sm rounded-3xl border border-slate-700 bg-slate-900 p-8 shadow-2xl"><p className="text-sm font-semibold text-sky-300">PCSS II Robotics</p><h1 className="mt-2 text-3xl font-bold">Page editor</h1><p className="mt-3 text-sm text-slate-300">Enter your editor password to continue.</p><label htmlFor="editor-password" className="mt-7 block text-sm font-semibold">Password</label><input id="editor-password" type="password" autoComplete="current-password" value={password} onChange={event => setPassword(event.target.value)} className="mt-2 min-h-12 w-full rounded-xl border border-slate-600 bg-slate-950 px-4 text-white focus:border-sky-400 focus:outline-none" required /><button type="submit" className="mt-5 min-h-12 w-full rounded-xl bg-sky-600 px-4 font-bold hover:bg-sky-500">Sign in</button>{message && <p role="alert" className="mt-4 text-sm text-amber-300">{message}</p>}{serviceError && <p role="alert" className="mt-4 text-sm text-amber-300">{serviceError}</p>}{!serviceError && !configured && <p className="mt-4 text-sm text-slate-400">The editor API is running, but this deployment is missing ADMIN_PASSWORD or ADMIN_SESSION_SECRET. Check this deployment’s environment and redeploy.</p>}</form></main>;
 
   return <div className="flex h-dvh min-w-0 flex-col bg-white">
     <header className="grid shrink-0 grid-cols-2 items-center gap-2 border-b border-slate-200 bg-slate-950 px-3 py-3 text-white sm:flex sm:flex-wrap sm:px-4">
