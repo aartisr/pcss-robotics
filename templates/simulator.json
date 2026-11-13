@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Autonomous Robotics Simulator | PCSS II Robotics",
+      "description": "Try an interactive robotics simulator for path planning, control tuning, and odometry concepts from PCSS II Robotics."
+    }
+  },
+  "content": [
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-11",
+        "eyebrow": "Practice",
+        "title": "Autonomous simulator",
+        "description": "Explore autonomous movement through hands-on controls."
+      }
+    },
+    {
+      "type": "Feature",
+      "props": {
+        "id": "Feature-12",
+        "feature": "simulator"
+      }
+    }
+  ]
+}

@@ -784,7 +784,7 @@ export const ArcadeMiniGame: React.FC = () => {
               <Gamepad2 className="w-3.5 h-3.5 text-purple-400" />
               <span>Robotics arcade</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center gap-3">
+            <h1 className="flex flex-wrap items-center gap-3 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
               <span>Robot driving game</span>
               {arenaWebSocketUrl && <span className="text-xs px-2.5 py-1 rounded-md bg-cyan-950 text-cyan-300 border border-cyan-800/40 font-mono font-normal">Live Online</span>}
             </h1>
@@ -795,7 +795,7 @@ export const ArcadeMiniGame: React.FC = () => {
           </div>
 
           {/* Controls Bar: Sound & Mode Pill Switcher */}
-          <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+          <div className="flex min-w-0 flex-wrap items-center gap-2.5">
             <button
               onClick={() => {
                 const isMuted = soundEffects.toggleMute();
@@ -808,10 +808,10 @@ export const ArcadeMiniGame: React.FC = () => {
               {soundMuted ? <VolumeX className="w-4 h-4 text-rose-400" /> : <Volume2 className="w-4 h-4 text-cyan-400" />}
             </button>
 
-            {arenaWebSocketUrl && <div className="p-1 rounded-xl bg-slate-900 border border-slate-800 flex items-center gap-1">
+            {arenaWebSocketUrl && <div className="flex w-full min-w-0 flex-wrap items-center gap-1 rounded-xl border border-slate-800 bg-slate-900 p-1 sm:w-auto sm:flex-nowrap">
               <button
                 onClick={() => setActiveTab('multiplayer')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                className={`flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition sm:flex-none ${
                   activeTab === 'multiplayer'
                     ? 'bg-cyan-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'
@@ -823,7 +823,7 @@ export const ArcadeMiniGame: React.FC = () => {
               </button>
               <button
                 onClick={() => setActiveTab('local2p')}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+                className={`flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition sm:flex-none ${
                   activeTab === 'local2p'
                     ? 'bg-purple-600 text-white shadow-md'
                     : 'text-slate-400 hover:text-white'

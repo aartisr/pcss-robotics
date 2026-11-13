@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Robotics Learning Lab | PCSS II Robotics",
+      "description": "Explore mecanum drive motion in a clearly labeled educational calculator from PCSS II Robotics."
+    }
+  },
+  "content": [
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-9",
+        "eyebrow": "Learning lab",
+        "title": "Research in motion",
+        "description": "Change the inputs and see the physics respond."
+      }
+    },
+    {
+      "type": "Feature",
+      "props": {
+        "id": "Feature-10",
+        "feature": "research"
+      }
+    }
+  ]
+}

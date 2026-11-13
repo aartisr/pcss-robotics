@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Support PCSS II Robotics | Sponsorship Information",
+      "description": "Sponsor PCSS II Robotics through equipment, student event support, or mentorship. Learn about the club’s nonprofit status and request current tax documents from the school."
+    }
+  },
+  "content": [
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-19",
+        "eyebrow": "Support the team",
+        "title": "Sponsorship",
+        "description": "Help students build, learn, and share."
+      }
+    },
+    {
+      "type": "Feature",
+      "props": {
+        "id": "Feature-20",
+        "feature": "sponsors"
+      }
+    }
+  ]
+}

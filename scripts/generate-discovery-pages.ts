@@ -24,11 +24,14 @@ const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (character) => (
 
 function pageHead(section: NavSection) {
   const page = SECTION_METADATA[section];
+  const templateData = JSON.parse(readFileSync(join(process.cwd(), 'templates', `${section}.json`), 'utf8')) as { root?: { props?: { title?: string; description?: string } } };
+  const title = templateData.root?.props?.title || page.title;
+  const description = templateData.root?.props?.description || page.description;
   const url = `${SITE_URL}${page.path}`;
   const schema = JSON.stringify(structuredDataFor(section)).replace(/</g, '\\u003c');
   return `<!-- DISCOVERY_HEAD_START -->
-    <title>${escapeHtml(page.title)}</title>
-    <meta name="description" content="${escapeHtml(page.description)}" />
+    <title>${escapeHtml(title)}</title>
+    <meta name="description" content="${escapeHtml(description)}" />
     <meta name="author" content="${escapeHtml(AUTHOR.name)}" />
     <meta name="robots" content="${page.indexable === false ? 'noindex,follow' : 'index,follow,max-image-preview:large'}" />
     <link rel="canonical" href="${url}" />
@@ -36,14 +39,14 @@ function pageHead(section: NavSection) {
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="PCSS II Robotics" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:title" content="${escapeHtml(page.title)}" />
-    <meta property="og:description" content="${escapeHtml(page.description)}" />
+    <meta property="og:title" content="${escapeHtml(title)}" />
+    <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:url" content="${url}" />
     <meta property="og:image" content="${SHARE_IMAGE}" />
     <meta property="og:image:alt" content="PCSS II Robotics student engineering" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeHtml(page.title)}" />
-    <meta name="twitter:description" content="${escapeHtml(page.description)}" />
+    <meta name="twitter:title" content="${escapeHtml(title)}" />
+    <meta name="twitter:description" content="${escapeHtml(description)}" />
     <meta name="twitter:image" content="${SHARE_IMAGE}" />
     <script id="site-jsonld" type="application/ld+json">${schema}</script>
     <!-- DISCOVERY_HEAD_END -->`;
@@ -79,6 +82,12 @@ for (const section of Object.keys(SECTION_METADATA) as NavSection[]) {
   mkdirSync(directory, { recursive: true });
   writeFileSync(join(directory, 'index.html'), output);
 }
+
+const admin = template
+  .replace(headPattern, '<!-- DISCOVERY_HEAD_START --><title>Page editor | PCSS II Robotics</title><meta name="robots" content="noindex,nofollow" /><!-- DISCOVERY_HEAD_END -->')
+  .replace('<div id="root"></div>', '<div id="root"></div><noscript>Enable JavaScript to use the page editor.</noscript>');
+mkdirSync(join(distDir, 'admin'), { recursive: true });
+writeFileSync(join(distDir, 'admin', 'index.html'), admin);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${INDEXABLE_SECTIONS.map((section) => `  <url><loc>${SITE_URL}${SECTION_METADATA[section].path}</loc></url>`).join('\n')}\n</urlset>\n`;
 writeFileSync(join(distDir, 'sitemap.xml'), sitemap);

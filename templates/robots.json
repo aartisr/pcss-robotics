@@ -1,0 +1,93 @@
+{
+  "root": {
+    "props": {
+      "title": "Robot Engineering | PCSS II Robotics",
+      "description": "Explore the decisions behind competition robot design: movement, mechanisms, and sensing."
+    }
+  },
+  "content": [
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-robots",
+        "eyebrow": "Robot engineering",
+        "title": "A robot is a series of decisions.",
+        "description": "Explore the questions behind a competition robot: how it moves, handles objects, and senses the field. These are design concepts, not specifications for a particular team robot.",
+        "level": "h1"
+      }
+    },
+    {
+      "type": "EngineeringTopic",
+      "props": {
+        "id": "EngineeringTopic-drive",
+        "icon": "drive",
+        "eyebrow": "Question 1",
+        "title": "How a robot moves",
+        "question": "What makes a drive system easy to control?",
+        "summary": "Wheel choice, weight distribution, and motor control all affect how a robot crosses a field. A good design begins with the motion the game requires.",
+        "steps": [
+          {
+            "text": "Sketch the paths the robot needs to take."
+          },
+          {
+            "text": "Build a simple drive prototype."
+          },
+          {
+            "text": "Test turning, stopping, and repeatability."
+          }
+        ]
+      }
+    },
+    {
+      "type": "EngineeringTopic",
+      "props": {
+        "id": "EngineeringTopic-mechanisms",
+        "icon": "mechanisms",
+        "eyebrow": "Question 2",
+        "title": "How a robot handles objects",
+        "question": "Can one mechanism do the job reliably?",
+        "summary": "Intakes, lifts, and arms make game tasks possible. Their design balances reach, speed, strength, and the space available on the robot.",
+        "steps": [
+          {
+            "text": "Define the object and its destination."
+          },
+          {
+            "text": "Prototype contact points and motion."
+          },
+          {
+            "text": "Test jams and recovery before adding complexity."
+          }
+        ]
+      }
+    },
+    {
+      "type": "EngineeringTopic",
+      "props": {
+        "id": "EngineeringTopic-sensing",
+        "icon": "sensing",
+        "eyebrow": "Question 3",
+        "title": "How a robot knows where it is",
+        "question": "What can the robot actually measure?",
+        "summary": "Encoders, cameras, and other sensors give control code information about motion and surroundings. Each reading has uncertainty.",
+        "steps": [
+          {
+            "text": "Choose a measurement relevant to the task."
+          },
+          {
+            "text": "Calibrate the sensor."
+          },
+          {
+            "text": "Compare the reading with what happens on the field."
+          }
+        ]
+      }
+    },
+    {
+      "type": "InsetNote",
+      "props": {
+        "id": "InsetNote-robots",
+        "text": "Robot profiles can be added when photos, build notes, and specifications are ready to publish. The concepts above are a starting point for asking better engineering questions."
+      }
+    }
+  ]
+}

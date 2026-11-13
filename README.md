@@ -1,5 +1,7 @@
 # PCSS II Robotics website
 
+Page content is edited at `/admin/` with Puck and stored in [`templates/`](templates/). See [Page editor setup](docs/PAGE_EDITOR.md) for password and publishing configuration.
+
 React and TypeScript site for PCSS II Robotics. The public build is a Vite static site; the optional `server.ts` provides local WebSocket arcade rooms.
 
 Public repository: [aartisr/pcss-robotics](https://github.com/aartisr/pcss-robotics).

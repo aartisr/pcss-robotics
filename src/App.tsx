@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigation } from './components/Navigation';
-import { SectionView } from './components/SectionView';
 import { SectionErrorBoundary } from './components/SectionErrorBoundary';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteGuideModal } from './components/SiteGuideModal';
@@ -17,9 +16,20 @@ import { useScrollPosition } from './hooks/useScrollPosition';
 import { useToastNotifications } from './hooks/useToastNotifications';
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts';
 import { ArrowUp } from 'lucide-react';
+import { PageRenderer } from './editor/config';
+import { defaultPage, loadPage } from './editor/pageData';
+import type { Data } from '@puckeditor/core';
 
 export default function App() {
   const { activeSection, navigateTo } = useUrlNavigation('home');
+  const [pageData, setPageData] = useState<Data>(() => defaultPage(activeSection));
+  const pageMeta = pageData.root?.props as { title?: string; description?: string } | undefined;
+  useEffect(() => {
+    let current = true;
+    setPageData(defaultPage(activeSection));
+    loadPage(activeSection).then(data => { if (current) setPageData(data); });
+    return () => { current = false; };
+  }, [activeSection]);
   const { toasts, showToast, dismissToast } = useToastNotifications();
   const { showScrollTop, scrollToTop } = useScrollPosition(400);
 
@@ -63,7 +73,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#071326] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200 relative pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0 w-full max-w-full overflow-x-hidden">
       {/* Dynamic SEO, Meta & Structured Data Synchronizer */}
-      <SeoHead activeSection={activeSection} />
+      <SeoHead activeSection={activeSection} title={pageMeta?.title} description={pageMeta?.description} />
       <AnalyticsPreferences activeSection={activeSection} />
 
       {/* Heavenly Celestial Starfield Background */}
@@ -87,15 +97,7 @@ export default function App() {
       {/* Main Dynamic View Content */}
       <main id="main-content" className="flex-1 w-full relative z-10">
         <SectionErrorBoundary key={activeSection}>
-          <SectionView
-            section={activeSection}
-            navigateTo={navigateTo}
-            openGuide={() => setIsGuideOpen(true)}
-            openStudentModal={() => setIsStudentModalOpen(true)}
-            openW9Directly={openW9Directly}
-            resetW9Modal={() => setOpenW9Directly(false)}
-            openW9={() => { navigateTo('sponsors'); setOpenW9Directly(true); }}
-          />
+          <PageRenderer data={pageData} onNavigate={navigateTo} sponsor={{ openW9: openW9Directly, resetW9: () => setOpenW9Directly(false) }} />
         </SectionErrorBoundary>
       </main>
 

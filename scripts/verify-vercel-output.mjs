@@ -11,13 +11,14 @@ const required = [
   'outreach/index.html',
   'arcade/index.html',
   'sponsors/index.html',
+  'admin/index.html',
   'robots.txt',
   'sitemap.xml',
   'llms.txt',
   'llms-full.txt',
   '764b7768543ae5888b09743f7aeb1c40.txt',
 ];
-const forbidden = /github\.com\/(?!(?:sponsors\/|aartisr\/pcss-robotics(?:[/?#"'\s<>]|$)))[^/\s"'<>]+\/[^/\s"'<>]+|artifactory|jfrog|npm\.pkg\.github/i;
+const forbidden = /github\.com\/(?!(?:sponsors\/|uuidjs\/uuid(?:[/?#`"'\s<>]|$)|puleos\/object-hash(?:[/?#`"'\s<>]|$)|dominictarr\/crypto-browserify(?:[/?#`"'\s<>]|$)|aartisr\/pcss-robotics(?:[/?#"'\s<>]|$)))[^/\s"'<>]+\/[^/\s"'<>]+|artifactory|jfrog|npm\.pkg\.github/i;
 const textExtensions = /\.(?:html|js|css|json|txt|xml)$/;
 const siteUrl = 'https://www.pcssiirobotics.org';
 const author = { name: 'Aarti S Ravikumar', url: 'https://ai-aarti.com/' };
@@ -29,7 +30,7 @@ for (const file of required) {
   }
 }
 
-for (const file of required.filter((item) => item.endsWith('index.html'))) {
+for (const file of required.filter((item) => item.endsWith('index.html') && item !== 'admin/index.html')) {
   const html = readFileSync(new URL(file, dist), 'utf8');
   const path = file === 'index.html' ? '/' : `/${file.slice(0, -'index.html'.length)}`;
   const canonical = `${siteUrl}${path}`;

@@ -4,6 +4,8 @@ import { AUTHOR, SECTION_METADATA, SITE_URL, structuredDataFor } from '../../seo
 
 interface SeoHeadProps {
   activeSection: NavSection;
+  title?: string;
+  description?: string;
 }
 
 function setMeta(selector: string, attribute: 'name' | 'property', key: string, content: string) {
@@ -26,19 +28,21 @@ function setLink(rel: string, href: string) {
   tag.href = href;
 }
 
-export function SeoHead({ activeSection }: SeoHeadProps) {
+export function SeoHead({ activeSection, title, description }: SeoHeadProps) {
   useEffect(() => {
     const meta = SECTION_METADATA[activeSection];
+    const pageTitle = title || meta.title;
+    const pageDescription = description || meta.description;
     const canonicalUrl = `${SITE_URL}${meta.path}`;
-    document.title = meta.title;
-    setMeta('meta[name="description"]', 'name', 'description', meta.description);
+    document.title = pageTitle;
+    setMeta('meta[name="description"]', 'name', 'description', pageDescription);
     setMeta('meta[name="author"]', 'name', 'author', AUTHOR.name);
     setMeta('meta[name="robots"]', 'name', 'robots', meta.indexable === false ? 'noindex,follow' : 'index,follow,max-image-preview:large');
-    setMeta('meta[property="og:title"]', 'property', 'og:title', meta.title);
-    setMeta('meta[property="og:description"]', 'property', 'og:description', meta.description);
+    setMeta('meta[property="og:title"]', 'property', 'og:title', pageTitle);
+    setMeta('meta[property="og:description"]', 'property', 'og:description', pageDescription);
     setMeta('meta[property="og:url"]', 'property', 'og:url', canonicalUrl);
-    setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', meta.title);
-    setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', meta.description);
+    setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', pageTitle);
+    setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', pageDescription);
     setLink('canonical', canonicalUrl);
     setLink('author', AUTHOR.url);
 
@@ -50,7 +54,7 @@ export function SeoHead({ activeSection }: SeoHeadProps) {
       document.head.appendChild(schema);
     }
     schema.textContent = JSON.stringify(structuredDataFor(activeSection)).replace(/</g, '\\u003c');
-  }, [activeSection]);
+  }, [activeSection, title, description]);
 
   return null;
 }

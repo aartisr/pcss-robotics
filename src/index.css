@@ -25,6 +25,22 @@ main {
   overflow-wrap: break-word;
 }
 
+/* Puck blocks can be nested in narrow columns and contain editor supplied text. */
+.puck-page {
+  overflow-wrap: anywhere;
+}
+
+.puck-page img,
+.puck-page svg,
+.puck-page canvas,
+.puck-page video {
+  max-inline-size: 100%;
+}
+
+.puck-card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
 .touch-controls {
   display: none;
 }

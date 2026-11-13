@@ -16,7 +16,7 @@ const controls: { key: keyof Settings; label: string; unit: string; min: number;
 
 function RangeControl({ control, value, onChange }: { control: typeof controls[number]; value: number; onChange: (value: number) => void }) {
   return <label className="block">
-    <span className="mb-2 flex items-center justify-between gap-3 text-sm"><span className="font-medium text-slate-200">{control.label}</span><output className="tabular-nums text-sky-200">{value.toFixed(String(control.step).split('.')[1]?.length ?? 0)} {control.unit}</output></span>
+    <span className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm"><span className="font-medium text-slate-200">{control.label}</span><output className="shrink-0 tabular-nums text-sky-200">{value.toFixed(String(control.step).split('.')[1]?.length ?? 0)} {control.unit}</output></span>
     <input type="range" min={control.min} max={control.max} step={control.step} value={value} onChange={event => onChange(Number(event.target.value))} className="w-full accent-sky-400" />
   </label>;
 }

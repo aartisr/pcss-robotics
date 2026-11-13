@@ -1,0 +1,230 @@
+{
+  "root": {
+    "props": {
+      "title": "Team | PCSS II Robotics",
+      "description": "Meet the PCSS II Robotics students and explore their projects and activities at Pioneer Charter School of Science II."
+    }
+  },
+  "content": [
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-13",
+        "eyebrow": "Our people",
+        "title": "Meet the team",
+        "description": "Learn about the students and mentors behind the work."
+      }
+    },
+    {
+      "type": "TeamRoster",
+      "props": {
+        "id": "TeamRoster-14",
+        "members": [
+          {
+            "id": "student-1",
+            "name": "Aarti Sri Ravikumar",
+            "role": "Lead Systems Architect & Flight Lead",
+            "division": "Software & Autonomous",
+            "grade": "Grade 9",
+            "specialty": "CubeSat Flight Software, Telemetry Pipelines & Java FTC SDK",
+            "profileUrl": "https://ai-aarti.com",
+            "specialtyUrl": "https://publications.ai-aarti.com",
+            "competition": "Cubesat Challenge",
+            "competitionDeadline": "10/19 Due Date",
+            "tshirtSize": "M",
+            "tshirtColor": "Pink",
+            "notes": "Submitted CubeSat software proposal; targeting 10/19 submission."
+          },
+          {
+            "id": "student-2",
+            "name": "Eyad Abdelrahman",
+            "role": "Hardware Fabricator & Field Prep Lead",
+            "division": "Hardware & CAD",
+            "grade": "Grade 9",
+            "specialty": "Chassis Machining, Rapid Prototyping & Field Logistics",
+            "competition": "Field Trip & Qualifier Prep",
+            "competitionDeadline": "Upcoming Field Event",
+            "tshirtSize": "M",
+            "notes": "Coordinating event logistics and pit transport equipment."
+          },
+          {
+            "id": "student-3",
+            "name": "Emily Portillo",
+            "role": "Hackathon & Autonomous Developer",
+            "division": "Software & Autonomous",
+            "grade": "Grade 9",
+            "specialty": "Algorithm Design, React Telemetry UIs & WIN Hackathon Dev",
+            "competition": "WIN Student Hackathon",
+            "competitionDeadline": "Contact WIN",
+            "notes": "Point of contact for WIN Hackathon registration."
+          },
+          {
+            "id": "student-4",
+            "name": "Avni Pisharody",
+            "role": "Mechanical CAD Designer",
+            "division": "Hardware & CAD",
+            "grade": "Grade 9",
+            "specialty": "Onshape 3D Modeling, 3D Print Tolerancing & Linkages",
+            "competition": "FTC #23548 Chassis Iteration",
+            "tshirtSize": "M",
+            "tshirtColor": "Pink"
+          },
+          {
+            "id": "student-5",
+            "name": "Anthony Corpuz",
+            "role": "Electrical & Power Systems Specialist",
+            "division": "Electrical & Systems",
+            "grade": "Grade 10",
+            "specialty": "REV Hub Power Distribution, Fuse Protection & Wiring Harnesses",
+            "competition": "Kraken V2 Electrical Certification",
+            "tshirtSize": "M",
+            "tshirtColor": "Pink"
+          },
+          {
+            "id": "student-6",
+            "name": "Toyesh Vyas",
+            "role": "Drivetrain & Precision Machining Lead",
+            "division": "Hardware & CAD",
+            "grade": "Grade 10",
+            "specialty": "Mecanum Gearbox Tolerances, CNC Routing & Carbon Plates",
+            "competition": "Battle of Lexington",
+            "tshirtSize": "L",
+            "tshirtColor": "Pink"
+          },
+          {
+            "id": "student-7",
+            "name": "Raaina Syed",
+            "role": "Creative Media & Communications Lead",
+            "division": "Business & Outreach",
+            "grade": "Grade 10",
+            "specialty": "Digital Animation Award, Brand Design & Video Documentation",
+            "competition": "Digital Animation on Technology Award",
+            "notes": "Directing the team digital animation submission."
+          },
+          {
+            "id": "student-8",
+            "name": "Raimeet Saini",
+            "role": "Autonomous Pathing & Sensor Specialist",
+            "division": "Software & Autonomous",
+            "grade": "Grade 10",
+            "specialty": "SparkFun OTOS Odometry, EKF Sensor Fusion & Auto Splines",
+            "competition": "FTC #23548 Autonomous Lab",
+            "tshirtSize": "M",
+            "tshirtColor": "Pink"
+          },
+          {
+            "id": "student-9",
+            "name": "Reem Ferahi",
+            "role": "Outreach Coordinator & Sponsor Relations",
+            "division": "Business & Outreach",
+            "grade": "Grade 10",
+            "specialty": "Corporate Sponsorship Portfolios & Saugus Middle School Camps",
+            "competition": "Circuit 2026 Feeder Clinics"
+          },
+          {
+            "id": "student-10",
+            "name": "Mirsab Masud",
+            "role": "Intake Subsystem Designer",
+            "division": "Hardware & CAD",
+            "grade": "Grade 10",
+            "specialty": "Compliant Roller Intakes, Torque Geartrains & 3D Prototyping",
+            "competition": "Into The Deep Cascade R&D"
+          },
+          {
+            "id": "student-11",
+            "name": "Jeffrey Pop",
+            "role": "Embedded Firmware & Hub Specialist",
+            "division": "Electrical & Systems",
+            "grade": "Grade 11",
+            "specialty": "I2C Sensor Bus Debugging, Battery Voltage Monitors & Cabling",
+            "competition": "JROTC Drone Challenge"
+          },
+          {
+            "id": "student-12",
+            "name": "Manal Mahfudh",
+            "role": "Director of Strategy, Culture & Competitions",
+            "division": "Business & Outreach",
+            "grade": "Grade 11",
+            "specialty": "Strategic Proposals, Cross-Discipline Recruitment & Curriculum",
+            "competition": "Battlecry @ WPI & SEF Fairs",
+            "notes": "Authored 6 comprehensive club proposals on tutoring, curriculum, and inclusive recruitment."
+          },
+          {
+            "id": "student-13",
+            "name": "Mohammed Mendouk",
+            "role": "Computer Vision & Target Tracking Lead",
+            "division": "Software & Autonomous",
+            "grade": "Grade 11",
+            "specialty": "OpenCV AprilTag Detection, Kalman Filters & Neural Classifiers",
+            "competition": "FTC State Championship"
+          },
+          {
+            "id": "student-14",
+            "name": "Yousef Ghonime",
+            "role": "Structural Dynamics & Stress Analysis Lead",
+            "division": "Hardware & CAD",
+            "grade": "Grade 11",
+            "specialty": "FEA Stress Modeling, Cascade Cable Rigging & Weight Optimization",
+            "competition": "Kraken V2 Upgrades"
+          },
+          {
+            "id": "student-15",
+            "name": "Elias Belkheira",
+            "role": "Signal Integrity & High-Speed Bus Engineer",
+            "division": "Electrical & Systems",
+            "grade": "Grade 11",
+            "specialty": "Nanosecond Signal Oscilloscopes & Odometry Calibration",
+            "competition": "JROTC Drone Challenge"
+          },
+          {
+            "id": "student-16",
+            "name": "Kevin Romero",
+            "role": "Chief Mechanical Fabricator",
+            "division": "Hardware & CAD",
+            "grade": "Grade 12",
+            "specialty": "Manual & CNC Mill Operations, Billet Aluminum Machining",
+            "competition": "Battlecry @ WPI"
+          },
+          {
+            "id": "student-17",
+            "name": "Kevin Le",
+            "role": "Autonomous Controls & Trajectory Engineer",
+            "division": "Software & Autonomous",
+            "grade": "Grade 12",
+            "specialty": "Hermite Spline Trajectories, Feedforward Velocity Tuning & Java SDK",
+            "competition": "FTC #23548 Qualifiers"
+          },
+          {
+            "id": "student-18",
+            "name": "Zoe Hannon",
+            "role": "Grants, Finance & 501(c)(3) Compliance Officer",
+            "division": "Business & Outreach",
+            "grade": "Grade 12",
+            "specialty": "Non-Profit Tax Filings, Corporate Match Portfolios & Financial Audits",
+            "competition": "Corporate Sponsor Pitch",
+            "tshirtSize": "S"
+          },
+          {
+            "id": "student-19",
+            "name": "Parth Shetty",
+            "role": "Power Management & Telemetry Sensor Lead",
+            "division": "Electrical & Systems",
+            "grade": "Grade 11",
+            "specialty": "Battery Impedance Testing, CAN Bus Telemetry & Diagnostics",
+            "competition": "VEX Robotics Regional"
+          },
+          {
+            "id": "mentor-1",
+            "name": "Dr. Marcus Vance",
+            "role": "Lead Mentor & Robotics Advisor",
+            "division": "Mentorship",
+            "grade": "Faculty Advisor",
+            "specialty": "Aerospace Engineering, Control Systems Theory & FIRST Safety Advisor",
+            "competition": "All Season Events",
+            "tshirtSize": "XL"
+          }
+        ]
+      }
+    }
+  ]
+}

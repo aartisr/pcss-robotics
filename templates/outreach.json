@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Student Jams & Event History | PCSS II Robotics",
+      "description": "Explore Hack Club Haven, Circuit 2026 history, and a game programming starting point with PAT."
+    }
+  },
+  "content": [
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-15",
+        "eyebrow": "Community",
+        "title": "Events and outreach",
+        "description": "Discover the ways we build and learn with our community."
+      }
+    },
+    {
+      "type": "Feature",
+      "props": {
+        "id": "Feature-16",
+        "feature": "outreach"
+      }
+    }
+  ]
+}

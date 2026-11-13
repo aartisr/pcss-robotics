@@ -1,0 +1,26 @@
+{
+  "root": {
+    "props": {
+      "title": "Robotics Arcade | PCSS II Robotics",
+      "description": "Explore the interactive robotics arcade and driving game created for the PCSS II Robotics site."
+    }
+  },
+  "content": [
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-17",
+        "eyebrow": "Play",
+        "title": "Robotics arcade",
+        "description": "Try an interactive challenge."
+      }
+    },
+    {
+      "type": "Feature",
+      "props": {
+        "id": "Feature-18",
+        "feature": "arcade"
+      }
+    }
+  ]
+}

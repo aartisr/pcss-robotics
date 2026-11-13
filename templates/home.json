@@ -1,0 +1,93 @@
+{
+  "root": {
+    "props": {
+      "title": "PCSS II Robotics | Student Engineering in Saugus, MA",
+      "description": "Explore robotics projects, STEM events, and game programming resources from Pioneer Charter School of Science II in Saugus, Massachusetts."
+    }
+  },
+  "content": [
+    {
+      "type": "Hero",
+      "props": {
+        "id": "Hero-1",
+        "eyebrow": "FTC Team #23548 · Saugus, Massachusetts",
+        "title": "Build a fantastic robot.",
+        "accent": "Find your team.",
+        "description": "PCSS II Robotics brings students together to design, code, test, and share what they make. Explore the team’s projects, try an interactive simulator, or join the next community jam.",
+        "image": "/images/robotics-lab-hero.webp",
+        "imageAlt": "Illustration of students collaborating around a robot in a workshop",
+        "primaryLabel": "Meet the team",
+        "primaryHref": "/team/",
+        "secondaryLabel": "Explore events",
+        "secondaryHref": "/outreach/"
+      }
+    },
+    {
+      "type": "Feature",
+      "props": {
+        "id": "Feature-2",
+        "feature": "events"
+      }
+    },
+    {
+      "type": "SectionIntro",
+      "props": {
+        "id": "SectionIntro-3",
+        "eyebrow": "Explore the work",
+        "title": "More ways to get curious.",
+        "description": ""
+      }
+    },
+    {
+      "type": "CardGrid",
+      "props": {
+        "id": "CardGrid-4",
+        "cards": [
+          {
+            "title": "Explore robot design",
+            "description": "See how movement, mechanisms, and sensors shape a robot.",
+            "href": "/robots/",
+            "label": "Explore"
+          },
+          {
+            "title": "Try the learning lab",
+            "description": "Change motion inputs and see how mecanum wheel speeds respond.",
+            "href": "/research/",
+            "label": "Explore"
+          },
+          {
+            "title": "Play the arcade",
+            "description": "Practice and play with our interactive robotics games.",
+            "href": "/arcade/",
+            "label": "Play"
+          }
+        ]
+      }
+    },
+    {
+      "type": "Callout",
+      "props": {
+        "id": "Callout-5",
+        "eyebrow": "For students",
+        "title": "There’s room to learn.",
+        "text": "You can start with curiosity. Ask the school how to join the team and what opportunities are available this season.",
+        "buttonLabel": "Meet the team",
+        "buttonHref": "/team/",
+        "tone": "blue"
+      }
+    },
+    {
+      "type": "Callout",
+      "props": {
+        "id": "Callout-6",
+        "eyebrow": "Sponsorship",
+        "title": "Sponsor student robotics.",
+        "text": "Help students build with materials, mentorship, or event support. The school can provide current tax documents and confirm the legal recipient.",
+        "buttonLabel": "View sponsorship",
+        "buttonHref": "/sponsors/",
+        "tone": "gold"
+      }
+    }
+  ],
+  "zones": {}
+}

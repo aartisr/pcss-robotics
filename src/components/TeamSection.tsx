@@ -44,7 +44,7 @@ const STORAGE_KEYS = {
   MENTORS: 'pcss_faculty_mentors_v1'
 };
 
-export const TeamSection: React.FC = () => {
+export const TeamSection: React.FC<{ roster?: TeamMember[] }> = ({ roster }) => {
   const planningMenuRef = useRef<HTMLDetailsElement>(null);
   // Tab navigation
   const [activeTab, setActiveTab] = useState<'mentors' | 'roster' | 'competitions' | 'proposals' | 'database'>('roster');
@@ -60,6 +60,7 @@ export const TeamSection: React.FC = () => {
   });
 
   const [members, setMembers] = useState<TeamMember[]>(() => {
+    if (roster) return roster;
     try {
       const saved = localStorage.getItem(STORAGE_KEYS.ROSTER);
       if (saved) {
@@ -82,6 +83,10 @@ export const TeamSection: React.FC = () => {
       return INITIAL_TEAM_ROSTER;
     }
   });
+
+  useEffect(() => {
+    if (roster) setMembers(roster);
+  }, [roster]);
 
   const [competitions, setCompetitions] = useState<CompetitionChallenge[]>(() => {
     try {
@@ -111,12 +116,13 @@ export const TeamSection: React.FC = () => {
   }, [mentors]);
 
   useEffect(() => {
+    if (roster) return;
     try {
       localStorage.setItem(STORAGE_KEYS.ROSTER, JSON.stringify(members));
     } catch (e) {
       console.warn('Local storage error', e);
     }
-  }, [members]);
+  }, [members, roster]);
 
   useEffect(() => {
     try {
@@ -542,7 +548,7 @@ export const TeamSection: React.FC = () => {
           </div>
         </details>
       </nav>
-      <p className="text-xs leading-relaxed text-slate-400">Changes you make here stay in this browser; they are not shared with the school or other visitors.</p>
+      <p className="text-xs leading-relaxed text-slate-400">{roster ? 'Planning tool changes stay in this browser.' : 'Changes you make here stay in this browser; they are not shared with the school or other visitors.'}</p>
 
       {/* TAB 0: MENTORS & TEACHERS */}
       {activeTab === 'mentors' && (
@@ -593,7 +599,7 @@ export const TeamSection: React.FC = () => {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div><h2 className="text-2xl font-bold text-white">Students</h2><p className="mt-1 text-sm text-slate-400">Browse the roster or search for a name.</p></div>
             <div className="flex flex-wrap gap-2">
-              <button type="button" onClick={() => { setEditingStudent(null); setStudentForm({ name: '', grade: 'Grade 9', division: 'Software & Autonomous', role: '', specialty: '', competition: '', tshirtSize: 'M', tshirtColor: 'Pink' }); setIsAddStudentOpen(true); }} className="rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-cyan-500">Add student</button>
+              {!roster && <button type="button" onClick={() => { setEditingStudent(null); setStudentForm({ name: '', grade: 'Grade 9', division: 'Software & Autonomous', role: '', specialty: '', competition: '', tshirtSize: 'M', tshirtColor: 'Pink' }); setIsAddStudentOpen(true); }} className="rounded-xl bg-cyan-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-cyan-500">Add student</button>}
               <button type="button" onClick={handleExportCsv} className="rounded-xl border border-white/20 px-4 py-2.5 text-sm text-slate-200 hover:bg-white/10">Export all {members.length} records</button>
             </div>
           </div>
@@ -603,7 +609,7 @@ export const TeamSection: React.FC = () => {
             <label className="flex items-center gap-2 text-sm text-slate-300"><span>Division</span><select value={selectedDivision} onChange={(event) => setSelectedDivision(event.target.value)} className="min-h-11 max-w-48 rounded-xl border border-white/10 bg-slate-900 px-3 text-sm text-white"><option value="All">All</option><option value="Software & Autonomous">Software & Autonomous</option><option value="Hardware & CAD">Hardware & CAD</option><option value="Electrical & Systems">Electrical & Systems</option><option value="Business & Outreach">Business & Outreach</option><option value="Mentorship">Mentorship</option></select></label>
           </div>
           <p className="text-sm text-slate-400" role="status">Showing {filteredMembers.length} of {members.length} students</p>
-          <details className="rounded-xl border border-white/10 bg-slate-900/60 p-4"><summary className="cursor-pointer text-sm font-medium text-slate-200">Apparel planning <span className="font-normal text-slate-400">(saved in this browser)</span></summary><div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-300 sm:grid-cols-3"><p>Pink gear requests: <strong className="text-white">{pinkCount}</strong></p><p>Size S: <strong className="text-white">{tshirtStats['S'] || 0}</strong></p><p>Size M: <strong className="text-white">{tshirtStats['M'] || 0}</strong></p><p>Size L: <strong className="text-white">{tshirtStats['L'] || 0}</strong></p><p>Pending sizes: <strong className="text-white">{members.filter(m => !m.tshirtSize && m.grade !== 'Faculty Advisor').length}</strong></p></div></details>
+          <details className="rounded-xl border border-white/10 bg-slate-900/60 p-4"><summary className="cursor-pointer text-sm font-medium text-slate-200">Apparel planning {!roster && <span className="font-normal text-slate-400">(saved in this browser)</span>}</summary><div className="mt-4 grid grid-cols-2 gap-3 text-sm text-slate-300 sm:grid-cols-3"><p>Pink gear requests: <strong className="text-white">{pinkCount}</strong></p><p>Size S: <strong className="text-white">{tshirtStats['S'] || 0}</strong></p><p>Size M: <strong className="text-white">{tshirtStats['M'] || 0}</strong></p><p>Size L: <strong className="text-white">{tshirtStats['L'] || 0}</strong></p><p>Pending sizes: <strong className="text-white">{members.filter(m => !m.tshirtSize && m.grade !== 'Faculty Advisor').length}</strong></p></div></details>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredMembers.length === 0 && <p className="col-span-full rounded-xl border border-white/10 bg-slate-900 p-6 text-sm text-slate-300">No students match those filters. Try another name, grade, or division.</p>}
@@ -617,7 +623,7 @@ export const TeamSection: React.FC = () => {
                   {student.competition && <p><strong className="text-white">Activity:</strong> {student.competition}{student.competitionDeadline ? ` · ${student.competitionDeadline}` : ''}</p>}
                   <div className="flex flex-wrap gap-3">{student.profileUrl && <a href={student.profileUrl} target="_blank" rel="noopener noreferrer" className="text-sky-300 underline underline-offset-4">Portfolio</a>}{student.specialtyUrl && <a href={student.specialtyUrl} target="_blank" rel="noopener noreferrer" className="text-sky-300 underline underline-offset-4">More work</a>}</div>
                   {(student.tshirtSize || student.tshirtColor || student.notes) && <details className="rounded-lg bg-slate-800/70 p-3"><summary className="cursor-pointer text-xs font-medium text-slate-300">Local planning notes</summary><div className="mt-2 space-y-1 text-xs text-slate-300">{student.tshirtSize && <p>Shirt size: {student.tshirtSize}</p>}{student.tshirtColor && <p>Shirt color: {student.tshirtColor}</p>}{student.notes && <p>Notes: {student.notes}</p>}</div></details>}
-                  <div className="flex gap-3 pt-2"><button type="button" onClick={() => handleOpenEdit(student)} className="text-sky-300 underline underline-offset-4">Edit</button><button type="button" onClick={() => handleDeleteStudent(student.id, student.name)} className="text-rose-300 underline underline-offset-4">Remove</button></div>
+                  {!roster && <div className="flex gap-3 pt-2"><button type="button" onClick={() => handleOpenEdit(student)} className="text-sky-300 underline underline-offset-4">Edit</button><button type="button" onClick={() => handleDeleteStudent(student.id, student.name)} className="text-rose-300 underline underline-offset-4">Remove</button></div>}
                 </div>
               </details>
             </article>)}
