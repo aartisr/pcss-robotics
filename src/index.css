@@ -25,6 +25,34 @@ main {
   overflow-wrap: break-word;
 }
 
+.work-in-progress-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  color: rgba(186, 230, 253, 0.12);
+  font-size: clamp(0.7rem, 1.1vw, 0.95rem);
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.work-in-progress-watermark::before,
+.work-in-progress-watermark::after {
+  content: '';
+  width: clamp(1.5rem, 5vw, 5rem);
+  height: 1px;
+  background: currentColor;
+}
+
 /* Puck blocks can be nested in narrow columns and contain editor supplied text. */
 .puck-page {
   overflow-wrap: anywhere;

@@ -350,6 +350,14 @@ export const Navigation: React.FC<NavigationProps> = ({
           </div>
         </div>
 
+        <div className="border-t border-amber-400/20 bg-amber-500/10 px-3 py-1.5 text-center text-amber-100">
+          <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em]">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
+            <span>Work in Progress</span>
+            <span className="hidden border-l border-amber-300/40 pl-2 text-[10px] font-normal normal-case tracking-normal text-amber-100/75 sm:inline">Website updates underway</span>
+          </div>
+        </div>
+
         {/* Mobile Navigation Drawer with ARIA dialog roles and accessibility */}
         {mobileMenuOpen && (
           <div

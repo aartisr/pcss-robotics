@@ -80,6 +80,7 @@ export default function App() {
 
       {/* Heavenly Celestial Starfield Background */}
       <CelestialStarfield aura={aura} />
+      <div className="work-in-progress-watermark" aria-hidden="true">Work in Progress</div>
 
       {/* Toast Notification Stack */}
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
