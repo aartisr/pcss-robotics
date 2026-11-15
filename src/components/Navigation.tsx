@@ -20,7 +20,8 @@ import {
   Eye,
   BookOpen,
   Compass,
-  ArrowLeft
+  ArrowLeft,
+  LockKeyhole
 } from 'lucide-react';
 
 const SCHOOL_CLUBS_URL = 'https://saugus.pioneercss.org/apps/departments/clubs.jsp';
@@ -350,11 +351,21 @@ export const Navigation: React.FC<NavigationProps> = ({
           </div>
         </div>
 
-        <div className="border-t border-amber-400/20 bg-amber-500/10 px-3 py-1.5 text-center text-amber-100">
-          <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 text-[11px] font-semibold uppercase tracking-[0.16em]">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
-            <span>Work in Progress</span>
-            <span className="hidden border-l border-amber-300/40 pl-2 text-[10px] font-normal normal-case tracking-normal text-amber-100/75 sm:inline">Website updates underway</span>
+        <div className="border-t border-amber-400/20 bg-amber-500/10 px-3 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-7xl items-center justify-between gap-3">
+            <div className="flex min-w-0 items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-amber-100 sm:text-[11px] sm:tracking-[0.16em]">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-amber-300" aria-hidden="true" />
+              <span className="whitespace-nowrap">Work in Progress</span>
+              <span className="hidden border-l border-amber-300/40 pl-2 text-[10px] font-normal normal-case tracking-normal text-amber-100/75 lg:inline">Website updates underway</span>
+            </div>
+            <a
+              href="/admin/"
+              className="group inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-[11px] font-semibold text-sky-200 transition-colors hover:bg-white/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-[#071326]"
+              aria-label="Admin page editor"
+            >
+              <LockKeyhole className="h-3.5 w-3.5 text-sky-300 transition-colors group-hover:text-white" aria-hidden="true" />
+              <span>Admin</span>
+            </a>
           </div>
         </div>
 
@@ -366,7 +377,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             role="dialog"
             aria-modal="true"
             aria-label="Mobile Navigation Menu"
-            className="lg:hidden border-b border-[#1d3e70] bg-[#071326] px-4 pt-3 pb-6 space-y-4 max-h-[calc(100dvh-4rem)] overflow-y-auto no-scrollbar w-full max-w-full animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl"
+            className="lg:hidden border-b border-[#1d3e70] bg-[#071326] px-4 pt-3 pb-6 space-y-4 max-h-[calc(100dvh-6.75rem)] overflow-y-auto no-scrollbar w-full max-w-full animate-in fade-in slide-in-from-top-2 duration-150 shadow-2xl"
           >
             <a
               href={SCHOOL_CLUBS_URL}
