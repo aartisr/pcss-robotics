@@ -18,6 +18,12 @@ function config() {
   return { password: process.env.ADMIN_PASSWORD ?? '', secret: process.env.ADMIN_SESSION_SECRET ?? '', token: process.env.GITHUB_CONTENT_TOKEN ?? '', repo: process.env.GITHUB_CONTENT_REPO ?? '', branch: process.env.GITHUB_CONTENT_BRANCH ?? 'main' };
 }
 
+function missingPublishConfig() {
+  if (!process.env.VERCEL && process.env.NODE_ENV !== 'production') return [];
+  const { token, repo } = config();
+  return [!token && 'GITHUB_CONTENT_TOKEN', !repo && 'GITHUB_CONTENT_REPO'].filter(Boolean) as string[];
+}
+
 function safeEqual(left: string, right: string) {
   const a = Buffer.from(left);
   const b = Buffer.from(right);
@@ -88,7 +94,8 @@ async function load(id: string) {
 async function save(id: string, data: unknown) {
   const { token, repo, branch } = config();
   if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
-    if (!token || !repo) throw new Error('Publishing requires GITHUB_CONTENT_TOKEN and GITHUB_CONTENT_REPO in the deployment configuration.');
+    const missing = missingPublishConfig();
+    if (missing.length) throw new Error(`Publishing is unavailable. Set ${missing.join(' and ')} in the deployment environment and redeploy.`);
     const current = await githubPage(id);
     const response = await fetch(current.endpoint.split('?')[0], { method: 'PUT', headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Content-Type': 'application/json' }, body: JSON.stringify({ message: `Update ${id} page from Puck editor`, content: Buffer.from(`${JSON.stringify(data, null, 2)}\n`).toString('base64'), sha: current.sha, branch }) });
     if (!response.ok) throw new Error(`GitHub publish failed (${response.status}).`);
@@ -101,7 +108,7 @@ export async function editorApi(req: IncomingMessage, res: ServerResponse) {
   try {
     const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
     const page = url.searchParams.get('page') ?? '';
-    if (req.method === 'GET' && url.searchParams.get('session') === '1') return send(res, 200, { authenticated: authenticated(req), configured: Boolean(config().password && config().secret) });
+    if (req.method === 'GET' && url.searchParams.get('session') === '1') return send(res, 200, { authenticated: authenticated(req), configured: Boolean(config().password && config().secret), missingPublishConfig: missingPublishConfig() });
     if (req.method === 'GET' && ids.has(page)) return send(res, 200, await load(page));
     if (req.method !== 'POST') return send(res, 404, { error: 'Not found.' });
 

@@ -17,6 +17,7 @@ async function editorResponse(response: Response) {
 export default function Admin() {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [configured, setConfigured] = useState(true);
+  const [missingPublishConfig, setMissingPublishConfig] = useState<string[]>([]);
   const [serviceError, setServiceError] = useState('');
   const [password, setPassword] = useState('');
   const [page, setPage] = useState<NavSection>('home');
@@ -33,6 +34,7 @@ export default function Admin() {
         if (!response.ok) throw new Error(`Editor API returned HTTP ${response.status}.`);
         setAuthenticated(Boolean(result.authenticated));
         setConfigured(Boolean(result.configured));
+        setMissingPublishConfig(Array.isArray(result.missingPublishConfig) ? result.missingPublishConfig : []);
       })
       .catch(error => { setAuthenticated(false); setServiceError(error instanceof Error ? error.message : 'Editor API is unavailable.'); });
   }, []);
@@ -94,6 +96,7 @@ export default function Admin() {
       <a href={page === 'home' ? '/' : `/${page}/`} target="_blank" rel="noopener noreferrer" className="flex min-h-11 items-center justify-center rounded-lg border border-slate-500 px-3 text-center text-sm hover:bg-slate-800">View page ↗</a>
       <button type="button" onClick={async () => { if (dirty && !window.confirm('Sign out? Unpublished changes will be lost.')) return; await fetch('/api/editor', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'logout' }) }); setAuthenticated(false); }} className="min-h-11 rounded-lg border border-slate-500 px-3 text-sm hover:bg-slate-800">Sign out</button>
     </header>
+    {missingPublishConfig.length > 0 && <p role="alert" className="shrink-0 border-b border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">Publishing is unavailable: set {missingPublishConfig.join(' and ')} in Vercel Project Settings → Environment Variables, then redeploy. Your edits will not be saved until this is configured.</p>}
     {message && <p role="status" className="shrink-0 border-b border-sky-200 bg-sky-50 px-4 py-2 text-sm text-slate-900">{message}</p>}
     <div className="min-h-0 min-w-0 flex-1">
       {loading ? <div className="p-8 text-slate-700">Loading {labels[page]}…</div> : <Puck key={page} config={config} data={data} ui={((page === 'team' && data.content[1]?.type === 'TeamRoster') || (page === 'robots' && data.content[1]?.type === 'EngineeringTopic')) ? { itemSelector: { index: 1 }, rightSideBarVisible: true } : undefined} height="100%" onChange={() => setDirty(true)} onPublish={publish} />}
