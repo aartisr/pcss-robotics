@@ -116,7 +116,7 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, getS
         defaultProps: { feature: 'events' },
         render: ({ feature }) => {
           const sponsor = getSponsor?.();
-          if (feature === 'team' && !PUBLIC_TEAM_PAGE_ENABLED) return null;
+          if (feature === 'team' && !PUBLIC_TEAM_PAGE_ENABLED) return <></>;
           return <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading…</div>}>{feature === 'events' ? <FeaturedEventTeaser onNavigate={onNavigate} /> : feature === 'robots' ? <RobotEngineeringSection /> : feature === 'research' ? <ResearchSection /> : feature === 'simulator' ? <AutonomousSimulator /> : feature === 'team' ? <TeamSection /> : feature === 'outreach' ? <OutreachSection /> : feature === 'arcade' ? <ArcadeMiniGame /> : <SponsorCommandCenter externalOpenW9Modal={sponsor?.openW9} onResetExternalW9Modal={sponsor?.resetW9} />}</React.Suspense>;
         },
       },

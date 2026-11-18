@@ -6,9 +6,8 @@ import { renderToString } from 'react-dom/server';
 import { Render, type Data } from '@puckeditor/core';
 import { createPageConfig } from './config';
 import { TeamSection } from '../components/TeamSection';
-import { INITIAL_TEAM_ROSTER } from '../data/teamRosterData';
 
-const PAGE_IDS = ['home', 'robots', 'research', 'simulator', 'team', 'outreach', 'arcade', 'sponsors'] as const;
+const PAGE_IDS = ['home', 'robots', 'research', 'simulator', 'outreach', 'arcade', 'sponsors'] as const;
 
 test('every JSON page renders through Puck with the application React instance', () => {
   const config = createPageConfig(() => {});
@@ -19,10 +18,22 @@ test('every JSON page renders through Puck with the application React instance',
   }
 });
 
+test('team page template contains no published roster content by default', () => {
+  const data = JSON.parse(readFileSync(new URL('../../templates/team.json', import.meta.url), 'utf8')) as Data;
+  assert.deepEqual(data.content, []);
+});
+
 test('team roster uses published member data instead of a browser-local roster', () => {
-  const roster = [{ ...INITIAL_TEAM_ROSTER[0], name: 'Edited team member' }];
+  const roster = [{
+    id: 'test-member',
+    name: 'Sample Member',
+    role: 'Robotics Member',
+    division: 'Software & Autonomous' as const,
+    grade: 'Grade 10',
+    specialty: 'Testing fixture',
+  }];
   const html = renderToString(React.createElement(TeamSection, { roster }));
-  assert.match(html, /Edited team member/);
+  assert.match(html, /Sample Member/);
   assert.doesNotMatch(html, /Add student/);
 });
 

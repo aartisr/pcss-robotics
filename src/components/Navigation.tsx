@@ -97,7 +97,8 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'home', label: 'Home', shortLabel: 'Home' },
     { id: 'team', label: 'Team', shortLabel: 'Team' },
     { id: 'outreach', label: 'Jams & Events', shortLabel: 'Events', highlight: true }
-  ].filter(item => item.id !== 'team' || PUBLIC_TEAM_PAGE_ENABLED);
+  ];
+  const visiblePrimaryNavItems = primaryNavItems.filter(item => item.id !== 'team' || PUBLIC_TEAM_PAGE_ENABLED);
 
   // Secondary sections accessible via More dropdown
   const secondaryNavItems: {
@@ -198,7 +199,7 @@ export const Navigation: React.FC<NavigationProps> = ({
 
           {/* Column 2: Center Navigation (Desktop Only, guaranteed flex containment) */}
           <nav className="hidden lg:flex items-center justify-center gap-1 min-w-0 flex-1 px-2" aria-label="Main Navigation">
-            {primaryNavItems.map((item) => {
+            {visiblePrimaryNavItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button
@@ -409,7 +410,7 @@ export const Navigation: React.FC<NavigationProps> = ({
                 Pages
               </div>
 
-              {primaryNavItems.map((item) => (
+              {visiblePrimaryNavItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => {
