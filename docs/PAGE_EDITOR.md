@@ -1,19 +1,109 @@
-# Page editor
+# Website editor: school handoff
 
-Open `/admin/` and sign in with an authorized GitHub or Google account. Choose one of the eight pages, add or reorder blocks, edit their fields, and press **Publish**. The public page uses the same Puck configuration and JSON data as the preview.
+This guide covers how school staff can access and publish website updates, and what the next maintainer needs to keep the editor working.
 
-Templates live in [`templates/`](../templates/), one JSON file per route. The editor offers blocks for hero sections, headings, text, images, card grids, callouts, two-column layouts, and the site's interactive features. The team page has a dedicated **Team roster** block: select it, expand a member by name in the right panel, edit their fields, and publish. The robots page consists of a page heading, separate **Engineering question** blocks, and an inset note; all of their text and steps are editable. The simulator, arcade, and sponsor tools remain feature blocks so their behavior stays intact; their internal UI is still maintained in React.
+## What the editor does
 
-## Configuration
+The editor is available at [`/admin/`](https://www.pcssiirobotics.org/admin/). It lets an authorized editor update page content without changing application code. The public website remains viewable by everyone; sign-in is only required to make edits.
 
-Configure the OAuth applications and set `OAUTH_CALLBACK_URL`, `OAUTH_ALLOWED_EMAILS`, `ADMIN_SESSION_SECRET`, and the corresponding provider client ID and secret as server environment variables. The callback URL must exactly match the URL registered with each OAuth application; for production it must use HTTPS. For local development, register `http://localhost:3000/api/oauth` and use that value in `.env.local`. Set the allowed email list to the exact accounts permitted to publish. GitHub sign-in requires the account to have at least one verified email address; Google sign-in requires a verified email. Locally, `.env.local` or `.env` works; `.env.local` takes priority over `.env`, while variables supplied by the process take priority over both. Keep all secrets server-side and never use a `VITE_` prefix. See [`.env.example`](../.env.example).
+An editor can update any of the eight pages in the page selector. Pages are built from reusable content blocks, such as headings, text, images, cards, and callouts. Some interactive features are managed in code and are not intended to be rebuilt in the editor.
 
-For GitHub, create an OAuth App with the callback URL above and `read:user` plus `user:email` access. For Google, configure an OAuth client with the callback URL above and the `openid`, `email`, and `profile` scopes. Add each provider’s client ID and secret to the deployment environment. The editor uses OAuth authorization-code flow with PKCE, validates the provider identity and verified email, and grants access only to emails in `OAUTH_ALLOWED_EMAILS`. Sessions are signed, HTTP-only cookies that expire after eight hours. No provider access token is stored in the browser or retained after sign-in.
+**Publishing is immediate.** On the production site, Publish saves the page to the configured GitHub branch (`main` by default) as a Git commit. All authorized editors can publish all pages; there are no separate roles or page-by-page permissions.
 
-Local development writes published pages to `templates/*.json`. Commit those changes as usual.
+## Day-to-day editing
 
-On Vercel, configure `GITHUB_CONTENT_TOKEN` with repository Contents read/write permission, `GITHUB_CONTENT_REPO` as `owner/repo`, and optionally `GITHUB_CONTENT_BRANCH` (defaults to `main`). Publishing commits the edited JSON template to that branch. Public pages read the latest JSON through the server API, and the commit can also trigger a normal Vercel rebuild for static discovery content. Without GitHub configuration, deployed publishing returns an error rather than pretending to save to Vercel's read-only filesystem.
+1. Open [`/admin/`](https://www.pcssiirobotics.org/admin/).
+2. Choose **Continue with GitHub** or **Continue with Google**.
+3. Sign in with an account whose verified email address is on the approved editor list.
+4. Choose a page, make your changes, and use the preview or **View page** link to check them.
+5. Select **Publish** when the changes are ready. Wait for the confirmation message.
+6. Use **Sign out** when finished. Sign-in sessions expire automatically after eight hours.
 
-For this deployment, set `GITHUB_CONTENT_REPO` to `aartisr/pcss-robotics`. Create a fine-grained GitHub personal access token for that repository with **Contents: Read and write**, then add it as `GITHUB_CONTENT_TOKEN` in Vercel Project Settings → Environment Variables for the production environment. Redeploy so the serverless function receives the new variables. Keep the token only in Vercel; do not put it in a `VITE_` variable or commit it to the repository. If your publishing branch is not `main`, set `GITHUB_CONTENT_BRANCH` to the correct branch too. The editor shows a warning at sign-in when required publishing settings are absent.
+If you leave a page with unpublished edits, the editor warns that those changes will be lost. Once published, a change is recorded as a commit in GitHub and can be reviewed or reverted there by someone with repository access.
 
-Published content is available through the public read endpoint; write requests require an authorized editor session. The GitHub content token stays server-side and is separate from the OAuth sign-in credentials.
+## Who can edit
+
+Access is limited to the email addresses in the server setting `OAUTH_ALLOWED_EMAILS`. Use a comma-separated list, for example:
+
+```text
+editor.one@example.org,editor.two@example.org
+```
+
+Email matching ignores capitalization and surrounding spaces. Google accounts must have a verified email. GitHub accounts must have a verified email that GitHub makes available to the app.
+
+To add or remove an editor, update `OAUTH_ALLOWED_EMAILS` in the deployment settings and redeploy. Removing an address prevents it from authenticating again and invalidates its existing editor session on the next request.
+
+## One-time sign-in setup
+
+The site supports GitHub and Google sign-in. Set up only the provider(s) the school plans to offer.
+
+### Register the application with each provider
+
+Use this exact production callback address in each OAuth application:
+
+```text
+https://www.pcssiirobotics.org/api/oauth
+```
+
+- **GitHub:** Create an OAuth App for the website. Set its callback URL to the address above. The editor requests `read:user` and `user:email` access so it can confirm the account and its verified email.
+- **Google:** Create an OAuth client for a web application. Add the address above as an authorized redirect URI. The editor requests `openid`, `email`, and `profile` to confirm the Google account and verified email. Follow the school’s Google Workspace policy for consent-screen and user-access settings.
+
+Each provider gives the application a client ID and client secret. The client secret must remain private.
+
+### Set server-side environment variables
+
+In the Vercel project, open **Settings → Environment Variables** and configure these for **Production**:
+
+| Variable | What it is |
+| --- | --- |
+| `OAUTH_CALLBACK_URL` | `https://www.pcssiirobotics.org/api/oauth` |
+| `OAUTH_ALLOWED_EMAILS` | Comma-separated list of staff/editor email addresses |
+| `ADMIN_SESSION_SECRET` | A randomly generated secret with at least 32 characters |
+| `GITHUB_OAUTH_CLIENT_ID` | GitHub OAuth App client ID |
+| `GITHUB_OAUTH_CLIENT_SECRET` | GitHub OAuth App client secret |
+| `GOOGLE_OAUTH_CLIENT_ID` | Google OAuth client ID |
+| `GOOGLE_OAUTH_CLIENT_SECRET` | Google OAuth client secret |
+
+If the school enables only one provider, only that provider’s client ID and secret are needed. Do not put secrets in variables beginning with `VITE_`; those are exposed to the browser. Do not commit credentials or paste them into this guide, source code, email, or an issue.
+
+After changing any environment variable, redeploy the site. The sign-in page only displays providers that have both credentials configured and whose shared OAuth settings are valid.
+
+## Publishing setup
+
+OAuth credentials let an editor sign in. A separate GitHub token lets the website publish page content. Both are required for production editing.
+
+In Vercel, configure:
+
+| Variable | What it is |
+| --- | --- |
+| `GITHUB_CONTENT_REPO` | `aartisr/pcss-robotics` |
+| `GITHUB_CONTENT_BRANCH` | `main` (this is the default if unset) |
+| `GITHUB_CONTENT_TOKEN` | A fine-grained GitHub token with **Contents: Read and write** permission for this repository |
+
+Keep this publishing token server-side and separate from the OAuth client secrets. If the editor reports that publishing is unavailable, check these three settings and redeploy. The editor displays a warning when required publishing settings are missing.
+
+## If something goes wrong
+
+| What you see | What to check |
+| --- | --- |
+| No sign-in button, or “OAuth sign-in is not configured” | Confirm the callback URL, allowed email list, session secret, and both credentials for the selected provider are set in Vercel. Redeploy after changes. |
+| “This account is not authorized” | Sign in with the intended account. Confirm its verified email is listed in `OAUTH_ALLOWED_EMAILS`; for GitHub, verify that email in the GitHub account. |
+| Provider reports a redirect/callback URL error | The URL registered with the provider and `OAUTH_CALLBACK_URL` must match exactly, including `/api/oauth`. Production must use HTTPS. |
+| Sign-in returns to the editor with a generic failure | Check the provider’s client ID and secret, its callback URL, and the provider’s application/consent settings. Do not share secrets when requesting help. |
+| Sign-in works but Publish fails or shows a warning | Check `GITHUB_CONTENT_REPO`, `GITHUB_CONTENT_BRANCH`, and `GITHUB_CONTENT_TOKEN`, including the token’s repository and Contents permissions. |
+| A published page is not showing the intended change | Confirm the Publish success message and review the latest page-template commit on the configured GitHub branch. |
+
+If the problem continues, contact the person who manages the Vercel project or the `aartisr/pcss-robotics` repository. Share the error message and approximate time, but never send OAuth secrets, session secrets, or the GitHub publishing token.
+
+## Privacy and security notes
+
+- The site’s pages are public; OAuth protects the ability to edit and publish them.
+- Only the configured provider and verified email are used to decide editor access. The app does not create student accounts or provide different editor roles.
+- The app does not store provider access tokens. Its signed, HTTP-only session cookie expires after eight hours. Sign out to end the browser session sooner.
+- OAuth client secrets, the session secret, and the GitHub publishing token are server-only settings. Keep them out of source control and browser-visible configuration.
+
+## Maintainer reference
+
+The user-facing editor is in [`src/editor/Admin.tsx`](../src/editor/Admin.tsx). OAuth start, callback, email checks, and editor sessions are handled in [`server/oauth.ts`](../server/oauth.ts), with the deployed route in [`api/oauth.ts`](../api/oauth.ts). Page reads and protected publishing are handled in [`server/editorApi.ts`](../server/editorApi.ts). Automated OAuth coverage is in [`src/editor/oauth.test.ts`](../src/editor/oauth.test.ts).
+
+For local development, the callback may be `http://localhost:3000/api/oauth` in `.env.local`; do not use that HTTP callback in production. Example variable names are listed in [`.env.example`](../.env.example). Local publishing writes to `templates/*.json`; production publishing commits to the configured GitHub branch.
