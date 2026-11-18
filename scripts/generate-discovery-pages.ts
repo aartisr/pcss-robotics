@@ -1,6 +1,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { NavSection } from '../src/types';
+import { isPublicTeamPageEnabled } from '../src/lib/teamPageAccess';
 import {
   AUTHOR,
   INDEXABLE_SECTIONS,
@@ -69,7 +70,10 @@ function pageBody(section: NavSection) {
   </main>`;
 }
 
-for (const section of Object.keys(SECTION_METADATA) as NavSection[]) {
+const publicSections = (Object.keys(SECTION_METADATA) as NavSection[])
+  .filter(section => section !== 'team' || isPublicTeamPageEnabled(process.env.VITE_PUBLIC_TEAM_PAGE));
+
+for (const section of publicSections) {
   const page = SECTION_METADATA[section];
   // React mounts into #root on every visit. Visible HTML inside that element is
   // replaced at startup, which flashes an incomplete discovery page first.
@@ -91,4 +95,4 @@ writeFileSync(join(distDir, 'admin', 'index.html'), admin);
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${INDEXABLE_SECTIONS.map((section) => `  <url><loc>${SITE_URL}${SECTION_METADATA[section].path}</loc></url>`).join('\n')}\n</urlset>\n`;
 writeFileSync(join(distDir, 'sitemap.xml'), sitemap);
-console.log(`Generated ${Object.keys(SECTION_METADATA).length} discovery pages and sitemap.xml`);
+console.log(`Generated ${publicSections.length} discovery pages and sitemap.xml`);

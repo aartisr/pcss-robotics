@@ -34,7 +34,7 @@ npm run build
 - `src/components/Navigation.tsx`, `MobileBottomNav.tsx`, and `CommandPaletteModal.tsx` choose where the section appears in navigation.
 - `src/components/HomeSection.tsx` contains the home page. Its hero is a separate component, `HeroSection.tsx`.
 - `src/components/SiteFooter.tsx` contains footer links and reuses the canonical paths from `siteMetadata.ts`.
-- Event content is in `src/features/events/`; reusable learning resources are in `src/features/learning/`; engineering learning content is in `src/data/roboticsData.ts`. The student and mentor roster defaults are in `src/data/teamRosterData.ts`.
+- Event content is in `src/features/events/`; reusable learning resources are in `src/features/learning/`; engineering learning content is in `src/data/roboticsData.ts`. The team page is disabled and roster defaults are empty unless the school explicitly enables public access with `VITE_PUBLIC_TEAM_PAGE=true`.
 
 ## Add a jam or event
 

@@ -5,6 +5,7 @@ import { FeaturedEventTeaser } from '../features/events/FeaturedEventTeaser';
 import type { NavSection } from '../types';
 import type { TeamMember } from '../types';
 import { INITIAL_TEAM_ROSTER } from '../data/teamRosterData';
+import { PUBLIC_TEAM_PAGE_ENABLED } from '../lib/teamPageAccess';
 
 const ResearchSection = React.lazy(() => import('../components/ResearchSection').then(module => ({ default: module.ResearchSection })));
 const RobotEngineeringSection = React.lazy(() => import('../components/RobotEngineeringSection').then(module => ({ default: module.RobotEngineeringSection })));
@@ -50,7 +51,9 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, getS
       content: { title: 'Content', components: ['Hero', 'SectionIntro', 'Paragraph', 'InsetNote', 'Image'] },
       layout: { title: 'Layout', components: ['CardGrid', 'Callout', 'Columns'] },
       features: { title: 'Interactive features', components: ['Feature'] },
-      people: { title: 'People', components: ['TeamRoster'] },
+      ...(PUBLIC_TEAM_PAGE_ENABLED ? {
+        people: { title: 'People', components: ['TeamRoster'] },
+      } : {}),
       engineering: { title: 'Engineering', components: ['EngineeringTopic'] },
     },
     components: {
@@ -60,7 +63,7 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, getS
           eyebrow: { type: 'text' }, title: { type: 'text' }, accent: { type: 'text' }, description: { type: 'textarea' },
           image: { type: 'text' }, imageAlt: { type: 'text' }, primaryLabel: { type: 'text' }, primaryHref: { type: 'text' }, secondaryLabel: { type: 'text' }, secondaryHref: { type: 'text' },
         },
-        defaultProps: { eyebrow: 'PCSS II Robotics', title: 'Build something.', accent: 'Together.', description: 'Add a short introduction.', image: '/images/robotics-lab-hero.webp', imageAlt: 'Students working on robotics', primaryLabel: 'Meet the team', primaryHref: '/team/', secondaryLabel: 'Explore', secondaryHref: '/robots/' },
+        defaultProps: { eyebrow: 'PCSS II Robotics', title: 'Build something.', accent: 'Together.', description: 'Add a short introduction.', image: '/images/robotics-lab-hero.webp', imageAlt: 'Students working on robotics', primaryLabel: 'Explore robot design', primaryHref: '/robots/', secondaryLabel: 'Explore events', secondaryHref: '/outreach/' },
         render: ({ eyebrow, title, accent, description, image, imageAlt, primaryLabel, primaryHref, secondaryLabel, secondaryHref }) => <section className="relative mx-auto grid min-w-0 max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-10 lg:px-8 lg:py-20">
           <div className="min-w-0"><p className="text-xs font-bold uppercase tracking-[.22em] text-amber-300">{eyebrow}</p><h1 className="mt-4 text-[clamp(2.25rem,8vw,4rem)] font-black leading-tight text-white">{title} <span className="text-sky-300">{accent}</span></h1><p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-200 sm:text-lg">{description}</p><div className="mt-8 flex flex-wrap gap-3"><a className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-sm font-bold text-white hover:bg-sky-500" href={safeHref(primaryHref)}>{primaryLabel}<ArrowRight className="h-4 w-4 shrink-0" /></a><a className="inline-flex min-h-12 items-center rounded-xl border border-sky-400/40 px-5 py-3 text-sm font-bold text-sky-100 hover:bg-sky-950" href={safeHref(secondaryHref)}>{secondaryLabel}</a></div></div>
           {image && <img src={safeHref(image)} alt={imageAlt} className="aspect-[4/3] w-full rounded-[2rem] border border-sky-500/20 object-cover shadow-2xl" />}
@@ -102,7 +105,7 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, getS
       Callout: {
         label: 'Callout',
         fields: { eyebrow: { type: 'text' }, title: { type: 'text' }, text: { type: 'textarea' }, buttonLabel: { type: 'text' }, buttonHref: { type: 'text' }, tone: { type: 'select', options: [{ label: 'Blue', value: 'blue' }, { label: 'Gold', value: 'gold' }] } },
-        defaultProps: { eyebrow: 'Get involved', title: 'Join us', text: 'Find your next step.', buttonLabel: 'Learn more', buttonHref: '/team/', tone: 'blue' },
+        defaultProps: { eyebrow: 'Get involved', title: 'Join us', text: 'Find your next step.', buttonLabel: 'Explore events', buttonHref: '/outreach/', tone: 'blue' },
         render: ({ eyebrow, title, text, buttonLabel, buttonHref, tone }) => <section className={`mx-auto my-6 max-w-7xl rounded-3xl border p-7 sm:p-9 ${tone === 'gold' ? 'border-amber-500/25 bg-[#2a2633]' : 'border-sky-500/25 bg-[#123058]'}`}><p className={`text-xs font-bold uppercase tracking-[.2em] ${tone === 'gold' ? 'text-amber-300' : 'text-sky-300'}`}>{eyebrow}</p><h2 className="mt-3 text-2xl font-black text-white">{title}</h2><p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-200">{text}</p><a href={safeHref(buttonHref)} className={`mt-6 inline-flex min-h-11 items-center gap-2 rounded-xl px-4 py-2 text-sm font-bold ${tone === 'gold' ? 'bg-amber-500 text-slate-950 hover:bg-amber-400' : 'bg-sky-600 text-white hover:bg-sky-500'}`}>{buttonLabel}<ArrowRight className="h-4 w-4" /></a></section>,
       },
       Image: { label: 'Image', fields: { src: { type: 'text' }, alt: { type: 'text' }, caption: { type: 'text' } }, defaultProps: { src: '/images/robotics-lab-hero.webp', alt: 'Robotics workshop', caption: '' }, render: ({ src, alt, caption }) => <figure className="mx-auto max-w-5xl px-4 py-6"><img src={safeHref(src)} alt={alt} className="w-full rounded-3xl object-cover" />{caption && <figcaption className="mt-3 text-center text-sm text-slate-400">{caption}</figcaption>}</figure> },
@@ -113,36 +116,39 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, getS
         defaultProps: { feature: 'events' },
         render: ({ feature }) => {
           const sponsor = getSponsor?.();
+          if (feature === 'team' && !PUBLIC_TEAM_PAGE_ENABLED) return null;
           return <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading…</div>}>{feature === 'events' ? <FeaturedEventTeaser onNavigate={onNavigate} /> : feature === 'robots' ? <RobotEngineeringSection /> : feature === 'research' ? <ResearchSection /> : feature === 'simulator' ? <AutonomousSimulator /> : feature === 'team' ? <TeamSection /> : feature === 'outreach' ? <OutreachSection /> : feature === 'arcade' ? <ArcadeMiniGame /> : <SponsorCommandCenter externalOpenW9Modal={sponsor?.openW9} onResetExternalW9Modal={sponsor?.resetW9} />}</React.Suspense>;
         },
       },
-      TeamRoster: {
-        label: 'Team roster',
-        fields: {
-          members: {
-            type: 'array', label: 'Team members',
-            getItemSummary: member => member.name || 'New member',
-            defaultItemProps: () => ({ id: `student-${crypto.randomUUID()}`, name: '', role: 'Robotics Member', grade: 'Grade 9', division: 'Software & Autonomous', specialty: '' }),
-            arrayFields: {
-              id: { type: 'text', visible: false },
-              name: { type: 'text', label: 'Name' },
-              role: { type: 'text', label: 'Role' },
-              grade: { type: 'select', label: 'Grade', options: ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12', 'Faculty Advisor'].map(value => ({ label: value, value })) },
-              division: { type: 'select', label: 'Division', options: ['Hardware & CAD', 'Software & Autonomous', 'Electrical & Systems', 'Business & Outreach', 'Mentorship'].map(value => ({ label: value, value })) },
-              specialty: { type: 'textarea', label: 'Focus or specialty' },
-              profileUrl: { type: 'text', label: 'Profile link' },
-              specialtyUrl: { type: 'text', label: 'Work link' },
-              competition: { type: 'text', label: 'Competition' },
-              competitionDeadline: { type: 'text', label: 'Competition deadline' },
-              tshirtSize: { type: 'select', label: 'Shirt size', options: ['', 'XS', 'S', 'M', 'L', 'XL', 'XXL'].map(value => ({ label: value || 'Not set', value })) },
-              tshirtColor: { type: 'text', label: 'Shirt color' },
-              notes: { type: 'textarea', label: 'Notes' },
+      ...(PUBLIC_TEAM_PAGE_ENABLED ? {
+        TeamRoster: {
+          label: 'Team roster',
+          fields: {
+            members: {
+              type: 'array', label: 'Team members',
+              getItemSummary: member => member.name || 'New member',
+              defaultItemProps: () => ({ id: `student-${crypto.randomUUID()}`, name: '', role: 'Robotics Member', grade: 'Grade 9', division: 'Software & Autonomous', specialty: '' }),
+              arrayFields: {
+                id: { type: 'text', visible: false },
+                name: { type: 'text', label: 'Name' },
+                role: { type: 'text', label: 'Role' },
+                grade: { type: 'select', label: 'Grade', options: ['Grade 9', 'Grade 10', 'Grade 11', 'Grade 12', 'Faculty Advisor'].map(value => ({ label: value, value })) },
+                division: { type: 'select', label: 'Division', options: ['Hardware & CAD', 'Software & Autonomous', 'Electrical & Systems', 'Business & Outreach', 'Mentorship'].map(value => ({ label: value, value })) },
+                specialty: { type: 'textarea', label: 'Focus or specialty' },
+                profileUrl: { type: 'text', label: 'Profile link' },
+                specialtyUrl: { type: 'text', label: 'Work link' },
+                competition: { type: 'text', label: 'Competition' },
+                competitionDeadline: { type: 'text', label: 'Competition deadline' },
+                tshirtSize: { type: 'select', label: 'Shirt size', options: ['', 'XS', 'S', 'M', 'L', 'XL', 'XXL'].map(value => ({ label: value || 'Not set', value })) },
+                tshirtColor: { type: 'text', label: 'Shirt color' },
+                notes: { type: 'textarea', label: 'Notes' },
+              },
             },
           },
+          defaultProps: { members: INITIAL_TEAM_ROSTER },
+          render: ({ members }) => <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading team…</div>}><TeamSection roster={members} /></React.Suspense>,
         },
-        defaultProps: { members: INITIAL_TEAM_ROSTER },
-        render: ({ members }) => <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading team…</div>}><TeamSection roster={members} /></React.Suspense>,
-      },
+      } : {}),
     },
   };
 }

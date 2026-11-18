@@ -4,10 +4,10 @@ import { fileURLToPath } from 'node:url';
 
 const root = new URL('../', import.meta.url);
 const dist = new URL('../dist/', import.meta.url);
+const publicTeamPageEnabled = process.env.VITE_PUBLIC_TEAM_PAGE === 'true';
 const required = [
   'index.html',
   'research/index.html',
-  'team/index.html',
   'outreach/index.html',
   'arcade/index.html',
   'sponsors/index.html',
@@ -18,6 +18,7 @@ const required = [
   'llms-full.txt',
   '764b7768543ae5888b09743f7aeb1c40.txt',
 ];
+if (publicTeamPageEnabled) required.splice(3, 0, 'team/index.html');
 const forbidden = /github\.com\/(?!(?:sponsors\/|uuidjs\/uuid(?:[/?#`"'\s<>]|$)|puleos\/object-hash(?:[/?#`"'\s<>]|$)|dominictarr\/crypto-browserify(?:[/?#`"'\s<>]|$)|aartisr\/pcss-robotics(?:[/?#"'\s<>]|$)))[^/\s"'<>]+\/[^/\s"'<>]+|artifactory|jfrog|npm\.pkg\.github/i;
 const textExtensions = /\.(?:html|js|css|json|txt|xml)$/;
 const siteUrl = 'https://www.pcssiirobotics.org';
@@ -27,6 +28,9 @@ const school = { name: 'Pioneer Charter School of Science II', url: 'https://sau
 for (const file of required) {
   if (!existsSync(new URL(file, dist))) {
     throw new Error(`Missing Vercel output: ${file}`);
+  }
+  if (!publicTeamPageEnabled && existsSync(new URL('team/index.html', dist))) {
+    throw new Error('The student team page must not be generated unless VITE_PUBLIC_TEAM_PAGE=true.');
   }
 }
 

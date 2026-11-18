@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { authenticated, clearEditorSession, oauthStatus } from './oauth.js';
+import { isPublicTeamPageEnabled } from '../src/lib/teamPageAccess.js';
 
 // Local development mirrors Vite's env-file precedence without exposing secrets
 // to the browser. Hosting-provided environment variables always take priority.
@@ -10,7 +11,8 @@ loadDotenv({ path: '.env.local', quiet: true });
 loadDotenv({ path: '.env', quiet: true });
 
 const ids = new Set(['home', 'robots', 'research', 'simulator', 'team', 'outreach', 'arcade', 'sponsors']);
-const blocks = new Set(['Hero', 'SectionIntro', 'Paragraph', 'InsetNote', 'EngineeringTopic', 'CardGrid', 'Callout', 'Image', 'Columns', 'Feature', 'TeamRoster']);
+const blocks = new Set(['Hero', 'SectionIntro', 'Paragraph', 'InsetNote', 'EngineeringTopic', 'CardGrid', 'Callout', 'Image', 'Columns', 'Feature']);
+if (isPublicTeamPageEnabled(process.env.VITE_PUBLIC_TEAM_PAGE)) blocks.add('TeamRoster');
 
 function config() {
   return { token: process.env.GITHUB_CONTENT_TOKEN ?? '', repo: process.env.GITHUB_CONTENT_REPO ?? '', branch: process.env.GITHUB_CONTENT_BRANCH ?? 'main' };
@@ -85,6 +87,7 @@ export async function editorApi(req: IncomingMessage, res: ServerResponse) {
   try {
     const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
     const page = url.searchParams.get('page') ?? '';
+    if (page === 'team' && !isPublicTeamPageEnabled(process.env.VITE_PUBLIC_TEAM_PAGE)) return send(res, 404, { error: 'Page not found.' });
     if (req.method === 'GET' && url.searchParams.get('session') === '1') return send(res, 200, { authenticated: authenticated(req), ...oauthStatus(), missingPublishConfig: missingPublishConfig() });
     if (req.method === 'GET' && ids.has(page)) return send(res, 200, await load(page));
     if (req.method !== 'POST') return send(res, 404, { error: 'Not found.' });

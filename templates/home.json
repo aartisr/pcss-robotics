@@ -11,13 +11,13 @@
       "props": {
         "id": "Hero-1",
         "eyebrow": "FTC Team #23548 · Saugus, Massachusetts",
-        "title": "Build a fantatic robot.",
-        "accent": "Find your team.",
+        "title": "Build a fantastic robot.",
+        "accent": "Explore together.",
         "description": "PCSS II Robotics brings students together to design, code, test, and share what they make. Explore the team’s projects, try an interactive simulator, or join the next community jam.",
         "image": "/images/robotics-lab-hero.webp",
         "imageAlt": "Illustration of students collaborating around a robot in a workshop",
-        "primaryLabel": "Meet the team",
-        "primaryHref": "/team/",
+        "primaryLabel": "Explore robot design",
+        "primaryHref": "/robots/",
         "secondaryLabel": "Explore events",
         "secondaryHref": "/outreach/"
       }
@@ -71,8 +71,8 @@
         "eyebrow": "For students",
         "title": "There’s room to learn.",
         "text": "You can start with curiosity. Ask the school how to join the team and what opportunities are available this season.",
-        "buttonLabel": "Meet the team",
-        "buttonHref": "/team/",
+        "buttonLabel": "Explore events",
+        "buttonHref": "/outreach/",
         "tone": "blue"
       }
     },

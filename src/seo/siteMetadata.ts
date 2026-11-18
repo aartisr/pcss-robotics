@@ -1,5 +1,6 @@
 import type { NavSection } from '../types';
 import { communityEvents } from '../features/events/events';
+import { PUBLIC_TEAM_PAGE_ENABLED } from '../lib/teamPageAccess';
 
 export const SITE_URL = 'https://www.pcssiirobotics.org';
 export const AUTHOR = {
@@ -86,7 +87,8 @@ export const SECTION_METADATA: Record<NavSection, SectionMetadata> = {
     description: 'Meet the PCSS II Robotics students and explore their projects and activities at Pioneer Charter School of Science II.',
     heading: 'Meet the PCSS II Robotics team',
     summary: 'Meet students involved with robotics at Pioneer Charter School of Science II in Saugus and explore their team projects and activities.',
-    highlights: ['Student team and roles', 'Projects and activities', 'STEM collaboration']
+    highlights: ['Student team and roles', 'Projects and activities', 'STEM collaboration'],
+    indexable: PUBLIC_TEAM_PAGE_ENABLED
   }
 };
 

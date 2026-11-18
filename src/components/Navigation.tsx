@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavSection } from '../types';
 import { SchoolSeal } from './SchoolSeal';
+import { PUBLIC_TEAM_PAGE_ENABLED } from '../lib/teamPageAccess';
 import {
   Bot,
   HeartHandshake,
@@ -96,7 +97,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     { id: 'home', label: 'Home', shortLabel: 'Home' },
     { id: 'team', label: 'Team', shortLabel: 'Team' },
     { id: 'outreach', label: 'Jams & Events', shortLabel: 'Events', highlight: true }
-  ];
+  ].filter(item => item.id !== 'team' || PUBLIC_TEAM_PAGE_ENABLED);
 
   // Secondary sections accessible via More dropdown
   const secondaryNavItems: {

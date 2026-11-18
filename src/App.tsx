@@ -19,11 +19,20 @@ import { ArrowUp } from 'lucide-react';
 import { PageRenderer } from './editor/config';
 import { defaultPage, loadPage } from './editor/pageData';
 import type { Data } from '@puckeditor/core';
+import { clearStoredTeamData, PUBLIC_TEAM_PAGE_ENABLED } from './lib/teamPageAccess';
 
 export default function App() {
   const { activeSection, navigateTo } = useUrlNavigation('home');
   const [pageData, setPageData] = useState<Data>(() => defaultPage(activeSection));
   const pageMeta = pageData.root?.props as { title?: string; description?: string } | undefined;
+  useEffect(() => {
+    if (PUBLIC_TEAM_PAGE_ENABLED) return;
+    try {
+      clearStoredTeamData(window.localStorage);
+    } catch (error) {
+      console.error('Unable to clear previously saved team data from this browser.', error);
+    }
+  }, []);
   useEffect(() => {
     let current = true;
     setPageData(defaultPage(activeSection));

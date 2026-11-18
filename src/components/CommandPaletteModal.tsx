@@ -18,6 +18,7 @@ import {
   Command,
   BookOpen,
 } from 'lucide-react';
+import { PUBLIC_TEAM_PAGE_ENABLED } from '../lib/teamPageAccess';
 
 interface CommandPaletteModalProps {
   isOpen: boolean;
@@ -168,16 +169,15 @@ export const CommandPaletteModal: React.FC<CommandPaletteModalProps> = ({
   ];
 
   // Filter items based on query
-  const filtered = items.filter((item) => {
-    if (!query.trim()) return true;
-    const q = query.toLowerCase();
-    return (
-      item.title.toLowerCase().includes(q) ||
-      item.subtitle.toLowerCase().includes(q) ||
-      item.category.toLowerCase().includes(q) ||
-      item.keywords.some((k) => k.includes(q))
-    );
-  });
+  const filtered = items.filter(item => (
+    (item.id !== 'nav-team' || PUBLIC_TEAM_PAGE_ENABLED)
+    && (!query.trim() || (
+      item.title.toLowerCase().includes(query.toLowerCase()) ||
+      item.subtitle.toLowerCase().includes(query.toLowerCase()) ||
+      item.category.toLowerCase().includes(query.toLowerCase()) ||
+      item.keywords.some(keyword => keyword.includes(query.toLowerCase()))
+    ))
+  ));
 
   useEffect(() => {
     if (isOpen) {

@@ -16,7 +16,6 @@ School: [Pioneer Charter School of Science II (PCSS II)](https://saugus.pioneerc
 - [Sponsorship](https://www.pcssiirobotics.org/sponsors/): Ways to support student robotics and request current documentation from the school.
 - [Robotics arcade](https://www.pcssiirobotics.org/arcade/): Interactive robot driving game.
 - [PAT game programming](https://pat.pcssiirobotics.org/): A learning resource linked from the homepage and footer beyond the jam.
-- [Team and author](https://www.pcssiirobotics.org/team/): Ways to participate, school contact information, and the author's portfolio.
 
 For a longer plain-text overview, see https://www.pcssiirobotics.org/llms-full.txt.
 

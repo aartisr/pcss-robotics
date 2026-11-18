@@ -22,7 +22,7 @@ export function HeroSection({ onNavigate, onOpenGuide, onOpenStudentModal }: Her
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200">PCSS II Robotics brings students together to design, code, test, and share what they make. Explore the team’s projects, try an interactive simulator, or join the next community jam.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <button type="button" onClick={() => onNavigate('team')} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-sm font-bold text-white hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300">Meet the team <ArrowRight className="h-4 w-4" aria-hidden="true" /></button>
+            <button type="button" onClick={() => onNavigate('robots')} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-sky-600 px-5 py-3 text-sm font-bold text-white hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-300">Explore robot design <ArrowRight className="h-4 w-4" aria-hidden="true" /></button>
             <button type="button" onClick={() => onNavigate('outreach')} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-sky-400/40 bg-slate-900/70 px-5 py-3 text-sm font-bold text-sky-100 hover:bg-sky-950">Explore events</button>
             <button type="button" onClick={onOpenStudentModal} className="inline-flex min-h-12 items-center justify-center px-3 py-3 text-sm font-semibold text-slate-200 underline decoration-sky-400/60 underline-offset-4 hover:text-white">How to join</button>
           </div>

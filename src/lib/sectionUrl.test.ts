@@ -8,5 +8,5 @@ test('preserves arcade invite parameters through legacy URL normalization', () =
 
 test('removes only the legacy section parameter', () => {
   assert.equal(canonicalSectionUrl('home', '?section=home&campaign=fall'), '/?campaign=fall');
-  assert.equal(canonicalSectionUrl('team', ''), '/team/');
+  assert.equal(canonicalSectionUrl('team', ''), '/');
 });

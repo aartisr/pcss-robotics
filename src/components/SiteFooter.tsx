@@ -3,6 +3,7 @@ import { AUTHOR, SCHOOL, SECTION_METADATA } from '../seo/siteMetadata';
 import { learningResources } from '../features/learning/resources';
 import { SchoolSeal } from './SchoolSeal';
 import { posthogConfigured } from '../lib/posthogAnalytics';
+import { PUBLIC_TEAM_PAGE_ENABLED } from '../lib/teamPageAccess';
 
 const exploreLinks: { section: NavSection; label: string }[] = [
   { section: 'home', label: 'Home' },
@@ -51,7 +52,7 @@ export function SiteFooter({ onNavigate, onOpenStudentModal }: SiteFooterProps) 
 
         <nav aria-label="Club and community" className="space-y-4">
           <h2 className="text-xs font-bold uppercase tracking-[.18em] text-white">Community</h2>
-          <div className="flex flex-col items-start gap-3">{communityLinks.map(link => <FooterLink key={link.section} {...link} onNavigate={onNavigate} />)}<button type="button" onClick={onOpenStudentModal} className="text-sm text-sky-300 hover:text-sky-200">How to join</button></div>
+          <div className="flex flex-col items-start gap-3">{communityLinks.filter(link => link.section !== 'team' || PUBLIC_TEAM_PAGE_ENABLED).map(link => <FooterLink key={link.section} {...link} onNavigate={onNavigate} />)}<button type="button" onClick={onOpenStudentModal} className="text-sm text-sky-300 hover:text-sky-200">How to join</button></div>
         </nav>
       </div>
 
