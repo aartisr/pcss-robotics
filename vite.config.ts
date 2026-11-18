@@ -3,10 +3,11 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
 import { editorApi } from './server/editorApi.ts';
+import { oauthApi } from './server/oauth.ts';
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss(), { name: 'local-editor-api', configureServer(server) { server.middlewares.use('/api/editor', (req, res) => { void editorApi(req, res); }); } }],
+    plugins: [react(), tailwindcss(), { name: 'local-editor-api', configureServer(server) { server.middlewares.use('/api/editor', (req, res) => { void editorApi(req, res); }); server.middlewares.use('/api/oauth', (req, res) => { void oauthApi(req, res); }); } }],
     resolve: {
       dedupe: ['react', 'react-dom'],
       alias: {

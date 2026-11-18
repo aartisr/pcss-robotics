@@ -15,23 +15,29 @@ async function sessionStatus() {
   return JSON.parse(result) as { configured: boolean; authenticated: boolean; missingPublishConfig: string[] };
 }
 
-test('editor session checks current server environment without exposing secrets', async () => {
-  const originalPassword = process.env.ADMIN_PASSWORD;
-  const originalSecret = process.env.ADMIN_SESSION_SECRET;
+test('editor session checks OAuth configuration without exposing secrets', async () => {
+  const keys = ['ADMIN_SESSION_SECRET', 'OAUTH_CALLBACK_URL', 'OAUTH_ALLOWED_EMAILS', 'GITHUB_OAUTH_CLIENT_ID', 'GITHUB_OAUTH_CLIENT_SECRET', 'GOOGLE_OAUTH_CLIENT_ID', 'GOOGLE_OAUTH_CLIENT_SECRET'];
+  const original = Object.fromEntries(keys.map(key => [key, process.env[key]]));
   try {
-    process.env.ADMIN_PASSWORD = 'test-password';
-    process.env.ADMIN_SESSION_SECRET = 'test-session-secret';
+    process.env.ADMIN_SESSION_SECRET = 'test-session-secret-with-more-than-32-characters';
+    process.env.OAUTH_CALLBACK_URL = 'https://example.test/api/oauth';
+    process.env.OAUTH_ALLOWED_EMAILS = 'editor@example.test';
+    process.env.GITHUB_OAUTH_CLIENT_ID = 'test-client-id';
+    process.env.GITHUB_OAUTH_CLIENT_SECRET = 'test-client-secret';
+    delete process.env.GOOGLE_OAUTH_CLIENT_ID;
+    delete process.env.GOOGLE_OAUTH_CLIENT_SECRET;
     const ready = await sessionStatus();
-    assert.deepEqual(ready, { configured: true, authenticated: false, missingPublishConfig: [] });
-    assert.ok(!JSON.stringify(ready).includes('test-session-secret'));
+    assert.deepEqual(ready, { authenticated: false, configured: true, providers: ['github'], missingPublishConfig: [] });
+    assert.ok(!JSON.stringify(ready).includes('test-session-secret-with-more-than-32-characters'));
+    assert.ok(!JSON.stringify(ready).includes('test-client-secret'));
 
-    delete process.env.ADMIN_SESSION_SECRET;
-    assert.deepEqual(await sessionStatus(), { configured: false, authenticated: false, missingPublishConfig: [] });
+    delete process.env.OAUTH_ALLOWED_EMAILS;
+    assert.deepEqual(await sessionStatus(), { authenticated: false, configured: false, providers: [], missingPublishConfig: [] });
   } finally {
-    if (originalPassword === undefined) delete process.env.ADMIN_PASSWORD;
-    else process.env.ADMIN_PASSWORD = originalPassword;
-    if (originalSecret === undefined) delete process.env.ADMIN_SESSION_SECRET;
-    else process.env.ADMIN_SESSION_SECRET = originalSecret;
+    for (const [key, value] of Object.entries(original)) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
   }
 });
 

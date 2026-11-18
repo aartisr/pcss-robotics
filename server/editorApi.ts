@@ -1,8 +1,8 @@
 import { config as loadDotenv } from 'dotenv';
-import { createHmac, timingSafeEqual } from 'node:crypto';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import { authenticated, clearEditorSession, oauthStatus } from './oauth.js';
 
 // Local development mirrors Vite's env-file precedence without exposing secrets
 // to the browser. Hosting-provided environment variables always take priority.
@@ -11,38 +11,15 @@ loadDotenv({ path: '.env', quiet: true });
 
 const ids = new Set(['home', 'robots', 'research', 'simulator', 'team', 'outreach', 'arcade', 'sponsors']);
 const blocks = new Set(['Hero', 'SectionIntro', 'Paragraph', 'InsetNote', 'EngineeringTopic', 'CardGrid', 'Callout', 'Image', 'Columns', 'Feature', 'TeamRoster']);
-const cookieName = 'pcss_editor_session';
-const sessionSeconds = 60 * 60 * 8;
 
 function config() {
-  return { password: process.env.ADMIN_PASSWORD ?? '', secret: process.env.ADMIN_SESSION_SECRET ?? '', token: process.env.GITHUB_CONTENT_TOKEN ?? '', repo: process.env.GITHUB_CONTENT_REPO ?? '', branch: process.env.GITHUB_CONTENT_BRANCH ?? 'main' };
+  return { token: process.env.GITHUB_CONTENT_TOKEN ?? '', repo: process.env.GITHUB_CONTENT_REPO ?? '', branch: process.env.GITHUB_CONTENT_BRANCH ?? 'main' };
 }
 
 function missingPublishConfig() {
   if (!process.env.VERCEL && process.env.NODE_ENV !== 'production') return [];
   const { token, repo } = config();
   return [!token && 'GITHUB_CONTENT_TOKEN', !repo && 'GITHUB_CONTENT_REPO'].filter(Boolean) as string[];
-}
-
-function safeEqual(left: string, right: string) {
-  const a = Buffer.from(left);
-  const b = Buffer.from(right);
-  return a.length === b.length && timingSafeEqual(a, b);
-}
-
-function signedSession(secret: string, expires: number) {
-  const value = String(expires);
-  return `${value}.${createHmac('sha256', secret).update(value).digest('hex')}`;
-}
-
-function authenticated(req: IncomingMessage) {
-  const { password, secret } = config();
-  if (!password || !secret) return false;
-  const raw = req.headers.cookie?.split(';').map(part => part.trim()).find(part => part.startsWith(`${cookieName}=`))?.slice(cookieName.length + 1);
-  if (!raw) return false;
-  const [expires, signature] = raw.split('.');
-  if (!expires || !signature || !Number.isSafeInteger(Number(expires)) || Number(expires) < Date.now()) return false;
-  return safeEqual(raw, signedSession(secret, Number(expires)));
 }
 
 function send(res: ServerResponse, status: number, value: unknown) {
@@ -108,23 +85,15 @@ export async function editorApi(req: IncomingMessage, res: ServerResponse) {
   try {
     const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
     const page = url.searchParams.get('page') ?? '';
-    if (req.method === 'GET' && url.searchParams.get('session') === '1') return send(res, 200, { authenticated: authenticated(req), configured: Boolean(config().password && config().secret), missingPublishConfig: missingPublishConfig() });
+    if (req.method === 'GET' && url.searchParams.get('session') === '1') return send(res, 200, { authenticated: authenticated(req), ...oauthStatus(), missingPublishConfig: missingPublishConfig() });
     if (req.method === 'GET' && ids.has(page)) return send(res, 200, await load(page));
     if (req.method !== 'POST') return send(res, 404, { error: 'Not found.' });
 
     const origin = req.headers.origin;
     if (origin && new URL(origin).host !== req.headers.host) return send(res, 403, { error: 'Invalid request origin.' });
     const input = await body(req);
-    if (input.action === 'login') {
-      const { password, secret } = config();
-      if (!password || !secret) return send(res, 503, { error: 'Editor password is not configured.' });
-      if (!safeEqual(String(input.password ?? ''), password)) return send(res, 401, { error: 'Incorrect password.' });
-      const value = signedSession(secret, Date.now() + sessionSeconds * 1000);
-      res.setHeader('Set-Cookie', `${cookieName}=${value}; HttpOnly; ${process.env.NODE_ENV === 'production' || process.env.VERCEL ? 'Secure; ' : ''}SameSite=Strict; Path=/; Max-Age=${sessionSeconds}`);
-      return send(res, 200, { authenticated: true });
-    }
     if (input.action === 'logout') {
-      res.setHeader('Set-Cookie', `${cookieName}=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0`);
+      clearEditorSession(res);
       return send(res, 200, { authenticated: false });
     }
     if (!authenticated(req)) return send(res, 401, { error: 'Sign in to publish.' });

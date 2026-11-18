@@ -1,12 +1,14 @@
 # Page editor
 
-Open `/admin/` and sign in with the password configured on the server. Choose one of the eight pages, add or reorder blocks, edit their fields, and press **Publish**. The public page uses the same Puck configuration and JSON data as the preview.
+Open `/admin/` and sign in with an authorized GitHub or Google account. Choose one of the eight pages, add or reorder blocks, edit their fields, and press **Publish**. The public page uses the same Puck configuration and JSON data as the preview.
 
 Templates live in [`templates/`](../templates/), one JSON file per route. The editor offers blocks for hero sections, headings, text, images, card grids, callouts, two-column layouts, and the site's interactive features. The team page has a dedicated **Team roster** block: select it, expand a member by name in the right panel, edit their fields, and publish. The robots page consists of a page heading, separate **Engineering question** blocks, and an inset note; all of their text and steps are editable. The simulator, arcade, and sponsor tools remain feature blocks so their behavior stays intact; their internal UI is still maintained in React.
 
 ## Configuration
 
-Set `ADMIN_PASSWORD` and `ADMIN_SESSION_SECRET` as server environment variables. Locally, `.env.local` or `.env` also works; `.env.local` takes priority over `.env`, while variables supplied by the process take priority over both. Use a unique password and a random secret of at least 32 characters. These values must not use the `VITE_` prefix. See [`.env.example`](../.env.example).
+Configure the OAuth applications and set `OAUTH_CALLBACK_URL`, `OAUTH_ALLOWED_EMAILS`, `ADMIN_SESSION_SECRET`, and the corresponding provider client ID and secret as server environment variables. The callback URL must exactly match the URL registered with each OAuth application; for production it must use HTTPS. For local development, register `http://localhost:3000/api/oauth` and use that value in `.env.local`. Set the allowed email list to the exact accounts permitted to publish. GitHub sign-in requires the account to have at least one verified email address; Google sign-in requires a verified email. Locally, `.env.local` or `.env` works; `.env.local` takes priority over `.env`, while variables supplied by the process take priority over both. Keep all secrets server-side and never use a `VITE_` prefix. See [`.env.example`](../.env.example).
+
+For GitHub, create an OAuth App with the callback URL above and `read:user` plus `user:email` access. For Google, configure an OAuth client with the callback URL above and the `openid`, `email`, and `profile` scopes. Add each provider’s client ID and secret to the deployment environment. The editor uses OAuth authorization-code flow with PKCE, validates the provider identity and verified email, and grants access only to emails in `OAUTH_ALLOWED_EMAILS`. Sessions are signed, HTTP-only cookies that expire after eight hours. No provider access token is stored in the browser or retained after sign-in.
 
 Local development writes published pages to `templates/*.json`. Commit those changes as usual.
 
@@ -14,4 +16,4 @@ On Vercel, configure `GITHUB_CONTENT_TOKEN` with repository Contents read/write 
 
 For this deployment, set `GITHUB_CONTENT_REPO` to `aartisr/pcss-robotics`. Create a fine-grained GitHub personal access token for that repository with **Contents: Read and write**, then add it as `GITHUB_CONTENT_TOKEN` in Vercel Project Settings → Environment Variables for the production environment. Redeploy so the serverless function receives the new variables. Keep the token only in Vercel; do not put it in a `VITE_` variable or commit it to the repository. If your publishing branch is not `main`, set `GITHUB_CONTENT_BRANCH` to the correct branch too. The editor shows a warning at sign-in when required publishing settings are absent.
 
-The editor uses an eight-hour, HTTP-only, same-site signed cookie. The password and GitHub token stay server-side. Published content is available through the public read endpoint; write requests require authentication.
+Published content is available through the public read endpoint; write requests require an authorized editor session. The GitHub content token stays server-side and is separate from the OAuth sign-in credentials.
