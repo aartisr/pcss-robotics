@@ -23,7 +23,7 @@ const fixtureMembers: TeamMember[] = [
   },
 ];
 
-test('exports every roster member after a # character in an earlier record', () => {
+test('exports every roster member as a CSV record', () => {
   const csv = serializeRosterCsv(fixtureMembers);
   const lines = csv.trimEnd().split('\r\n');
 

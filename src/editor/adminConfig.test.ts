@@ -15,6 +15,31 @@ async function sessionStatus() {
   return JSON.parse(result) as { configured: boolean; authenticated: boolean; missingPublishConfig: string[] };
 }
 
+async function teamPageRequest() {
+  let result = '';
+  let statusCode = 200;
+  const request = { method: 'GET', url: '/api/editor?page=team', headers: { host: 'localhost' } } as IncomingMessage;
+  const response = {
+    get statusCode() { return statusCode; },
+    set statusCode(value: number) { statusCode = value; },
+    setHeader() {},
+    end(value: string) { result = value; },
+  } as unknown as ServerResponse;
+  await editorApi(request, response);
+  return { statusCode, body: JSON.parse(result) as { error: string } };
+}
+
+test('editor API hides the team page by default', async () => {
+  const original = process.env.VITE_PUBLIC_TEAM_PAGE;
+  try {
+    delete process.env.VITE_PUBLIC_TEAM_PAGE;
+    assert.deepEqual(await teamPageRequest(), { statusCode: 404, body: { error: 'Page not found.' } });
+  } finally {
+    if (original === undefined) delete process.env.VITE_PUBLIC_TEAM_PAGE;
+    else process.env.VITE_PUBLIC_TEAM_PAGE = original;
+  }
+});
+
 test('editor session checks OAuth configuration without exposing secrets', async () => {
   const keys = ['ADMIN_SESSION_SECRET', 'OAUTH_CALLBACK_URL', 'OAUTH_ALLOWED_EMAILS', 'GITHUB_OAUTH_CLIENT_ID', 'GITHUB_OAUTH_CLIENT_SECRET', 'GOOGLE_OAUTH_CLIENT_ID', 'GOOGLE_OAUTH_CLIENT_SECRET'];
   const original = Object.fromEntries(keys.map(key => [key, process.env[key]]));

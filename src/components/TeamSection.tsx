@@ -1043,7 +1043,7 @@ export const TeamSection: React.FC<{ roster?: TeamMember[] }> = ({ roster }) => 
                   required
                   value={studentForm.name || ''}
                   onChange={(e) => setStudentForm({ ...studentForm, name: e.target.value })}
-                  placeholder="e.g. Aarti Ravikumar"
+                  placeholder="e.g. Robotics member"
                   className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white focus:outline-none focus:border-cyan-500"
                 />
               </div>
@@ -1319,7 +1319,7 @@ export const TeamSection: React.FC<{ roster?: TeamMember[] }> = ({ roster }) => 
                   type="text"
                   value={compStudentInput}
                   onChange={(e) => setCompStudentInput(e.target.value)}
-                  placeholder="e.g. Aarti Ravikumar, Kevin Romero, Manal Mahfudh"
+                  placeholder="e.g. Sample member names"
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
                 />
               </div>
@@ -1400,7 +1400,7 @@ export const TeamSection: React.FC<{ roster?: TeamMember[] }> = ({ roster }) => 
                     type="text"
                     value={propForm.author || ''}
                     onChange={(e) => setPropForm({ ...propForm, author: e.target.value })}
-                    placeholder="e.g. Manal Mahfudh"
+                    placeholder="e.g. Student proposal author"
                     className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-white/10 text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"
                   />
                 </div>
@@ -1526,7 +1526,7 @@ export const TeamSection: React.FC<{ roster?: TeamMember[] }> = ({ roster }) => 
                     required
                     value={mentorForm.name || ''}
                     onChange={(e) => setMentorForm({ ...mentorForm, name: e.target.value })}
-                    placeholder="e.g. Mr. Isa Kilic or Dr. Marcus Vance"
+                    placeholder="e.g. Faculty advisor or mentor"
                     className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white focus:outline-none focus:border-blue-500"
                   />
                 </div>
