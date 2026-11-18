@@ -120,8 +120,7 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, getS
           return <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading…</div>}>{feature === 'events' ? <FeaturedEventTeaser onNavigate={onNavigate} /> : feature === 'robots' ? <RobotEngineeringSection /> : feature === 'research' ? <ResearchSection /> : feature === 'simulator' ? <AutonomousSimulator /> : feature === 'team' ? <TeamSection /> : feature === 'outreach' ? <OutreachSection /> : feature === 'arcade' ? <ArcadeMiniGame /> : <SponsorCommandCenter externalOpenW9Modal={sponsor?.openW9} onResetExternalW9Modal={sponsor?.resetW9} />}</React.Suspense>;
         },
       },
-      ...(PUBLIC_TEAM_PAGE_ENABLED ? {
-        TeamRoster: {
+      TeamRoster: {
           label: 'Team roster',
           fields: {
             members: {
@@ -146,9 +145,10 @@ export function createPageConfig(onNavigate: (section: NavSection) => void, getS
             },
           },
           defaultProps: { members: INITIAL_TEAM_ROSTER },
-          render: ({ members }) => <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading team…</div>}><TeamSection roster={members} /></React.Suspense>,
-        },
-      } : {}),
+          render: ({ members }) => PUBLIC_TEAM_PAGE_ENABLED
+            ? <React.Suspense fallback={<div className="mx-auto max-w-7xl px-4 py-12 text-slate-300">Loading team…</div>}><TeamSection roster={members} /></React.Suspense>
+            : <></>,
+      },
     },
   };
 }
